@@ -5,19 +5,20 @@ body{
     html {
     box-sizing: border-box;
   }
-  
+  padding:0;
+  margin:0;
   *, *::after, *::before {
     box-sizing: inherit;
   }
   
   body {
-    font-family: sans-serif;
+    font-family:'Lato' sans-serif;
     margin: 0;
     padding: 0;
   }
   
   a, button {
-    font-family: sans-serif;
+    font-family:'Lato' sans-serif;
   }
  
 }` //tutaj reset
