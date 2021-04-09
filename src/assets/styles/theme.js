@@ -3,8 +3,8 @@ export const theme = {
     white: '#FFFFFF',
     lowTransparentBlack: 'rgba(0, 0, 0, 0.72)',
     semiTransparentBlack: 'rgba(0, 0, 0, 0.5)',
-    lightBlack: '#232323',
-    grey: '#C4C4C4',
+    black: '#232323',
+    transparentGrey: 'rgba(196, 196, 196, 0.2)',
     violet: '#3A4CEE',
   },
   fontSize: {

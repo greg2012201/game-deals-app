@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ReactComponent as TriangleIcon } from './../../../assets/icons/triangle-icon.svg'
+import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
 import { Wrapper } from './MenuButton.style'
 
 export const MenuButton = () => {
@@ -12,7 +12,7 @@ export const MenuButton = () => {
     <Wrapper toggle={toggle} onClick={handleOnClick}>
       <h1>Games-Discounts</h1>
 
-      <TriangleIcon />
+      <Icon />
     </Wrapper>
   )
 }
