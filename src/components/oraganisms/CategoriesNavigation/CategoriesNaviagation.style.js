@@ -16,10 +16,8 @@ export const PaginationButton = styled.button`
 export const ButtonsWrapper = styled.div`
   display: flex;
 
-  /*  transform: translateX(${({ move }) => `${move}px`}); */
   transition: 0.3s;
   width: 100%;
   background-color: yellow;
   overflow-x: scroll;
-  scroll-behavior: smooth;
 `

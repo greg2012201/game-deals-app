@@ -1,6 +1,8 @@
-import React, { useRef } from 'react'
-import ReactVisibilitySensor from 'react-visibility-sensor'
+import React, { useRef, useState } from 'react'
+import smoothscroll from 'smoothscroll-polyfill'
 import { ButtonsWrapper, PaginationButton, Wrapper } from './CategoriesNaviagation.style'
+smoothscroll.polyfill()
+
 const mockCategoryList = [
   { text: 'mockButton1' },
   { text: 'mockButton2' },
@@ -11,15 +13,15 @@ const mockCategoryList = [
   { text: 'mockButton7' },
   { text: 'mockButton8' },
 ]
-const scrollDistance = 100
+const scrollDistance = 200
 export const CategoriesNavigation = () => {
   const buttonsWrapper = useRef(null)
 
   const handleOnClick = (direction) => {
     if (direction === 'right') {
-      buttonsWrapper.current.scrollLeft += scrollDistance
+      buttonsWrapper.current.scrollBy({ top: 0, left: scrollDistance, behavior: 'smooth' })
     } else {
-      buttonsWrapper.current.scrollLeft -= scrollDistance
+      buttonsWrapper.current.scrollBy({ top: 0, left: -scrollDistance, behavior: 'smooth' })
     }
   }
 
