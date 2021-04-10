@@ -1,18 +1,32 @@
 import React, { useRef, useState } from 'react'
 import smoothscroll from 'smoothscroll-polyfill'
 import { ButtonsWrapper, PaginationButton, Wrapper } from './CategoriesNaviagation.style'
+import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
+import { Button } from '../../atoms/Button/Button'
 smoothscroll.polyfill()
 
 const mockCategoryList = [
   { text: 'mockButton1' },
   { text: 'mockButton2' },
-  { text: 'mockButton3' },
-  { text: 'mockButton4' },
+  { text: 'mock' },
+  { text: 'moctton4' },
   { text: 'mockButton5' },
   { text: 'mockButton6' },
   { text: 'mockButton7' },
   { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
+  { text: 'mockButton8' },
 ]
+
 const scrollDistance = 200
 export const CategoriesNavigation = () => {
   const buttonsWrapper = useRef(null)
@@ -27,15 +41,17 @@ export const CategoriesNavigation = () => {
 
   return (
     <Wrapper>
-      <PaginationButton className="left" onClick={() => handleOnClick('left')} />
-
+      <PaginationButton left className="left" onClick={() => handleOnClick('left')}>
+        <Icon left />
+      </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
         {mockCategoryList.map(({ text }) => {
-          return <button key={text}>{text}</button>
+          return <Button key={text}>{text}</Button>
         })}
       </ButtonsWrapper>
-
-      <PaginationButton className="right" onClick={() => handleOnClick('right')} />
+      <PaginationButton right className="right" onClick={() => handleOnClick('right')}>
+        <Icon right />
+      </PaginationButton>
     </Wrapper>
   )
 }
