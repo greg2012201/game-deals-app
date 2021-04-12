@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { ReactComponent as TriangleIcon } from './../../../assets/icons/triangle-icon.svg'
 export const Wrapper = styled.button`
   display: flex;
   justify-content: space-between;

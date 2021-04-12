@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
 import { Wrapper } from './MenuButton.style'
 
-export const MenuButton = () => {
-  const [toggle, setToggle] = useState(false)
-
-  const handleOnClick = () => {
-    setToggle((state) => !state)
-  }
+export const MenuButton = (props) => {
   return (
-    <Wrapper toggle={toggle} onClick={handleOnClick}>
+    <Wrapper {...props}>
       <h1>Games-Discounts</h1>
 
       <Icon />
