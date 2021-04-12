@@ -28,7 +28,7 @@ const mockCategoryList = [
 ]
 
 const scrollDistance = 200
-export const Categories = () => {
+export const Categories = React.forwardRef((props, ref) => {
   const buttonsWrapper = useRef(null)
 
   const handleOnClick = (direction) => {
@@ -40,7 +40,7 @@ export const Categories = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={ref} {...props}>
       <PaginationButton left className="left" onClick={() => handleOnClick()}>
         <Icon left />
       </PaginationButton>
@@ -54,5 +54,5 @@ export const Categories = () => {
       </PaginationButton>
     </Wrapper>
   )
-}
+})
 export default Categories

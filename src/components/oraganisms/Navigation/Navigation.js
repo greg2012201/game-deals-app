@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Categories from '../../molecules/Categories/Categories'
 import Menu from '../../molecules/Menu/Menu'
 
 const Navigation = () => {
+  const categoriesRef = React.useRef()
+  const [refs, setRefs] = useState('')
+  const getCategoriesRef = (ref) => {
+    setRefs(ref)
+  }
+  useEffect(() => {
+    getCategoriesRef(categoriesRef)
+  }, [])
   return (
     <>
-      <Menu />
-      <Categories />
+      <Menu receivedRefs={refs} />
+      <Categories ref={categoriesRef} />
     </>
   )
 }
