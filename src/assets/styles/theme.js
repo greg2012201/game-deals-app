@@ -5,6 +5,7 @@ export const theme = {
     semiTransparentBlack: 'rgba(0, 0, 0, 0.5)',
     black: '#232323',
     transparentGrey: 'rgba(196, 196, 196, 0.2)',
+    grey: '#474747',
     violet: '#3A4CEE',
   },
   fontSize: {

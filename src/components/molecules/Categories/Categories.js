@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import smoothscroll from 'smoothscroll-polyfill'
-import { ButtonsWrapper, PaginationButton, Wrapper } from './CategoriesNaviagation.style'
+import { ButtonsWrapper, PaginationButton, Wrapper } from './Categories.style'
 import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
 import { Button } from '../../atoms/Button/Button'
-smoothscroll.polyfill()
 
+smoothscroll.polyfill()
 const mockCategoryList = [
   { text: 'mockButton1' },
   { text: 'mockButton2' },
@@ -28,7 +28,7 @@ const mockCategoryList = [
 ]
 
 const scrollDistance = 200
-export const CategoriesNavigation = () => {
+export const Categories = () => {
   const buttonsWrapper = useRef(null)
 
   const handleOnClick = (direction) => {
@@ -41,7 +41,7 @@ export const CategoriesNavigation = () => {
 
   return (
     <Wrapper>
-      <PaginationButton left className="left" onClick={() => handleOnClick('left')}>
+      <PaginationButton left className="left" onClick={() => handleOnClick()}>
         <Icon left />
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
@@ -55,4 +55,4 @@ export const CategoriesNavigation = () => {
     </Wrapper>
   )
 }
-export default CategoriesNavigation
+export default Categories

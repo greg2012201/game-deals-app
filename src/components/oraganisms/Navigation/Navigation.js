@@ -1,12 +1,14 @@
 import React from 'react'
-import MenuButton from '../../atoms/MenuButton/MenuButton'
-import { Wrapper } from './Navigation.style'
+import Categories from '../../molecules/Categories/Categories'
+import Menu from '../../molecules/Menu/Menu'
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
-    <Wrapper>
-      <MenuButton />
-    </Wrapper>
+    <>
+      <Menu />
+      <Categories />
+    </>
   )
 }
+
 export default Navigation
