@@ -1,20 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { useMenuVisibilityToggle } from '../../../hooks/UseMenuVisibility'
 import MenuButton from '../../atoms/MenuButton/MenuButton'
 import { Wrapper } from './Menu.style'
 
 export const Menu = ({ receivedRefs }) => {
-  const [visibility, setVisibility] = useState(true)
   const wrapperRef = useRef(null)
+  const visibility = useMenuVisibilityToggle(wrapperRef, receivedRefs)
 
-  useEffect(() => {
-    const isTarget = () => {
-      setVisibility(receivedRefs.current.getBoundingClientRect().bottom >= wrapperRef.current.getBoundingClientRect().bottom + 5)
-    }
-    if (receivedRefs) {
-      isTarget()
-      window.addEventListener('scroll', isTarget)
-    }
-  }, [receivedRefs])
   return (
     <Wrapper ref={wrapperRef} isVisible={visibility}>
       <MenuButton />
