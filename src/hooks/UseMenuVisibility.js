@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 
-export const useMenuVisibilityToggle = (element, target) => {
+export const useMenuVisibilityToggle = (changingElement, targetElement) => {
   const [visibility, setVisibility] = useState(true)
   useEffect(() => {
     const isTarget = () => {
-      setVisibility(target.current.getBoundingClientRect().bottom >= element.current.getBoundingClientRect().bottom + 5)
+      setVisibility(changingElement.current.getBoundingClientRect().bottom <= targetElement.current.getBoundingClientRect().bottom + 5)
     }
-    if (target && element) {
+    if (changingElement && targetElement) {
       isTarget()
       window.addEventListener('scroll', isTarget)
     }
-  }, [target, element])
+  }, [changingElement, targetElement])
   return visibility
 }
