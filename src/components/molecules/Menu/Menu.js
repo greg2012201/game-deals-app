@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useMenuVisibilityToggle } from '../../../hooks/UseMenuVisibility'
+import { useMenuVisibilityToggle } from '../../../hooks/useMenuVisibility'
 import { useToggle } from '../../../hooks/useToggle'
 import MenuButton from '../../atoms/MenuButton/MenuButton'
 import { Wrapper } from './Menu.style'
