@@ -3,28 +3,7 @@ import { ButtonsWrapper, PaginationButton, Wrapper } from './Categories.style'
 import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
 import { Button } from '../../atoms/Button/Button'
 import { customHorizontalScroll } from '../../../helpers/customScroll'
-
-const mockCategoryList = [
-  { text: 'mockButton1' },
-  { text: 'mockButton2' },
-  { text: 'mock' },
-  { text: 'moctton4' },
-  { text: 'mockButton5' },
-  { text: 'mockButton6' },
-  { text: 'mockButton7' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-  { text: 'mockButton8' },
-]
+import { mockCategoryList } from '../../../data/mockCategoryList'
 
 const scrollDistance = 200
 export const Categories = React.forwardRef((props, ref) => {
@@ -36,16 +15,16 @@ export const Categories = React.forwardRef((props, ref) => {
 
   return (
     <Wrapper ref={ref} {...props}>
-      <PaginationButton left className="left" onClick={() => handleOnClick()}>
-        <Icon left />
+      <PaginationButton left="true" className="left" onClick={() => handleOnClick()}>
+        <Icon left="true" />
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
         {mockCategoryList.map(({ text }) => {
           return <Button key={text}>{text}</Button>
         })}
       </ButtonsWrapper>
-      <PaginationButton right className="right" onClick={() => handleOnClick('right')}>
-        <Icon right />
+      <PaginationButton right="true" className="right" onClick={() => handleOnClick('right')}>
+        <Icon right="true" />
       </PaginationButton>
     </Wrapper>
   )
