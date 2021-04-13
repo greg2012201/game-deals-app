@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { useMenuVisibilityToggle } from '../../../hooks/useMenuVisibility'
 import { useToggle } from '../../../hooks/useToggle'
 import MenuButton from '../../atoms/MenuButton/MenuButton'
+import DropdownPanel from '../DropdownPanel/DropdownPanel'
 import { Wrapper } from './Menu.style'
 
 export const Menu = ({ receivedRefs }) => {
@@ -11,6 +12,7 @@ export const Menu = ({ receivedRefs }) => {
   return (
     <Wrapper ref={wrapperRef} isVisible={visibility}>
       <MenuButton toggle={toggle} onClick={setToggle} />
+      {toggle ? <DropdownPanel /> : null}
     </Wrapper>
   )
 }
