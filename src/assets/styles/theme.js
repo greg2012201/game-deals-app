@@ -8,6 +8,9 @@ export const theme = {
     transparentGrey: 'rgba(196, 196, 196, 0.2)',
     grey: '#474747',
     violet: '#3A4CEE',
+    transparentViolet: 'rgba(58, 76, 238, 0.8);',
+    lightGrey: '#434343',
+    lighterGrey: '#C4C4C4;',
   },
   fontSize: {
     xs: '12px',

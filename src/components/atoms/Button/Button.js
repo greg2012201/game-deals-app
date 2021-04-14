@@ -9,6 +9,6 @@ export const Button = styled.button`
   height: 32px;
   border-radius: 7px;
   border: none;
-  background-color: ${({ theme }) => theme.colors.transparentGrey};
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   color: ${({ theme }) => theme.colors.white};
 `

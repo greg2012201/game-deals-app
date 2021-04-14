@@ -5,5 +5,4 @@ export const Wrapper = styled.div`
   grid-template-columns: 100%;
   grid-template-rows: 56px 64px 1fr;
   width: 100%;
-  height: 200vh;
 `
