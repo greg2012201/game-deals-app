@@ -5,7 +5,7 @@ import { Wrapper } from './MenuButton.style'
 export const MenuButton = (props) => {
   return (
     <Wrapper {...props}>
-      <h1>Games-Discounts</h1>
+      <h1>Game-Deals</h1>
 
       <Icon />
     </Wrapper>
