@@ -11,5 +11,6 @@ export const Wrapper = styled.div`
   top: 100%;
   left: 0;
   right: 0;
+
   transition: 0.2;
 `
