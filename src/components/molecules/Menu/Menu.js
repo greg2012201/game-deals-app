@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useMenuVisibilityToggle } from '../../../hooks/useMenuVisibility'
+import { useMenuVisibilityToggle } from '../../../hooks/UseMenuVisibility'
 import { useToggle } from '../../../hooks/useToggle'
 import MenuButton from '../../atoms/MenuButton/MenuButton'
 import DropdownPanel from '../DropdownPanel/DropdownPanel'
