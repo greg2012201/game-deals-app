@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GamesContext } from '../../../providers/GamesDataProvider'
 import { Button } from './../../atoms/Button/Button'
 import { StyledProductCard } from './ProductCard.style'
 
-const ProductCard = ({ productsData: { title, description = 'description', shop, image } }) => {
-  return (
+const ProductCard = ({ error, productsData: { title, description = 'description', shop, image } }) => {
+  const { errors } = useContext(GamesContext)
+  console.log(errors)
+  return error ? (
+    <StyledProductCard>
+      <h2>{errors}</h2>
+    </StyledProductCard>
+  ) : (
     <StyledProductCard>
       {image ? <img src={image} alt={title} /> : null}
 
