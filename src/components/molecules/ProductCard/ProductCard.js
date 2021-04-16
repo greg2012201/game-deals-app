@@ -2,19 +2,20 @@ import React from 'react'
 import { Button } from './../../atoms/Button/Button'
 import { StyledProductCard } from './ProductCard.style'
 
-const ProductCard = ({ productsData: { title, price, description, source, thumbnail } }) => {
+const ProductCard = ({ productsData: { title, description = 'description', shop, image } }) => {
   return (
     <StyledProductCard>
-      {thumbnail ? <img src={thumbnail} alt={title} /> : null}
+      {image ? <img src={image} alt={title} /> : null}
+
       <h2>{title}</h2>
-      <p className="price">{price.current}</p>
-      <p className="before">{price.before}</p>
-      <p className="difference">{price.difference}</p>
+      <p className="price">100</p>
+      <p className="before">20</p>
+      <p className="difference">80%</p>
       <p className="description">{description}</p>
 
       <Button className="comment">Leave a comment </Button>
       <Button className="link">
-        <a href={source} target="_blank">
+        <a href={`${shop}`} target="_blank">
           Go to the shop
         </a>
       </Button>
