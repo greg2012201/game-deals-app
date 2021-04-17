@@ -10,47 +10,43 @@ const GamesDataProvider = ({ children }) => {
   const [errors, setErrors] = useState('')
 
   useEffect(() => {
-    const fetchData = (endpoint) => {
+    const fetchData = async (endpoint) => {
       const options = {
         method: 'GET',
         url: `${process.env.REACT_APP_RAWG_API_URL}/${endpoint}`,
         headers: {
           'x-rapidapi-key': `${process.env.REACT_APP_RAWG_API_KEY}`,
-          'x-rapidapi-host': 'rawg-video-games-database.p.rapidapi.com',
         },
       }
 
-      axios
-        .request(options)
-        .then((response) => {
-          response.data.results.map((el) => {
-            return axios
-              .get(`${process.env.REACT_APP_RAWG_API_URL}/${endpoint}/${el.id}`, {
-                headers: {
-                  'x-rapidapi-key': `${process.env.REACT_APP_RAWG_API_KEY}`,
-                  'x-rapidapi-host': 'rawg-video-games-database.p.rapidapi.com',
-                },
-              })
-              .then((response) => {
-                const newGamesData = {
-                  id: response.data.id,
-                  title: response.data.name,
-                  image: response.data.background_image,
-                  description: response.data.description_raw,
-                  shop: response.data.stores[Math.round(Math.random() * (response.data.stores.length - 1))].url,
-                  price: '',
-                }
+      try {
+        let response = await axios(options)
 
-                setGamesData((state) => [...state, newGamesData])
-              })
-              .catch(() => {
-                setGamesData((state) => [...state, initialState])
-                setErrors('Something went wrong...')
-              })
+        return response.data.results.map((el) => {
+          // to poniżej w mapie może być wrappowane też z fetch data  spokojnie, przemyśleć także parametry tutaj aby były podawane
+          return axios({
+            method: 'GET',
+            url: `${process.env.REACT_APP_RAWG_API_URL}/${endpoint}/${el.id}`,
+            headers: {
+              'x-rapidapi-key': `${process.env.REACT_APP_RAWG_API_KEY}`,
+            },
+          }).then((response) => {
+            const newGamesData = {
+              id: response.data.id,
+              title: response.data.name,
+              image: response.data.background_image,
+              description: response.data.description_raw,
+              shop: response.data.stores[Math.round(Math.random() * (response.data.stores.length - 1))].url,
+              price: '',
+            }
+            setGamesData((state) => [...state, newGamesData])
           })
         })
-        .catch((err) => console.error(err))
+      } catch (error) {
+        return console.log(error)
+      }
     }
+
     fetchData('games')
   }, [])
   return <GamesContext.Provider value={{ gamesData, errors }}>{children}</GamesContext.Provider>
