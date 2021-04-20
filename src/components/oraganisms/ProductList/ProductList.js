@@ -13,7 +13,7 @@ const ProductList = () => {
   return (
     <StyledList>
       {gamesData.map((gamesData) => {
-        return <ProductCard key={gamesData.id} productsData={gamesData} />
+        return <ProductCard key={gamesData.id} gamesData={gamesData} />
       })}
     </StyledList>
   )

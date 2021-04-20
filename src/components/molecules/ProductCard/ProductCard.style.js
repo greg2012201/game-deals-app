@@ -4,7 +4,7 @@ export const StyledProductCard = styled.li`
   margin: 20px 0 50px;
   padding: 20px;
   display: grid;
-  max-width: 650px;
+  max-width: 300px;
   grid-template-columns: 20% 20% 16% 1fr;
   grid-template-rows: 6;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

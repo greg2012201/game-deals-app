@@ -5,17 +5,15 @@ import { Button } from '../../atoms/Button/Button'
 import { customHorizontalScroll } from '../../../helpers/customScroll'
 import { mockCategoryList } from '../../../data/mockCategoryList'
 import { GamesContext } from '../../../providers/GamesDataProvider'
-import { clearConfigCache } from 'prettier'
+import { useCategoriesButtonsData } from '../../../hooks/useCategoriesButtonsData'
 
 const scrollDistance = 200
 export const Categories = React.forwardRef((props, ref) => {
   const buttonsWrapper = useRef(null)
-
+  const genres = useCategoriesButtonsData()
   const handleOnClick = (direction) => {
     customHorizontalScroll(direction, buttonsWrapper, scrollDistance)
   }
-
-  const { gamesData } = useContext(GamesContext)
 
   return (
     <Wrapper ref={ref} {...props}>
@@ -23,12 +21,9 @@ export const Categories = React.forwardRef((props, ref) => {
         <Icon left="true" />
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
-        {gamesData.map(({ data: { genres } }) => {
-          {
-            // trzeba pobrać osobną listę gatunków i na jej podstawie tutaj to wrzucić i wcześniej przefiltrować czy istnieją takie gatunki na wyświetlonym dashboardzie, albo wyświetlać z góry już jakieś względem gatunku
-            /*  return <Button key={e.id}>{e.name}</Button> */
-          }
-        })}
+        {genres.map(({ name, id }) => (
+          <Button key={id}>{name}</Button>
+        ))}
       </ButtonsWrapper>
       <PaginationButton right="true" className="right" onClick={() => handleOnClick('right')}>
         <Icon right="true" />

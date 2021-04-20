@@ -13,15 +13,7 @@ export const useGamesList = () => {
       try {
         let response = await axios(`${options.url}?key=${process.env.REACT_APP_RAWG_API_KEY}`)
 
-        let arr = []
-
-        response.data.results.map((el) => {
-          return arr.push(axios.get(`${options.url}/${el.id}?key=${process.env.REACT_APP_RAWG_API_KEY}`))
-        })
-
-        return await axios.all(arr).then((res) => {
-          setGamesData(res)
-        })
+        setGamesData(response.data.results)
       } catch (error) {
         return console.log(error)
       }
