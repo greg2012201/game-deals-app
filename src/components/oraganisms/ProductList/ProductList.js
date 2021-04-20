@@ -5,17 +5,16 @@ import { StyledList } from './ProductList.style'
 import axios from 'axios'
 import { GamesContext } from '../../../providers/GamesDataProvider'
 import { useGamesList } from '../../../hooks/useGamesList'
+import { clearConfigCache } from 'prettier'
 
 const ProductList = () => {
-  /*  const { gamesData } = useContext(GamesContext) */
-
-  const gamesData = useGamesList()
+  const { gamesData } = useContext(GamesContext)
 
   return (
     <StyledList>
-      {gamesData.map((gamesData) => (
-        <ProductCard key={gamesData.id} productsData={gamesData} />
-      ))}
+      {gamesData.map((gamesData) => {
+        return <ProductCard key={gamesData.id} productsData={gamesData} />
+      })}
     </StyledList>
   )
 }
