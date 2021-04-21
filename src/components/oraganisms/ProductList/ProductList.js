@@ -15,7 +15,7 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchPopularGames()
-  }, [])
+  }, [GamesContext])
 
   return (
     <StyledList>

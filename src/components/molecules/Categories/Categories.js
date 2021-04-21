@@ -15,7 +15,7 @@ export const Categories = React.forwardRef((props, ref) => {
   const handleOnClick = (direction) => {
     customHorizontalScroll(direction, buttonsWrapper, scrollDistance)
   }
-
+  const { displayGenreOnClick } = useContext(GamesContext)
   return (
     <Wrapper ref={ref} {...props}>
       <PaginationButton left="true" className="left" onClick={() => handleOnClick()}>
@@ -23,7 +23,7 @@ export const Categories = React.forwardRef((props, ref) => {
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
         {genres.map(({ name, id }) => (
-          <Button onClick={(e) => console.log(e.target.textContent)} key={id}>
+          <Button onClick={(e) => displayGenreOnClick(e, id)} key={id}>
             {name}
           </Button>
         ))}
