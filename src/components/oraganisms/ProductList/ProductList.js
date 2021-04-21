@@ -8,7 +8,14 @@ import { useGamesList } from '../../../hooks/useGamesList'
 import { clearConfigCache } from 'prettier'
 
 const ProductList = () => {
-  const { gamesData } = useContext(GamesContext)
+  const {
+    data: { gamesData },
+    fetchPopularGames,
+  } = useContext(GamesContext)
+
+  useEffect(() => {
+    fetchPopularGames()
+  }, [])
 
   return (
     <StyledList>

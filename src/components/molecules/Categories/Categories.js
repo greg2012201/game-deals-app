@@ -6,6 +6,7 @@ import { customHorizontalScroll } from '../../../helpers/customScroll'
 import { mockCategoryList } from '../../../data/mockCategoryList'
 import { GamesContext } from '../../../providers/GamesDataProvider'
 import { useCategoriesButtonsData } from '../../../hooks/useCategoriesButtonsData'
+import { clearConfigCache } from 'prettier'
 
 const scrollDistance = 200
 export const Categories = React.forwardRef((props, ref) => {
@@ -22,7 +23,9 @@ export const Categories = React.forwardRef((props, ref) => {
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
         {genres.map(({ name, id }) => (
-          <Button key={id}>{name}</Button>
+          <Button onClick={(e) => console.log(e.target.textContent)} key={id}>
+            {name}
+          </Button>
         ))}
       </ButtonsWrapper>
       <PaginationButton right="true" className="right" onClick={() => handleOnClick('right')}>
