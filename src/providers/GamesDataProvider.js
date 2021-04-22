@@ -1,26 +1,24 @@
 import React, { useReducer } from 'react'
-import { useGamesList } from '../hooks/useGamesList'
 import axios from 'axios'
+import { RAWGOptions } from './../utils/fetchingOptions'
 export const GamesContext = React.createContext({
   gamesData: [{}],
   errors: Boolean,
   fetchPopularGames: () => {},
   displayGenreOnClick: () => {},
 })
-const options = {
-  method: 'GET',
-  url: `${process.env.REACT_APP_RAWG_API_URL}/games`,
-}
+const actionTypes = { getPopularGames: 'GET_POPULAR_GAMES', getGamesByGenre: 'GET_GAMES_BY_GENRE' }
+const initialState = { gamesData: [], error: '', loading: '', target: '' }
+const { url, key } = RAWGOptions
 
 const reducer = (state, action) => {
-  console.log(action.type)
   switch (action.type) {
-    case 'POPULAR_GAMES':
+    case actionTypes.getPopularGames:
       return {
         ...state,
         gamesData: action.data,
       }
-    case 'GET_GAMES_BY_GENRE':
+    case actionTypes.getGamesByGenre:
       return {
         ...state,
         gamesData: action.data,
@@ -31,29 +29,25 @@ const reducer = (state, action) => {
   }
 }
 const GamesDataProvider = ({ children }) => {
-  const [data, dispatch] = useReducer(reducer, { gamesData: [], target: '' })
+  const [data, dispatch] = useReducer(reducer, initialState)
   const fetchPopularGames = () => {
-    const fetchData = () => {
-      axios.get(`${options.url}?key=${process.env.REACT_APP_RAWG_API_KEY}`).then((response) =>
-        dispatch({
-          type: 'POPULAR_GAMES',
-          data: response.data.results,
-        })
-      )
-    }
-    fetchData()
-  }
-
-  const displayGenreOnClick = (e, id) => {
-    console.log(id)
-    axios.get(`${options.url}?genres=${id}&page=3&page_size=60&key=${process.env.REACT_APP_RAWG_API_KEY}`).then((response) =>
+    axios.get(`${url}/games?key=${key}`).then((response) =>
       dispatch({
-        type: 'GET_GAMES_BY_GENRE',
+        type: actionTypes.getPopularGames,
         data: response.data.results,
       })
     )
   }
-  console.log(data)
+
+  const displayGenreOnClick = (e, id) => {
+    axios.get(`${url}/games?genres=${id}&page=3&page_size=60&key=${key}`).then((response) =>
+      dispatch({
+        type: actionTypes.getGamesByGenre,
+        data: response.data.results,
+        target: e.target,
+      })
+    )
+  }
   return <GamesContext.Provider value={{ data, fetchPopularGames, displayGenreOnClick }}>{children}</GamesContext.Provider>
 }
 

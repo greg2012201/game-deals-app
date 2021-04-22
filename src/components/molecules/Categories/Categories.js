@@ -1,12 +1,10 @@
-import React, { useRef, useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useRef, useContext } from 'react'
 import { ButtonsWrapper, PaginationButton, Wrapper } from './Categories.style'
 import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
 import { Button } from '../../atoms/Button/Button'
 import { customHorizontalScroll } from '../../../helpers/customScroll'
-import { mockCategoryList } from '../../../data/mockCategoryList'
 import { GamesContext } from '../../../providers/GamesDataProvider'
 import { useCategoriesButtonsData } from '../../../hooks/useCategoriesButtonsData'
-import { clearConfigCache } from 'prettier'
 
 const scrollDistance = 200
 export const Categories = React.forwardRef((props, ref) => {
@@ -23,7 +21,7 @@ export const Categories = React.forwardRef((props, ref) => {
       </PaginationButton>
       <ButtonsWrapper ref={buttonsWrapper}>
         {genres.map(({ name, id }) => (
-          <Button onClick={(e) => displayGenreOnClick(e, id)} key={id}>
+          <Button name={name} onClick={(e) => displayGenreOnClick(e, id)} key={id}>
             {name}
           </Button>
         ))}
