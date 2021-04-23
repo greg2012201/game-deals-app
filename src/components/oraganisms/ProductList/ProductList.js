@@ -5,7 +5,7 @@ import { GamesContext } from '../../../providers/GamesDataProvider'
 
 const ProductList = () => {
   const {
-    data: { gamesData },
+    data: { gamesData, loading, error },
     fetchPopularGames,
   } = useContext(GamesContext)
 
@@ -15,9 +15,13 @@ const ProductList = () => {
 
   return (
     <StyledList>
-      {gamesData.map((gamesData) => {
-        return <ProductCard key={gamesData.id} gamesData={gamesData} />
-      })}
+      {loading ? (
+        <p>{error ? error : 'loading...'}</p>
+      ) : (
+        gamesData.map((gamesData) => {
+          return <ProductCard key={gamesData.id} gamesData={gamesData} />
+        })
+      )}
     </StyledList>
   )
 }
