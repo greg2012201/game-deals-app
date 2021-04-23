@@ -1,14 +1,27 @@
-import React from 'react'
-import { mockProductList } from '../../../data/mockProductList'
+import React, { useContext, useEffect } from 'react'
 import ProductCard from '../../molecules/ProductCard/ProductCard'
 import { StyledList } from './ProductList.style'
+import { GamesContext } from '../../../providers/GamesDataProvider'
 
 const ProductList = () => {
+  const {
+    data: { gamesData, loading, error },
+    fetchPopularGames,
+  } = useContext(GamesContext)
+
+  useEffect(() => {
+    fetchPopularGames()
+  }, [])
+
   return (
     <StyledList>
-      {mockProductList.map((productsData) => (
-        <ProductCard key={productsData.id} productsData={productsData} />
-      ))}
+      {loading ? (
+        <p>{error ? error : 'loading...'}</p>
+      ) : (
+        gamesData.map((gamesData) => {
+          return <ProductCard key={gamesData.id} gamesData={gamesData} />
+        })
+      )}
     </StyledList>
   )
 }

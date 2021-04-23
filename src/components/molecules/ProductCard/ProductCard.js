@@ -1,23 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GamesContext } from '../../../providers/GamesDataProvider'
 import { Button } from './../../atoms/Button/Button'
 import { StyledProductCard } from './ProductCard.style'
 
-const ProductCard = ({ productsData: { title, price, description, source, thumbnail } }) => {
+const ProductCard = ({ gamesData: { name, background_image, genres } }) => {
   return (
     <StyledProductCard>
-      {thumbnail ? <img src={thumbnail} alt={title} /> : null}
-      <h2>{title}</h2>
-      <p className="price">{price.current}</p>
-      <p className="before">{price.before}</p>
-      <p className="difference">{price.difference}</p>
-      <p className="description">{description}</p>
+      {background_image ? <img src={background_image} alt={name} /> : null}
 
-      <Button className="comment">Leave a comment </Button>
-      <Button className="link">
-        <a href={source} target="_blank">
-          Go to the shop
-        </a>
-      </Button>
+      <h2>{name}</h2>
+      <p className="price">
+        {genres.map((e) => (
+          <span>{e.name}</span>
+        ))}
+      </p>
     </StyledProductCard>
   )
 }
