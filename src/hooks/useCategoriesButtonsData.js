@@ -10,7 +10,7 @@ export const useCategoriesButtonsData = () => {
     const fetchData = async () => {
       try {
         let res = await axios(`${options.url}?key=${process.env.REACT_APP_RAWG_API_KEY}`)
-
+        console.log(res)
         return setGenres(res.data.results)
       } catch (err) {
         return console.log(err)

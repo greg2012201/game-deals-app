@@ -8,4 +8,5 @@ export const StyledList = styled.ul`
   grid-column-gap: 10px;
   padding: 15px 10px;
   justify-content: center;
+  overflow: hidden;
 `

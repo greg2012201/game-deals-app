@@ -2,16 +2,23 @@ import React, { useContext, useEffect } from 'react'
 import ProductCard from '../../molecules/ProductCard/ProductCard'
 import { StyledList } from './ProductList.style'
 import { GamesContext } from '../../../providers/GamesDataProvider'
-
+import { useParams } from 'react-router'
 const ProductList = () => {
+  const { id } = useParams()
   const {
     data: { gamesData, loading, error },
     fetchPopularGames,
+    fetchGenres,
   } = useContext(GamesContext)
 
   useEffect(() => {
-    fetchPopularGames()
-  }, [])
+    console.log(id)
+    if (id === 'home') {
+      fetchPopularGames()
+    } else {
+      fetchGenres(id)
+    }
+  }, [id])
 
   return (
     <StyledList>
