@@ -4,26 +4,27 @@ import { StyledList } from './ProductList.style'
 import { GamesContext } from '../../../providers/GamesDataProvider'
 import { useParams } from 'react-router'
 const ProductList = () => {
-  const { id } = useParams()
+  const { page } = useParams()
   const {
     data: { gamesData, loading, error },
+    genres,
     fetchPopularGames,
-    fetchGenres,
+    fetchGamesByGenre,
   } = useContext(GamesContext)
 
   useEffect(() => {
-    console.log(id)
-    if (id === 'home') {
+    if (page === 'Home') {
       fetchPopularGames()
     } else {
-      fetchGenres(id)
+      const genre = genres.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
+      fetchGamesByGenre(genre ? genre.id : null)
     }
-  }, [id])
+  }, [page, genres])
 
   return (
     <StyledList>
       {loading ? (
-        <p>{error ? error : 'loading...'}</p>
+        <p>{error && gamesData.length === 0 ? error : 'loading...'}</p>
       ) : (
         gamesData.map((gamesData) => {
           return <ProductCard key={gamesData.id} gamesData={gamesData} />

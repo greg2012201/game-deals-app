@@ -16,9 +16,9 @@ const Root = ({ props }) => {
           <MainTemplate>
             <Switch>
               <Route exact path="/">
-                <Redirect to="/home" />
+                <Redirect to="/Home" />
               </Route>
-              <Route exact path="/:id">
+              <Route exact path="/:page?">
                 <Dashboard />
               </Route>
             </Switch>
