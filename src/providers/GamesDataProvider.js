@@ -4,7 +4,7 @@ import { RAWGOptions } from './../utils/fetchingOptions'
 import { useGenres } from '../hooks/useGenres'
 
 export const GamesContext = React.createContext({
-  data: {},
+  data: { gamesData: { data: [], loading: '', error: '' } },
   genres: [{}],
   errors: Boolean,
   fetchPopularGames: () => {},
@@ -19,9 +19,11 @@ const actionTypes = {
   error: 'ERROR',
 }
 const initialState = {
-  gamesData: [],
-  error: '',
-  loading: true,
+  gamesData: {
+    data: [],
+    error: '',
+    loading: true,
+  },
 }
 const { url, key } = RAWGOptions
 
@@ -30,26 +32,24 @@ const reducer = (state, action) => {
     case actionTypes.getPopularGames:
       return {
         ...state,
-        gamesData: action.data,
-        loading: false,
+        gamesData: { data: action.data, loading: false },
       }
     case actionTypes.getGamesByGenre:
       return {
         ...state,
-        gamesData: action.data,
-        target: action.target,
-        loading: false,
+
+        gamesData: { data: action.data, loading: false },
       }
 
     case actionTypes.loading:
       return {
-        ...initialState,
-        loading: true,
+        ...state,
+        gamesData: { loading: true },
       }
     case actionTypes.error:
       return {
-        ...initialState,
-        error: `Something went wrong. We couldn't load your content, Sorry !`,
+        ...state,
+        gamesData: { data: [], loading: false, error: `Something went wrong. We couldn't load your content, Sorry !` },
       }
     default:
       return state
@@ -61,12 +61,12 @@ const GamesDataProvider = ({ children }) => {
   const fetchPopularGames = () => {
     axios
       .get(`${url}/games?key=${key}`)
-      .then((response) =>
+      .then((response) => {
         dispatch({
           type: actionTypes.getPopularGames,
           data: response.data.results,
         })
-      )
+      })
       .catch(() => {
         dispatch({
           type: actionTypes.error,

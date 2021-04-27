@@ -6,7 +6,9 @@ import { useParams } from 'react-router'
 const ProductList = () => {
   const { page } = useParams()
   const {
-    data: { gamesData, loading, error },
+    data: {
+      gamesData: { data, loading, error },
+    },
     genres,
     fetchPopularGames,
     fetchGamesByGenre,
@@ -17,17 +19,18 @@ const ProductList = () => {
       fetchPopularGames()
     } else {
       const genre = genres.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
-      fetchGamesByGenre(genre ? genre.id : null)
+
+      return genre ? fetchGamesByGenre(genre.id) : null
     }
   }, [page, genres])
 
   return (
     <StyledList>
       {loading ? (
-        <p>{error && gamesData.length === 0 ? error : 'loading...'}</p>
+        <p>{error && data.length === 0 ? error : 'loading...'}</p>
       ) : (
-        gamesData.map((gamesData) => {
-          return <ProductCard key={gamesData.id} gamesData={gamesData} />
+        data.map((data) => {
+          return <ProductCard key={data.id} gamesData={data} />
         })
       )}
     </StyledList>
