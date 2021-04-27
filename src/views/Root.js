@@ -4,15 +4,32 @@ import { GlobalStyle } from '../assets/styles/GlobalStyle'
 import { theme } from '../assets/styles/theme'
 import MainTemplate from '../components/templates/MainTemplate/MainTemplate'
 import GamesDataProvider from '../providers/GamesDataProvider'
+import Dashboard from './Dashboard'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import Games from './Games'
 
-const Root = () => {
+const Root = ({ props }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <GamesDataProvider>
-        <MainTemplate />
-      </GamesDataProvider>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <GamesDataProvider>
+          <MainTemplate>
+            <Switch>
+              <Route exact path="/">
+                <Redirect to="/Home" />
+              </Route>
+              <Route exact path="/:page?">
+                <Dashboard />
+              </Route>
+              <Route path="/games/:slug">
+                <Games />
+              </Route>
+            </Switch>
+          </MainTemplate>
+        </GamesDataProvider>
+      </ThemeProvider>
+    </Router>
   )
 }
 export default Root
