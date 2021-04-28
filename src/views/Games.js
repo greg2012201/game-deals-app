@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { RAWGOptions } from '../utils/fetchingOptions'
+import { RAWGOptions } from 'utils/fetchingOptions'
 import { Wrapper } from './Games.style'
 const { url, key } = RAWGOptions
 const Games = () => {

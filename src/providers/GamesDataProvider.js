@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
-import { RAWGOptions } from './../utils/fetchingOptions'
+import { RAWGOptions } from 'utils/fetchingOptions'
 
 export const GamesContext = React.createContext({
   data: { genresData: { data: [{}] }, gamesData: { data: [], loading: '', error: '' } },

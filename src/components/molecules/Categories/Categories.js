@@ -1,9 +1,9 @@
 import React, { useRef, useContext, useEffect } from 'react'
 import { ButtonsWrapper, PaginationButton, Wrapper } from './Categories.style'
-import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
-import { Button } from '../../atoms/Button/Button'
-import { customHorizontalScroll } from '../../../helpers/customScroll'
-import { GamesContext } from '../../../providers/GamesDataProvider'
+import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
+import { Button } from 'components/atoms/Button/Button'
+import { customHorizontalScroll } from 'helpers/customScroll'
+import { GamesContext } from 'providers/GamesDataProvider'
 
 import { Link } from 'react-router-dom'
 

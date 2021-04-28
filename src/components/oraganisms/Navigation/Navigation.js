@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Categories from '../../molecules/Categories/Categories'
-import Menu from '../../molecules/Menu/Menu'
+import Categories from 'components/molecules/Categories/Categories'
+import Menu from 'components/molecules/Menu/Menu'
 
 const Navigation = (props) => {
   const categoriesRef = React.useRef()

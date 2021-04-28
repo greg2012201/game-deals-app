@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import { useMenuVisibilityToggle } from '../../../hooks/UseMenuVisibility'
-import { useToggle } from '../../../hooks/useToggle'
-import MenuButton from '../../atoms/MenuButton/MenuButton'
+import { useMenuVisibilityToggle } from 'hooks/UseMenuVisibility'
+import { useToggle } from 'hooks/useToggle'
+import MenuButton from 'components/atoms/MenuButton/MenuButton'
 import DropdownPanel from '../DropdownPanel/DropdownPanel'
 import { Wrapper } from './Menu.style'
 

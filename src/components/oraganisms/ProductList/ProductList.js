@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import ProductCard from '../../molecules/ProductCard/ProductCard'
+import ProductCard from 'components/molecules/ProductCard/ProductCard'
 import { StyledList } from './ProductList.style'
-import { GamesContext } from '../../../providers/GamesDataProvider'
+import { GamesContext } from 'providers/GamesDataProvider'
 import { useParams } from 'react-router'
 const ProductList = () => {
   const { page } = useParams()

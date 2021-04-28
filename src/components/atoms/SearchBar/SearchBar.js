@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as Icon } from './../../../assets/icons/magnifier-icon.svg'
+import { ReactComponent as Icon } from 'assets/icons/magnifier-icon.svg'
 import { Wrapper } from './SearchBar.style'
 const SearchBar = () => {
   return (

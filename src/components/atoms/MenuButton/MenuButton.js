@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as Icon } from './../../../assets/icons/triangle-icon.svg'
+import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
 import { Wrapper } from './MenuButton.style'
 
 export const MenuButton = (props) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import SearchBar from '../../atoms/SearchBar/SearchBar'
+import SearchBar from 'components/atoms/SearchBar/SearchBar'
 import { Wrapper } from './DropdownPanel.style'
 
 const DropdownPanel = React.forwardRef((props, ref) => {
