@@ -9,7 +9,8 @@ const ProductList = () => {
     data: {
       gamesData: { data, loading, error },
     },
-    genres,
+    data: { genresData },
+
     fetchPopularGames,
     fetchGamesByGenre,
   } = useContext(GamesContext)
@@ -18,11 +19,11 @@ const ProductList = () => {
     if (page === 'Home') {
       fetchPopularGames()
     } else {
-      const genre = genres.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
+      const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
 
       return genre ? fetchGamesByGenre(genre.id) : null
     }
-  }, [page, genres])
+  }, [page, genresData.data])
 
   return (
     <StyledList>

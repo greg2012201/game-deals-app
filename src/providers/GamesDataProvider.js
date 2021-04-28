@@ -1,22 +1,21 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
 import { RAWGOptions } from './../utils/fetchingOptions'
-import { useGenres } from '../hooks/useGenres'
 
 export const GamesContext = React.createContext({
-  data: { gamesData: { data: [], loading: '', error: '' } },
+  data: { genresData: { data: [{}] }, gamesData: { data: [], loading: '', error: '' } },
   genres: [{}],
   errors: Boolean,
   fetchPopularGames: () => {},
   fetchGamesByGenre: () => {},
-  fetchGenre: () => {},
+  fetchGenres: () => {},
 })
 
 const actionTypes = {
-  getPopularGames: 'GET_POPULAR_GAMES',
-  getGamesByGenre: 'GET_GAMES_BY_GENRE',
-  lodaing: 'LOADING',
-  error: 'ERROR',
+  games: { getPopularGames: 'GET_POPULAR_GAMES', getGamesByGenre: 'GET_GAMES_BY_GENRE', lodaing: 'LOADING', error: 'ERROR' },
+  genre: {
+    getGenre: 'GET_GENRE',
+  },
 }
 const initialState = {
   gamesData: {
@@ -24,29 +23,37 @@ const initialState = {
     error: '',
     loading: true,
   },
+  genresData: {
+    data: [],
+  },
 }
 const { url, key } = RAWGOptions
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actionTypes.getPopularGames:
+    case actionTypes.genre.getGenre:
+      return {
+        ...state,
+        genresData: { data: action.data },
+      }
+    case actionTypes.games.getPopularGames:
       return {
         ...state,
         gamesData: { data: action.data, loading: false },
       }
-    case actionTypes.getGamesByGenre:
+    case actionTypes.games.getGamesByGenre:
       return {
         ...state,
 
         gamesData: { data: action.data, loading: false },
       }
 
-    case actionTypes.loading:
+    case actionTypes.games.loading:
       return {
         ...state,
         gamesData: { loading: true },
       }
-    case actionTypes.error:
+    case actionTypes.games.error:
       return {
         ...state,
         gamesData: { data: [], loading: false, error: `Something went wrong. We couldn't load your content, Sorry !` },
@@ -56,20 +63,32 @@ const reducer = (state, action) => {
   }
 }
 const GamesDataProvider = ({ children }) => {
-  const genres = useGenres()
   const [data, dispatch] = useReducer(reducer, initialState)
+
+  const fetchGenres = () => {
+    axios
+      .get(`${url}/genres?key=${key}`)
+      .then(({ data: { results } }) => {
+        dispatch({
+          type: actionTypes.genre.getGenre,
+          data: results,
+        })
+      })
+      .catch((err) => console.log(err))
+  }
+
   const fetchPopularGames = () => {
     axios
       .get(`${url}/games?key=${key}`)
       .then((response) => {
         dispatch({
-          type: actionTypes.getPopularGames,
+          type: actionTypes.games.getPopularGames,
           data: response.data.results,
         })
       })
       .catch(() => {
         dispatch({
-          type: actionTypes.error,
+          type: actionTypes.games.error,
         })
       })
   }
@@ -80,19 +99,19 @@ const GamesDataProvider = ({ children }) => {
       .get(`${url}/games?genres=${id}&page=3&page_size=60&key=${key}`)
       .then((response) => {
         dispatch({
-          type: actionTypes.getGamesByGenre,
+          type: actionTypes.games.getGamesByGenre,
           data: response.data.results,
         })
       })
       .catch(() => {
         dispatch({
-          type: actionTypes.error,
+          type: actionTypes.games.error,
           loading: false,
         })
       })
   }
 
-  return <GamesContext.Provider value={{ data, fetchPopularGames, fetchGamesByGenre, genres }}>{children}</GamesContext.Provider>
+  return <GamesContext.Provider value={{ data, fetchPopularGames, fetchGamesByGenre, fetchGenres }}>{children}</GamesContext.Provider>
 }
 
 export default GamesDataProvider
