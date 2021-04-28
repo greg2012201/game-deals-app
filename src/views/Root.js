@@ -8,7 +8,7 @@ import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Games from './Games'
 
-const Root = ({ props }) => {
+const Root = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>

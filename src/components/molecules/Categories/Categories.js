@@ -5,7 +5,7 @@ import { Button } from '../../atoms/Button/Button'
 import { customHorizontalScroll } from '../../../helpers/customScroll'
 import { GamesContext } from '../../../providers/GamesDataProvider'
 
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const scrollDistance = 200
 export const Categories = React.forwardRef((props, ref) => {
