@@ -12,7 +12,7 @@ const ProductCard = ({ gamesData: { name, background_image, genres, slug } }) =>
       </Link>
       <p className="price">
         {genres.map((e) => (
-          <span>{e.name}</span>
+          <span key={e.id}>{e.name}</span>
         ))}
       </p>
     </StyledProductCard>

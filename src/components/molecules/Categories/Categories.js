@@ -22,7 +22,6 @@ export const Categories = React.forwardRef((props, ref) => {
   }
   useEffect(() => {
     fetchGenres()
-    console.log(data)
   }, [])
 
   return (
@@ -33,7 +32,7 @@ export const Categories = React.forwardRef((props, ref) => {
       <ButtonsWrapper ref={buttonsWrapper}>
         {data.map(({ name, id }) => {
           return (
-            <Link to={`/${name}`}>
+            <Link key={name} to={`/${name}`}>
               <Button name={name} key={id}>
                 {name}
               </Button>

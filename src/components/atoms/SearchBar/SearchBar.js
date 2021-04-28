@@ -4,7 +4,7 @@ import { Wrapper } from './SearchBar.style'
 const SearchBar = () => {
   return (
     <Wrapper>
-      <label for="search">
+      <label htmlFor="search">
         <Icon />
       </label>
       <input id="search" name="search" placeholder="Szukaj..." />
