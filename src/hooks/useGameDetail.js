@@ -8,10 +8,14 @@ export const useGameDetail = (slug) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    axios
-      .get(`${url}/games/${slug}?key=${key}`)
-      .then(({ data }) => setData(data))
-      .catch(() => setError('Something went wrong'))
+    ;(async () => {
+      try {
+        const { data } = await axios.get(`${url}/games/${slug}?key=${key}`)
+        return setData(data)
+      } catch (e) {
+        return setError('Something went wrong')
+      }
+    })()
   }, [slug])
   return { data, error }
 }
