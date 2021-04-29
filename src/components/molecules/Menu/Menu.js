@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useMenuVisibilityToggle } from 'hooks/UseMenuVisibility'
 import { useToggle } from 'hooks/useToggle'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
@@ -17,7 +18,6 @@ export const Menu = ({ receivedRefs }) => {
         setToggle()
       }
     }
-
     document.addEventListener('click', handleOnClick)
     return () => {
       document.removeEventListener('click', handleOnClick)
@@ -30,5 +30,8 @@ export const Menu = ({ receivedRefs }) => {
       {toggle ? <DropdownPanel ref={dropdownPanelRef} /> : null}
     </Wrapper>
   )
+}
+Menu.propTypes = {
+  receivedRefs: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 export default Menu

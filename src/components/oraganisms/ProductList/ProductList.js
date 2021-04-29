@@ -3,16 +3,16 @@ import ProductCard from 'components/molecules/ProductCard/ProductCard'
 import { StyledList } from './ProductList.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useParams } from 'react-router'
+import { useGamesList } from 'hooks/useGamesList'
 const ProductList = () => {
+  const {
+    gamesData: { data, error, loading },
+    fetchGamesByGenre,
+    fetchPopularGames,
+  } = useGamesList()
   const { page } = useParams()
   const {
-    data: {
-      gamesData: { data, loading, error },
-    },
     data: { genresData },
-
-    fetchPopularGames,
-    fetchGamesByGenre,
   } = useContext(GamesContext)
 
   useEffect(() => {

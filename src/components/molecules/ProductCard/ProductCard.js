@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { StyledProductCard } from './ProductCard.style'
 
@@ -18,5 +19,12 @@ const ProductCard = ({ gamesData: { name, background_image, genres, slug } }) =>
     </StyledProductCard>
   )
 }
-
+ProductCard.propTypes = {
+  gamesData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    background_image: PropTypes.string,
+    genres: PropTypes.array.isRequired,
+    slug: PropTypes.string.isRequired,
+  }),
+}
 export default ProductCard

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Categories from 'components/molecules/Categories/Categories'
 import Menu from 'components/molecules/Menu/Menu'
 
-const Navigation = (props) => {
+const Navigation = () => {
   const categoriesRef = React.useRef()
   const [refs, setRefs] = useState('')
 

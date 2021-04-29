@@ -1,25 +1,86 @@
-import { useState, useEffect } from 'react'
+import { useReducer } from 'react'
+import { RAWGOptions } from 'utils/fetchingOptions'
 import axios from 'axios'
-const options = {
-  method: 'GET',
-  url: `${process.env.REACT_APP_RAWG_API_URL}/games`,
+const actionTypes = {
+  getPopularGames: 'GET_POPULAR_GAMES',
+  getGamesByGenre: 'GET_GAMES_BY_GENRE',
+  lodaing: 'LOADING',
+  error: 'ERROR',
+}
+const initialState = {
+  data: [],
+  error: '',
+  loading: true,
+}
+const { url, key } = RAWGOptions
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actionTypes.getPopularGames:
+      return {
+        ...state,
+        data: action.data,
+        loading: false,
+      }
+    case actionTypes.getGamesByGenre:
+      return {
+        ...state,
+
+        data: action.data,
+        loading: false,
+      }
+
+    case actionTypes.loading:
+      return {
+        ...state,
+        loading: true,
+      }
+    case actionTypes.error:
+      return {
+        ...state,
+        data: [],
+        loading: false,
+        error: `Something went wrong. We couldn't load your content, Sorry !`,
+      }
+    default:
+      return state
+  }
 }
 export const useGamesList = () => {
-  const [gamesData, setGamesData] = useState([])
+  const [gamesData, dispatch] = useReducer(reducer, initialState)
 
-  const [errors, setErrors] = useState('')
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response = await axios(`${options.url}?key=${process.env.REACT_APP_RAWG_API_KEY}`)
-
-        setGamesData(response.data.results)
-      } catch (error) {
-        return console.log(error)
-      }
+  const fetchPopularGames = async () => {
+    try {
+      const {
+        data: { results },
+      } = await axios.get(`${url}/games?key=${key}`)
+      return dispatch({
+        type: actionTypes.getPopularGames,
+        data: results,
+      })
+    } catch (e) {
+      return dispatch({
+        type: actionTypes.games.error,
+      })
     }
-    fetchData()
-  }, [])
+  }
+  const fetchGamesByGenre = async (id) => {
+    dispatch({ type: actionTypes.loading })
 
-  return gamesData
+    try {
+      const {
+        data: { results },
+      } = await axios.get(`${url}/games?genres=${id}&page=3&page_size=60&key=${key}`)
+      return dispatch({
+        type: actionTypes.getGamesByGenre,
+        data: results,
+      })
+    } catch (e) {
+      return dispatch({
+        type: actionTypes.error,
+        loading: false,
+      })
+    }
+  }
+  return { gamesData, fetchGamesByGenre, fetchPopularGames }
 }
