@@ -1,33 +1,36 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useMenuVisibilityToggle } from 'hooks/UseMenuVisibility'
-import { useToggle } from 'hooks/useToggle'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
-import DropdownPanel from '../DropdownPanel/DropdownPanel'
+import { DropdownPanel } from './Menu.style'
 import { Wrapper } from './Menu.style'
+import { Link } from 'react-router-dom'
+import SearchBar from 'components/atoms/SearchBar/SearchBar'
+import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
+import { menuPaths } from 'utils/manuPaths'
 
 export const Menu = ({ receivedRefs }) => {
   const wrapperRef = useRef(null)
-  const dropdownPanelRef = React.useRef()
   const visibility = useMenuVisibilityToggle(wrapperRef, receivedRefs)
-  const [toggle, setToggle] = useToggle(false)
-
-  useEffect(() => {
-    const handleOnClick = (e) => {
-      if (toggle && dropdownPanelRef.current && !dropdownPanelRef.current.contains(e.target)) {
-        setToggle()
-      }
-    }
-    document.addEventListener('click', handleOnClick)
-    return () => {
-      document.removeEventListener('click', handleOnClick)
-    }
-  }, [toggle])
+  const { itemProps, isOpen, setIsOpen } = useDropdownMenu(2)
 
   return (
     <Wrapper ref={wrapperRef} isVisible={visibility}>
-      <MenuButton toggle={toggle} onClick={setToggle} />
-      {toggle ? <DropdownPanel ref={dropdownPanelRef} /> : null}
+      <MenuButton role="button" aria-haspopup={true} aria-expanded={isOpen} toggle={isOpen} onClick={setIsOpen} />
+      {isOpen ? (
+        <DropdownPanel role="menu">
+          <ul>
+            {menuPaths.map(({ name, path }, i) => (
+              <li>
+                <Link role="menuitem" {...itemProps[i]} to={path} onClick={() => setIsOpen(false)}>
+                  <h2>{name}</h2>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <SearchBar />
+        </DropdownPanel>
+      ) : null}
     </Wrapper>
   )
 }
