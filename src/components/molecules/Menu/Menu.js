@@ -12,7 +12,7 @@ import { menuPaths } from 'utils/manuPaths'
 export const Menu = ({ receivedRefs }) => {
   const wrapperRef = useRef(null)
   const visibility = useMenuVisibilityToggle(wrapperRef, receivedRefs)
-  const { itemProps, isOpen, setIsOpen } = useDropdownMenu(2)
+  const { itemProps, isOpen, setIsOpen } = useDropdownMenu(menuPaths.length)
 
   return (
     <Wrapper ref={wrapperRef} isVisible={visibility}>
@@ -21,7 +21,7 @@ export const Menu = ({ receivedRefs }) => {
         <DropdownPanel role="menu">
           <ul>
             {menuPaths.map(({ name, path }, i) => (
-              <li>
+              <li key={name}>
                 <Link role="menuitem" {...itemProps[i]} to={path} onClick={() => setIsOpen(false)}>
                   <h2>{name}</h2>
                 </Link>
