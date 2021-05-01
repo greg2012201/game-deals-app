@@ -1,33 +1,32 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useMenuVisibilityToggle } from 'hooks/UseMenuVisibility'
-import { useToggle } from 'hooks/useToggle'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
-import DropdownPanel from '../DropdownPanel/DropdownPanel'
+import { DropdownPanel, PathsList, PathItem, NavLink } from './Menu.style'
 import { Wrapper } from './Menu.style'
+import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
+import { menuPaths } from 'utils/manuPaths'
 
 export const Menu = ({ receivedRefs }) => {
   const wrapperRef = useRef(null)
-  const dropdownPanelRef = React.useRef()
   const visibility = useMenuVisibilityToggle(wrapperRef, receivedRefs)
-  const [toggle, setToggle] = useToggle(false)
-
-  useEffect(() => {
-    const handleOnClick = (e) => {
-      if (toggle && dropdownPanelRef.current && !dropdownPanelRef.current.contains(e.target)) {
-        setToggle()
-      }
-    }
-    document.addEventListener('click', handleOnClick)
-    return () => {
-      document.removeEventListener('click', handleOnClick)
-    }
-  }, [toggle])
+  const { buttonProps, itemProps, isOpen, setIsOpen } = useDropdownMenu(menuPaths.length)
 
   return (
     <Wrapper ref={wrapperRef} isVisible={visibility}>
-      <MenuButton toggle={toggle} onClick={setToggle} />
-      {toggle ? <DropdownPanel ref={dropdownPanelRef} /> : null}
+      <MenuButton accesibleProps={buttonProps} role="button" toggle={isOpen} onClick={setIsOpen} />
+
+      <DropdownPanel role="menu" isOpen={isOpen}>
+        <PathsList>
+          {menuPaths.map(({ name, path }, i) => (
+            <PathItem key={name}>
+              <NavLink {...itemProps[i]} to={path} onClick={() => setIsOpen(false)}>
+                {name}
+              </NavLink>
+            </PathItem>
+          ))}
+        </PathsList>
+      </DropdownPanel>
     </Wrapper>
   )
 }

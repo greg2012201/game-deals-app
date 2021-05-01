@@ -5,7 +5,7 @@ import { Wrapper } from './MenuButton.style'
 
 export const MenuButton = (props) => {
   return (
-    <Wrapper {...props}>
+    <Wrapper {...props} {...props.accesibleProps}>
       <h1>Game-Deals</h1>
 
       <Icon />
@@ -14,7 +14,7 @@ export const MenuButton = (props) => {
 }
 
 MenuButton.propTypes = {
-  toggle: PropTypes.bool.isRequired,
+  toggle: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   onClick: PropTypes.func,
 }
 
