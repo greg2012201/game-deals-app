@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  height: 56px;
   z-index: ${({ isVisible }) => (isVisible ? '100' : '0')};
   bottom: calc(100vh - 56px);
   display: flex;
