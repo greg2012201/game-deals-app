@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useCallback, useReducer } from 'react'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import axios from 'axios'
 const actionTypes = {
@@ -32,14 +32,13 @@ const reducer = (state, action) => {
 
     case actionTypes.loading:
       return {
-        ...state,
+        ...initialState,
         loading: true,
       }
     case actionTypes.error:
       return {
-        ...state,
-        data: [],
-        loading: false,
+        ...initialState,
+
         error: `Something went wrong. We couldn't load your content, Sorry !`,
       }
     default:
@@ -49,7 +48,8 @@ const reducer = (state, action) => {
 export const useGamesList = () => {
   const [gamesData, dispatch] = useReducer(reducer, initialState)
 
-  const fetchPopularGames = async () => {
+  const fetchPopularGames = useCallback(async () => {
+    dispatch({ type: actionTypes.loading })
     try {
       const {
         data: { results },
@@ -60,11 +60,11 @@ export const useGamesList = () => {
       })
     } catch (e) {
       return dispatch({
-        type: actionTypes.games.error,
+        type: actionTypes.error,
       })
     }
-  }
-  const fetchGamesByGenre = async (id) => {
+  }, [])
+  const fetchGamesByGenre = useCallback(async (id) => {
     dispatch({ type: actionTypes.loading })
 
     try {
@@ -78,9 +78,8 @@ export const useGamesList = () => {
     } catch (e) {
       return dispatch({
         type: actionTypes.error,
-        loading: false,
       })
     }
-  }
+  }, [])
   return { gamesData, fetchGamesByGenre, fetchPopularGames }
 }

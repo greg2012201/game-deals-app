@@ -14,16 +14,17 @@ const ProductList = () => {
   const {
     data: { genresData },
   } = useContext(GamesContext)
-
   useEffect(() => {
     if (page === 'Home') {
       fetchPopularGames()
-    } else {
-      const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
-
-      return genre ? fetchGamesByGenre(genre.id) : null
     }
-  }, [page, genresData.data])
+  }, [page, fetchPopularGames])
+
+  useEffect(() => {
+    const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
+
+    return genre ? fetchGamesByGenre(genre.id) : null
+  }, [page, genresData.data, fetchGamesByGenre])
 
   return (
     <StyledList>

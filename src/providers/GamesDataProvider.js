@@ -38,6 +38,7 @@ const GamesDataProvider = ({ children }) => {
       const {
         data: { results },
       } = await axios.get(`${url}/genres?key=${key}`)
+
       dispatch({
         type: actionTypes.getGenre,
         data: results,
