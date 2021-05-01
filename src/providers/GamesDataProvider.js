@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { RAWGOptions } from 'utils/fetchingOptions'
@@ -33,7 +33,7 @@ const reducer = (state, action) => {
 const GamesDataProvider = ({ children }) => {
   const [data, dispatch] = useReducer(reducer, initialState)
 
-  const fetchGenres = async () => {
+  const fetchGenres = useCallback(async () => {
     try {
       const {
         data: { results },
@@ -46,7 +46,7 @@ const GamesDataProvider = ({ children }) => {
     } catch (e) {
       throw Error(e)
     }
-  }
+  }, [])
 
   return <GamesContext.Provider value={{ data, fetchGenres }}>{children}</GamesContext.Provider>
 }

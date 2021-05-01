@@ -22,7 +22,7 @@ export const Categories = React.forwardRef((props, ref) => {
   }
   useEffect(() => {
     fetchGenres()
-  }, [])
+  }, [fetchGenres])
 
   return (
     <Wrapper ref={ref} {...props}>
