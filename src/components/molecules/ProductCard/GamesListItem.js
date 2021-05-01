@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { StyledProductCard } from './ProductCard.style'
+import { StyledProductCard } from './GamesListItem.style'
 
-const ProductCard = ({ gamesData: { name, background_image, genres, slug } }) => {
+const GamesListItem = ({ gamesData: { name, background_image, genres, slug } }) => {
   return (
     <StyledProductCard>
       {background_image ? <img src={background_image} alt={name} /> : null}
@@ -19,7 +19,7 @@ const ProductCard = ({ gamesData: { name, background_image, genres, slug } }) =>
     </StyledProductCard>
   )
 }
-ProductCard.propTypes = {
+GamesListItem.propTypes = {
   gamesData: PropTypes.shape({
     name: PropTypes.string.isRequired,
     background_image: PropTypes.string,
@@ -27,4 +27,4 @@ ProductCard.propTypes = {
     slug: PropTypes.string.isRequired,
   }),
 }
-export default ProductCard
+export default GamesListItem

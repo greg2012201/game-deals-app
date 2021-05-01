@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useEffect } from 'react'
-import { ButtonsWrapper, PaginationButton, Wrapper } from './Categories.style'
+import { ButtonsWrapper, PaginationButton, Wrapper } from './Genres.style'
 import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
 import { Button } from 'components/atoms/Button/Button'
 import { customHorizontalScroll } from 'helpers/customScroll'
@@ -8,7 +8,7 @@ import { GamesContext } from 'providers/GamesDataProvider'
 import { Link } from 'react-router-dom'
 
 const scrollDistance = 200
-export const Categories = React.forwardRef((props, ref) => {
+export const Genres = React.forwardRef((props, ref) => {
   const buttonsWrapper = useRef(null)
 
   const {
@@ -46,4 +46,4 @@ export const Categories = React.forwardRef((props, ref) => {
     </Wrapper>
   )
 })
-export default Categories
+export default Genres

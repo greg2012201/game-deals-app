@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Categories from 'components/molecules/Categories/Categories'
+import Genres from 'components/molecules/Categories/Genres'
 import Menu from 'components/molecules/Menu/Menu'
 
 const Navigation = () => {
@@ -15,7 +15,7 @@ const Navigation = () => {
   return (
     <>
       <Menu receivedRefs={refs} />
-      <Categories ref={categoriesRef} />
+      <Genres ref={categoriesRef} />
     </>
   )
 }

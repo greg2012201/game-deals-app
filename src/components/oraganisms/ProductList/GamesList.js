@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
-import ProductCard from 'components/molecules/ProductCard/ProductCard'
-import { StyledList } from './ProductList.style'
+import ProductCard from 'components/molecules/ProductCard/GamesListItem'
+import { StyledList } from './GamesList.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useParams } from 'react-router'
 import { useGamesList } from 'hooks/useGamesList'
-const ProductList = () => {
+const GamesList = () => {
   const {
     gamesData: { data, error, loading },
     fetchGamesByGenre,
@@ -39,4 +39,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default GamesList

@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductList from 'components/oraganisms/ProductList/ProductList'
+import ProductList from 'components/oraganisms/ProductList/GamesList'
 
 const Dashboard = () => {
   return (
