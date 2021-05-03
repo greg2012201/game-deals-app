@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import ProductCard from 'components/molecules/ProductCard/GamesListItem'
+import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
 import { StyledList } from './GamesList.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useParams } from 'react-router'
