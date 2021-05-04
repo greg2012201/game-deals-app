@@ -81,5 +81,6 @@ export const useGamesList = () => {
       })
     }
   }, [])
+
   return { gamesData, fetchGamesByGenre, fetchPopularGames }
 }

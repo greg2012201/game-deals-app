@@ -1,21 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { StyledProductCard } from './GamesListItem.style'
 
-const GamesListItem = ({ gamesData: { name, background_image, genres, slug } }) => {
+import { GameLink, GenresLink, GenresWrapper, Rating, StyledProductCard } from './GamesListItem.style'
+
+const GamesListItem = ({ gamesData: { name, background_image, genres, slug, metacritic } }) => {
   return (
     <StyledProductCard>
       {background_image ? <img src={background_image} alt={name} /> : null}
 
-      <Link to={`games/${slug}`}>
-        <h2>{name}</h2>
-      </Link>
-      <p className="price">
-        {genres.map((e) => (
-          <span key={e.id}>{e.name}</span>
-        ))}
-      </p>
+      <GameLink to={`games/${slug}`}>{name}</GameLink>
+      {metacritic ? <Rating>{metacritic}</Rating> : null}
+      <GenresWrapper>
+        <p>Genres: </p>
+        <div>
+          {genres.map((e) => (
+            <GenresLink to={e.name} key={e.id}>
+              {e.name}{' '}
+            </GenresLink>
+          ))}
+        </div>
+      </GenresWrapper>
     </StyledProductCard>
   )
 }
