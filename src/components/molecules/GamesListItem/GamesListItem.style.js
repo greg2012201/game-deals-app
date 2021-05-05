@@ -18,11 +18,6 @@ export const StyledProductCard = styled.li`
     margin: 0;
     color: ${({ theme }) => theme.colors.white};
   }
-  /*   h2 {
-    line-height: 22px;
-    grid-row: 2/3;
-    grid-column: 1/5;
-  } */
 
   h2 {
     font-weight: bold;
@@ -48,20 +43,26 @@ export const GameLink = styled(Link)`
     color: ${({ theme }) => theme.colors.darkWhite};
   }
 `
-export const GenresWrapper = styled.div`
+export const GenresWrapper = styled.ul`
+  padding: 0;
   grid-row: 4;
   grid-column: 1/3;
   display: flex;
   justify-content: space-between;
+  color: ${({ theme }) => theme.colors.white};
 
-  div {
+  li {
+    list-style: none;
     padding-left: 40px;
   }
 `
 export const GenresLink = styled(Link)`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.darkWhite};
+  color: ${({ theme }) => theme.colors.white};
   text-align: right;
+  &:hover {
+    color: ${({ theme }) => theme.colors.darkWhite};
+  }
 `
 export const Rating = styled.div`
   display: flex;
@@ -73,7 +74,15 @@ export const Rating = styled.div`
   width: 25px;
   height: 25px;
   justify-self: end;
-  border: 1px solid #6dc849;
-  color: ${({ theme }) => theme.colors.green};
+  border: 1px solid ${({ theme }) => theme.colors.red};
+  color: ${({ theme }) => theme.colors.red};
   border-radius: 5px;
+  cursor: default;
+  ${({ value, theme }) => {
+    if (value >= 80) {
+      return `border-color : ${theme.colors.green}; color:${theme.colors.green};`
+    } else if (value >= 50) {
+      return `border-color : ${theme.colors.orange}; color:${theme.colors.orange};`
+    }
+  }}
 `
