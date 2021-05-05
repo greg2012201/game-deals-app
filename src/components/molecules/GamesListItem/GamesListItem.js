@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactTooltip from 'react-tooltip'
 
 import { GameLink, GenresLink, GenresWrapper, Rating, StyledProductCard } from './GamesListItem.style'
 
@@ -9,7 +10,12 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
       {background_image ? <img src={background_image} alt={name} /> : null}
 
       <GameLink to={`games/${slug}`}>{name}</GameLink>
-      {metacritic ? <Rating value={metacritic}>{metacritic}</Rating> : null}
+      {metacritic ? (
+        <Rating value={metacritic} data-tip="Metascore">
+          {metacritic}
+          <ReactTooltip />
+        </Rating>
+      ) : null}
       <GenresWrapper>
         Genres:
         <li>
