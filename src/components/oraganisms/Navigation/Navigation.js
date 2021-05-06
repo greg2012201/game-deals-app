@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Genres from 'components/molecules/Categories/Genres'
+import Genres from 'components/molecules/Genres/Genres'
 import Menu from 'components/molecules/Menu/Menu'
 
 const Navigation = () => {

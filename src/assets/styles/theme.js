@@ -1,6 +1,10 @@
 export const theme = {
   colors: {
     white: '#FFFFFF',
+    red: 'red',
+    green: '#6dc849',
+    orange: '#fdca52',
+    darkWhite: '#FFdd',
     lowTransparentBlack: 'rgba(0, 0, 0, 0.72)',
     semiTransparentBlack: 'rgba(0, 0, 0, 0.5)',
     black: '#232323',
@@ -18,6 +22,8 @@ export const theme = {
     m: '16px',
     l: '18px',
     xl: '26px',
+    xxl: '32px',
+    xxxl: '42px',
   },
   resolutions: {
     xl: 1200,
