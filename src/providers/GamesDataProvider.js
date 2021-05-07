@@ -10,10 +10,12 @@ export const GamesContext = React.createContext({
 
 const actionTypes = {
   getGenre: 'GET_GENRE',
+  loading: 'LOADING',
 }
 const initialState = {
   genresData: {
     data: [],
+    loading: true,
   },
 }
 const { url, key } = RAWGOptions
@@ -24,6 +26,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         genresData: { data: action.data },
+        loading: false,
+      }
+    case actionTypes.loading:
+      return {
+        ...state,
+
+        loading: true,
       }
 
     default:
@@ -34,6 +43,7 @@ const GamesDataProvider = ({ children }) => {
   const [data, dispatch] = useReducer(reducer, initialState)
 
   const fetchGenres = useCallback(async () => {
+    dispatch({ type: actionTypes.loading })
     try {
       const {
         data: { results },

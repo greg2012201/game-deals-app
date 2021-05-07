@@ -12,13 +12,14 @@ export const Genres = React.forwardRef((props, ref) => {
   const {
     data: {
       genresData: { data },
+      loading,
     },
     fetchGenres,
   } = useContext(GamesContext)
   const handleOnClick = (direction) => {
     customHorizontalScroll(direction, buttonsWrapper, scrollDistance)
   }
-  const isPagination = usePaginationButtons(buttonsWrapper)
+  const isPagination = usePaginationButtons(buttonsWrapper, loading)
   useEffect(() => {
     fetchGenres()
   }, [fetchGenres])
