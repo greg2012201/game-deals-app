@@ -36,6 +36,9 @@ export const PaginationButton = styled.button`
   }
 `
 export const ButtonsWrapper = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
   scrollbar-width: none;
   position: absolute;
   top: 50%;
