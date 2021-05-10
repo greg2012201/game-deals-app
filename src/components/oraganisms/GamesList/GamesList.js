@@ -4,11 +4,12 @@ import { StyledList } from './GamesList.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useParams } from 'react-router'
 import { useGamesList } from 'hooks/useGamesList'
+import { RAWGOptions } from 'utils/fetchingOptions'
+const { url, key } = RAWGOptions
 const GamesList = () => {
   const {
     gamesData: { data, error, loading },
-    fetchGamesByGenre,
-    fetchPopularGames,
+    fetchData,
   } = useGamesList()
   const { page } = useParams()
   const {
@@ -16,15 +17,15 @@ const GamesList = () => {
   } = useContext(GamesContext)
   useEffect(() => {
     if (page === 'Home') {
-      fetchPopularGames()
+      fetchData(`${url}/games?key=${key}`)
     }
-  }, [page, fetchPopularGames])
+  }, [page, fetchData])
 
   useEffect(() => {
     const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
 
-    return genre ? fetchGamesByGenre(genre.id) : null
-  }, [page, genresData.data, fetchGamesByGenre])
+    return genre ? fetchData(`${url}/games?genres=${genre.id}&page=3&page_size=60&key=${key}`) : null
+  }, [page, genresData.data, fetchData])
 
   return (
     <StyledList>

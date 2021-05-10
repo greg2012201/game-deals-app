@@ -1,9 +1,7 @@
 import { useCallback, useReducer } from 'react'
-import { RAWGOptions } from 'utils/fetchingOptions'
 import axios from 'axios'
 const actionTypes = {
-  getPopularGames: 'GET_POPULAR_GAMES',
-  getGamesByGenre: 'GET_GAMES_BY_GENRE',
+  getData: 'GET_DATA',
   lodaing: 'LOADING',
   error: 'ERROR',
 }
@@ -12,20 +10,12 @@ const initialState = {
   error: '',
   loading: true,
 }
-const { url, key } = RAWGOptions
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actionTypes.getPopularGames:
+    case actionTypes.getData:
       return {
         ...state,
-        data: action.data,
-        loading: false,
-      }
-    case actionTypes.getGamesByGenre:
-      return {
-        ...state,
-
         data: action.data,
         loading: false,
       }
@@ -48,14 +38,14 @@ const reducer = (state, action) => {
 export const useGamesList = () => {
   const [gamesData, dispatch] = useReducer(reducer, initialState)
 
-  const fetchPopularGames = useCallback(async () => {
+  const fetchData = useCallback(async (url) => {
     dispatch({ type: actionTypes.loading })
     try {
       const {
         data: { results },
-      } = await axios.get(`${url}/games?key=${key}`)
+      } = await axios.get(url)
       return dispatch({
-        type: actionTypes.getPopularGames,
+        type: actionTypes.getData,
         data: results,
       })
     } catch (e) {
@@ -64,23 +54,5 @@ export const useGamesList = () => {
       })
     }
   }, [])
-  const fetchGamesByGenre = useCallback(async (id) => {
-    dispatch({ type: actionTypes.loading })
-
-    try {
-      const {
-        data: { results },
-      } = await axios.get(`${url}/games?genres=${id}&page=3&page_size=60&key=${key}`)
-      return dispatch({
-        type: actionTypes.getGamesByGenre,
-        data: results,
-      })
-    } catch (e) {
-      return dispatch({
-        type: actionTypes.error,
-      })
-    }
-  }, [])
-
-  return { gamesData, fetchGamesByGenre, fetchPopularGames }
+  return { gamesData, fetchData }
 }
