@@ -36,10 +36,10 @@ export const Genres = React.forwardRef((props, ref) => {
           </PaginationButton>
         </>
       ) : null}
-      <ButtonsWrapper ref={buttonsWrapper}>
+      <ButtonsWrapper data-testid="buttons-wrapper" ref={buttonsWrapper}>
         {data.map(({ name, id }) => {
           return (
-            <StyledLinkButton key={name} to={`/${name}`}>
+            <StyledLinkButton data-testid="genre-link" key={id} to={`/${name}`}>
               {name}
             </StyledLinkButton>
           )
