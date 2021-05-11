@@ -39,6 +39,7 @@ GamesListItem.propTypes = {
     background_image: PropTypes.string,
     genres: PropTypes.array.isRequired,
     slug: PropTypes.string.isRequired,
+    metacritic: PropTypes.number,
   }),
 }
 export default GamesListItem
