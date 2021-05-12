@@ -19,11 +19,11 @@ const Root = () => {
               <Route exact path="/">
                 <Redirect to="/Home" />
               </Route>
-              <Route exact path="/:page?">
-                <Dashboard />
-              </Route>
-              <Route path="/games/:slug">
+              <Route exact path="/games/:slug?">
                 <Games />
+              </Route>
+              <Route path="/:page?/:detail?">
+                <Dashboard />
               </Route>
             </Switch>
           </MainTemplate>

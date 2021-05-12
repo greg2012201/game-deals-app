@@ -4,7 +4,6 @@ import ReactTooltip from 'react-tooltip'
 import { GameLink, GenresLink, GenresWrapper, Rating, StyledProductCard } from './GamesListItem.style'
 import { useLocation } from 'react-router'
 import { useScrollToTopWhenClickedLinkIsSameAsCurrentURL } from 'hooks/useScrollToTopWhenClickedLinkIsSameAsCurrentURL'
-
 const GamesListItem = ({ gamesData: { name, background_image, genres, slug, metacritic } }) => {
   const { pathname } = useLocation()
   const { handleOnClick } = useScrollToTopWhenClickedLinkIsSameAsCurrentURL(pathname)
@@ -13,7 +12,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
     <StyledProductCard>
       {background_image ? <img data-testid="image" src={background_image} alt={name} /> : <img data-testid="image" src="" alt={name} />}
 
-      <GameLink data-testid="game-link" to={`games/${slug}`}>
+      <GameLink data-testid="game-link" to={`/games/${slug}`}>
         {name}
       </GameLink>
 
@@ -27,7 +26,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
         Genres:
         <li>
           {genres.map((e) => (
-            <GenresLink data-testid="genre-link" data-tip="Metascore" onClick={(e) => handleOnClick(e)} to={e.name} key={e.id}>
+            <GenresLink data-testid="genre-link" data-tip="Metascore" onClick={(e) => handleOnClick(e)} to={`/genres/${e.name}`} key={e.id}>
               {e.name}{' '}
             </GenresLink>
           ))}

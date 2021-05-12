@@ -39,7 +39,7 @@ export const Genres = React.forwardRef((props, ref) => {
       <ButtonsWrapper data-testid="buttons-wrapper" ref={buttonsWrapper}>
         {data.map(({ name, id }) => {
           return (
-            <StyledLinkButton data-testid="genre-link" key={id} to={`/${name}`}>
+            <StyledLinkButton data-testid="genre-link" key={id} to={`/genres/${name}`}>
               {name}
             </StyledLinkButton>
           )

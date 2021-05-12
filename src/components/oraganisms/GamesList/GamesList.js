@@ -11,7 +11,7 @@ const GamesList = () => {
     gamesData: { data, error, loading },
     fetchData,
   } = useGamesList()
-  const { page } = useParams()
+  const { page, detail } = useParams()
   const {
     data: { genresData },
   } = useContext(GamesContext)
@@ -22,10 +22,11 @@ const GamesList = () => {
   }, [page, fetchData])
 
   useEffect(() => {
-    const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === page.toLowerCase() ? id : null))
+    if (!detail) return
+    const genre = genresData.data.find(({ id, name }) => (name.toLowerCase() === detail.toLowerCase() ? id : null))
 
     return genre ? fetchData(`${url}/games?genres=${genre.id}&page=3&page_size=60&key=${key}`) : null
-  }, [page, genresData.data, fetchData])
+  }, [page, genresData.data, fetchData, detail])
 
   return (
     <StyledList>
