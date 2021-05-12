@@ -11,20 +11,23 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
 
   return (
     <StyledProductCard>
-      {background_image ? <img src={background_image} alt={name} /> : null}
+      {background_image ? <img data-testid="image" src={background_image} alt={name} /> : <img data-testid="image" src="" alt={name} />}
 
-      <GameLink to={`games/${slug}`}>{name}</GameLink>
+      <GameLink data-testid="game-link" to={`games/${slug}`}>
+        {name}
+      </GameLink>
+
       {metacritic ? (
-        <Rating value={metacritic} data-tip="Metascore">
+        <Rating data-testid="metascore" value={metacritic} data-tip="Metascore">
           {metacritic}
-          <ReactTooltip />
+          <ReactTooltip data-testid="tooltip" />
         </Rating>
       ) : null}
       <GenresWrapper>
         Genres:
         <li>
           {genres.map((e) => (
-            <GenresLink data-tip="Metascore" onClick={(e) => handleOnClick(e)} to={e.name} key={e.id}>
+            <GenresLink data-testid="genre-link" data-tip="Metascore" onClick={(e) => handleOnClick(e)} to={e.name} key={e.id}>
               {e.name}{' '}
             </GenresLink>
           ))}
