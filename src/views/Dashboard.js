@@ -3,10 +3,10 @@ import ProductList from 'components/oraganisms/GamesList/GamesList'
 import { useParams } from 'react-router'
 import { Wrapper } from './Dashboard.style'
 const Dashboard = () => {
-  const { page, detail } = useParams()
+  const { page, slug } = useParams()
   return (
     <Wrapper>
-      <h3>{detail ? detail : page}</h3>
+      <h3>{slug ? slug : page}</h3>
       <ProductList />
     </Wrapper>
   )

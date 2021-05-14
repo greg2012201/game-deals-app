@@ -2,6 +2,7 @@ import { useCallback, useReducer } from 'react'
 import axios from 'axios'
 const actionTypes = {
   getData: 'GET_DATA',
+  getMoreData: 'GET_MORE_DATA',
   lodaing: 'LOADING',
   error: 'ERROR',
 }
@@ -19,10 +20,15 @@ const reducer = (state, action) => {
         data: action.data,
         loading: false,
       }
+    case actionTypes.getMoreData:
+      return {
+        ...state,
+        data: [...state.data, ...action.data],
+      }
 
     case actionTypes.loading:
       return {
-        ...initialState,
+        ...state,
         loading: true,
       }
     case actionTypes.error:
@@ -40,10 +46,12 @@ export const useGamesList = () => {
 
   const fetchData = useCallback(async (url) => {
     dispatch({ type: actionTypes.loading })
+
     try {
       const {
-        data: { results },
+        data: { results, next, count },
       } = await axios.get(url)
+
       return dispatch({
         type: actionTypes.getData,
         data: results,
@@ -54,5 +62,22 @@ export const useGamesList = () => {
       })
     }
   }, [])
-  return { gamesData, fetchData }
+  const fetchMoreData = useCallback(async (url) => {
+    /*  dispatch({ type: actionTypes.loading }) */
+    try {
+      const {
+        data: { results },
+      } = await axios.get(url)
+      return dispatch({
+        type: actionTypes.getMoreData,
+        data: results,
+      })
+    } catch (e) {
+      return dispatch({
+        type: actionTypes.error,
+      })
+    }
+  }, [])
+
+  return { gamesData, fetchData, fetchMoreData }
 }

@@ -22,7 +22,7 @@ const Root = () => {
               <Route exact path="/games/:slug?">
                 <Games />
               </Route>
-              <Route path="/:page?/:detail?">
+              <Route path="/:page?/:slug?">
                 <Dashboard />
               </Route>
             </Switch>
