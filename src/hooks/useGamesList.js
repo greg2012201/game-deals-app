@@ -8,6 +8,7 @@ const actionTypes = {
 }
 const initialState = {
   data: [],
+  pagination: '',
   error: '',
   loading: true,
 }
@@ -18,12 +19,14 @@ const reducer = (state, action) => {
       return {
         ...state,
         data: action.data,
+        pagination: action.pagination,
         loading: false,
       }
     case actionTypes.getMoreData:
       return {
         ...state,
         data: [...state.data, ...action.data],
+        pagination: action.pagination,
       }
 
     case actionTypes.loading:
@@ -49,12 +52,13 @@ export const useGamesList = () => {
 
     try {
       const {
-        data: { results, next, count },
+        data: { results, next },
       } = await axios.get(url)
 
       return dispatch({
         type: actionTypes.getData,
         data: results,
+        pagination: next,
       })
     } catch (e) {
       return dispatch({
@@ -63,14 +67,15 @@ export const useGamesList = () => {
     }
   }, [])
   const fetchMoreData = useCallback(async (url) => {
-    /*  dispatch({ type: actionTypes.loading }) */
     try {
       const {
-        data: { results },
+        data: { results, next },
       } = await axios.get(url)
+
       return dispatch({
         type: actionTypes.getMoreData,
         data: results,
+        pagination: next,
       })
     } catch (e) {
       return dispatch({
