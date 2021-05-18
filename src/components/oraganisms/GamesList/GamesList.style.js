@@ -1,3 +1,4 @@
+import Loader from 'react-loader-spinner'
 import styled from 'styled-components'
 
 export const StyledList = styled.ul`
@@ -9,4 +10,8 @@ export const StyledList = styled.ul`
   padding: 15px 10px;
   justify-content: center;
   overflow: hidden;
+`
+export const StyledLoader = styled(Loader)`
+  display: flex;
+  justify-content: center;
 `

@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
-import { StyledList } from './GamesList.style'
+import { StyledList, StyledLoader } from './GamesList.style'
 import { useParams } from 'react-router'
 import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { useTheme } from 'styled-components'
 
 const { url, key } = RAWGOptions
 const GamesList = () => {
+  const theme = useTheme()
   const {
     gamesData: { data, nextPage, limit, error, loading },
     resetData,
@@ -26,6 +28,7 @@ const GamesList = () => {
     if (!nextPage) return
     fetchData(nextPage)
   }
+
   return (
     <InfiniteScroll
       dataLength={data.length}
@@ -36,7 +39,7 @@ const GamesList = () => {
           <b>Yay! You have seen it all</b>
         </p>
       }
-      loader={!error ? <h4>Loading...</h4> : null}
+      loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
     >
       <StyledList>
         {loading ? (
