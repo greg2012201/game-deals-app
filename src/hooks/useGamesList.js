@@ -10,6 +10,7 @@ const actionTypes = {
 const initialState = {
   data: [],
   nextPage: '',
+  limit: 0,
   error: '',
   loading: true,
 }
@@ -21,6 +22,7 @@ const reducer = (state, action) => {
         ...state,
         data: [...state.data, ...action.data],
         nextPage: action.nextPage,
+        limit: action.limit,
         loading: false,
       }
 
@@ -49,13 +51,14 @@ export const useGamesList = () => {
   const fetchData = useCallback(async (url) => {
     try {
       const {
-        data: { results, next },
+        data: { results, next, count },
       } = await axios.get(url)
 
       return dispatch({
         type: actionTypes.getData,
         data: results,
         nextPage: next,
+        limit: count,
       })
     } catch (e) {
       return dispatch({

@@ -9,7 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 const { url, key } = RAWGOptions
 const GamesList = () => {
   const {
-    gamesData: { data, nextPage, error, loading },
+    gamesData: { data, nextPage, limit, error, loading },
     resetData,
     fetchData,
   } = useGamesList()
@@ -30,7 +30,7 @@ const GamesList = () => {
     <InfiniteScroll
       dataLength={data.length}
       next={handleFetchMoreData}
-      hasMore={nextPage !== null}
+      hasMore={data.length <= limit && nextPage !== null}
       endMessage={
         <p style={{ textAlign: 'center' }}>
           <b>Yay! You have seen it all</b>
