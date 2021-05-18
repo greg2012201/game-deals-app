@@ -9,26 +9,28 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 const { url, key } = RAWGOptions
 const GamesList = () => {
   const {
-    gamesData: { data, pagination, error, loading },
+    gamesData: { data, nextPage, error, loading },
+    resetData,
     fetchData,
-    fetchMoreData,
   } = useGamesList()
   const { page, slug } = useParams()
   useEffect(() => {
+    resetData()
+
     if (page === 'Home') {
       fetchData(`${url}/games?key=${key}`)
     } else if (page === 'genres') return fetchData(`${url}/games?genres=${slug}&key=${key}`)
-  }, [page, fetchData, slug])
+  }, [page, fetchData, slug, resetData])
 
   const handleFetchMoreData = () => {
-    if (!pagination) return
-    fetchMoreData(pagination)
+    if (!nextPage) return
+    fetchData(nextPage)
   }
   return (
     <InfiniteScroll
       dataLength={data.length}
       next={handleFetchMoreData}
-      hasMore={pagination !== null}
+      hasMore={nextPage !== null}
       endMessage={
         <p style={{ textAlign: 'center' }}>
           <b>Yay! You have seen it all</b>
