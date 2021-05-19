@@ -14,18 +14,22 @@ const GamesList = () => {
     gamesData: { data, nextPage, limit, error, loading },
     resetData,
     fetchData,
+    getCancelToken,
   } = useGamesList()
   const { page, slug } = useParams()
   useEffect(() => {
-    resetData()
-
+    const cancelToken = getCancelToken()
     if (page === 'Home') {
-      fetchData(`${url}/games?key=${key}`)
-    } else if (page === 'genres') return fetchData(`${url}/games?genres=${slug}&key=${key}`)
-  }, [page, fetchData, slug, resetData])
+      fetchData(`${url}/games?key=${key}`, cancelToken)
+    } else if (page === 'genres') fetchData(`${url}/games?genres=${slug}&key=${key}`, cancelToken)
+    return () => {
+      resetData(cancelToken)
+    }
+  }, [page, fetchData, slug, resetData, getCancelToken])
 
   const handleFetchMoreData = () => {
     if (!nextPage) return
+
     fetchData(nextPage)
   }
 
