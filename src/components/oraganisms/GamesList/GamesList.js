@@ -6,6 +6,7 @@ import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useTheme } from 'styled-components'
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
 
 const { url, key } = RAWGOptions
 const GamesList = () => {
@@ -43,7 +44,9 @@ const GamesList = () => {
     >
       <StyledList>
         {loading ? (
-          <p>{error && data.length === 0 ? error : null}</p>
+          error && data.length === 0 ? (
+            <ErrorMessage>{error}</ErrorMessage>
+          ) : null
         ) : (
           data.map((data) => {
             return <ProductCard key={data.id} gamesData={data} />
