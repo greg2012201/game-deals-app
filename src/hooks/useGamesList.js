@@ -1,12 +1,17 @@
 import { useCallback, useReducer } from 'react'
 import axios from 'axios'
+const fetchingCancelMessage = 'cancel'
 const actionTypes = {
   getData: 'GET_DATA',
+
+  reset: 'RESET',
   lodaing: 'LOADING',
   error: 'ERROR',
 }
 const initialState = {
   data: [],
+  nextPage: '',
+  limit: 0,
   error: '',
   loading: true,
 }
@@ -16,13 +21,15 @@ const reducer = (state, action) => {
     case actionTypes.getData:
       return {
         ...state,
-        data: action.data,
+        data: [...state.data, ...action.data],
+        nextPage: action.nextPage,
+        limit: action.limit,
         loading: false,
       }
 
     case actionTypes.loading:
       return {
-        ...initialState,
+        ...state,
         loading: true,
       }
     case actionTypes.error:
@@ -31,6 +38,10 @@ const reducer = (state, action) => {
 
         error: `Something went wrong. We couldn't load your content, Sorry !`,
       }
+    case actionTypes.reset:
+      return {
+        ...initialState,
+      }
     default:
       return state
   }
@@ -38,21 +49,42 @@ const reducer = (state, action) => {
 export const useGamesList = () => {
   const [gamesData, dispatch] = useReducer(reducer, initialState)
 
-  const fetchData = useCallback(async (url) => {
-    dispatch({ type: actionTypes.loading })
+  const fetchData = useCallback(async (url, source = null) => {
     try {
       const {
-        data: { results },
-      } = await axios.get(url)
+        data: { results, next, count },
+      } = await axios.get(
+        url,
+        source
+          ? {
+              cancelToken: source.token,
+            }
+          : null
+      )
+
       return dispatch({
         type: actionTypes.getData,
         data: results,
+        nextPage: next,
+        limit: count,
       })
     } catch (e) {
+      if (e.message === fetchingCancelMessage) return
       return dispatch({
         type: actionTypes.error,
       })
     }
   }, [])
-  return { gamesData, fetchData }
+  const resetData = useCallback((source) => {
+    source.cancel(fetchingCancelMessage)
+
+    dispatch({
+      type: actionTypes.reset,
+    })
+  }, [])
+  const getCancelToken = useCallback(() => {
+    return axios.CancelToken.source()
+  }, [])
+
+  return { gamesData, fetchData, resetData, getCancelToken }
 }

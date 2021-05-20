@@ -1,3 +1,4 @@
+import Loader from 'react-loader-spinner'
 import styled from 'styled-components'
 
 export const StyledList = styled.ul`
@@ -9,4 +10,17 @@ export const StyledList = styled.ul`
   padding: 15px 10px;
   justify-content: center;
   overflow: hidden;
+`
+export const StyledLoader = styled(Loader)`
+  display: flex;
+  justify-content: center;
+`
+export const StyledEndMessage = styled.p`
+  margin-top: 0;
+  margin-bottom: 50px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
+  letter-spacing: 1px;
+  line-height: 2em;
+  font-family: Lato;
 `
