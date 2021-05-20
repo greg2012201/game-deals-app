@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
-import { StyledList, StyledLoader } from './GamesList.style'
+import { StyledEndMessage, StyledList, StyledLoader } from './GamesList.style'
 import { useParams } from 'react-router'
 import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
@@ -38,11 +38,7 @@ const GamesList = () => {
       dataLength={data.length}
       next={handleFetchMoreData}
       hasMore={data.length <= limit && nextPage !== null}
-      endMessage={
-        <p style={{ textAlign: 'center' }}>
-          <b>Yay! You have seen it all</b>
-        </p>
-      }
+      endMessage={<StyledEndMessage style={{ textAlign: 'center' }}>Yay! You have seen it all</StyledEndMessage>}
       loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
     >
       <StyledList>

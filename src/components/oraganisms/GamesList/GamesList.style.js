@@ -15,3 +15,12 @@ export const StyledLoader = styled(Loader)`
   display: flex;
   justify-content: center;
 `
+export const StyledEndMessage = styled.p`
+  margin-top: 0;
+  margin-bottom: 50px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
+  letter-spacing: 1px;
+  line-height: 2em;
+  font-family: Lato;
+`
