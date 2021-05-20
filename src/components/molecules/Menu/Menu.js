@@ -1,11 +1,11 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useMenuVisibilityToggle } from 'hooks/UseMenuVisibility'
+import { useMenuVisibilityToggle } from 'hooks/useMenuVisibility'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
 import { DropdownPanel, PathsList, PathItem, NavLink } from './Menu.style'
 import { Wrapper } from './Menu.style'
 import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
-import { menuPaths } from 'utils/manuPaths'
+import { menuPaths } from 'utils/menuPaths'
 
 export const Menu = ({ receivedRefs }) => {
   const wrapperRef = useRef(null)

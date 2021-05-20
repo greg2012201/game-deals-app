@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import ProductList from 'components/oraganisms/GamesList/GamesList'
+import GamesList from 'components/oraganisms/GamesList/GamesList'
 import { useParams } from 'react-router'
 import { Wrapper } from './Dashboard.style'
 import { GamesContext } from 'providers/GamesDataProvider'
@@ -15,7 +15,7 @@ const Dashboard = () => {
   return (
     <Wrapper>
       <h3>{slug ? title : page}</h3>
-      <ProductList />
+      <GamesList />
     </Wrapper>
   )
 }
