@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 import { Wrapper } from './Dashboard.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useTitleByRoute } from 'hooks/useTitleByRoute'
+import ReturnButton from 'components/atoms/ReturnButton/ReturnButton'
 const Dashboard = () => {
   const {
     data: {
@@ -16,6 +17,7 @@ const Dashboard = () => {
     <Wrapper>
       <h3>{slug ? title : page}</h3>
       <GamesList />
+      <ReturnButton />
     </Wrapper>
   )
 }
