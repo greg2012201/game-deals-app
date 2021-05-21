@@ -1,7 +1,7 @@
 import React, { useRef, useContext, useEffect } from 'react'
 import { ButtonsWrapper, PaginationButton, StyledLinkButton, Wrapper } from './Genres.style'
 import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
-import { customHorizontalScroll } from 'helpers/customScroll'
+import { horizontalMenuScroll } from 'helpers/horizontalMenuScroll'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { usePaginationButtons } from 'hooks/usePaginationButtons'
 
@@ -17,7 +17,7 @@ export const Genres = React.forwardRef((props, ref) => {
     fetchGenres,
   } = useContext(GamesContext)
   const handleOnClick = (direction) => {
-    customHorizontalScroll(direction, buttonsWrapper, scrollDistance)
+    horizontalMenuScroll(direction, buttonsWrapper, scrollDistance)
   }
   const isPagination = usePaginationButtons(buttonsWrapper, loading)
   useEffect(() => {
