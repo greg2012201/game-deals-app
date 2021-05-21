@@ -25,7 +25,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
         Genres:
         <li>
           {genres.map((e) => (
-            <GenresLink data-testid="genre-link" data-tip="Metascore" onClick={(e) => handleOnClick(e)} to={`/genres/${e.slug}`} key={e.id}>
+            <GenresLink data-testid="genre-link" onClick={(e) => handleOnClick(e)} to={`/genres/${e.slug}`} key={e.id}>
               {e.name}{' '}
             </GenresLink>
           ))}
