@@ -6,8 +6,20 @@ import { useReturnButtonVisibility } from 'hooks/useReturnButtonVisibility'
 const ReturnButton = ({ props }) => {
   const button = useRef(null)
   const isVisible = useReturnButtonVisibility()
+
   return (
-    <Wrapper isVisible={isVisible} ref={button} {...props}>
+    <Wrapper
+      onClick={() =>
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })
+      }
+      isVisible={isVisible}
+      ref={button}
+      {...props}
+    >
       <ReturnArrow />
     </Wrapper>
   )
