@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 export const useScrollToTopWhenClickedLinkIsSameAsCurrentURL = (pathname) => {
   const [isClickedCurrentUrl, setClicked] = useState(false)
   const handleOnClick = (e) => {
@@ -8,7 +8,7 @@ export const useScrollToTopWhenClickedLinkIsSameAsCurrentURL = (pathname) => {
 
   useEffect(() => {
     if (!isClickedCurrentUrl) return
-    window.scrollTo(0, 0)
+    customSmoothScrollTo(0, 0)
   }, [isClickedCurrentUrl])
   return { handleOnClick }
 }
