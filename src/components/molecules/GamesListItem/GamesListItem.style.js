@@ -14,6 +14,10 @@ export const StyledProductCard = styled.li`
 
   font-family: Lato;
   font-style: normal;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  }
   p {
     margin: 0;
     color: ${({ theme }) => theme.colors.white};
