@@ -6,7 +6,7 @@ import MainTemplate from 'components/templates/MainTemplate/MainTemplate'
 import GamesDataProvider from 'providers/GamesDataProvider'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import Games from './Games'
+import GameDetails from './GameDetails'
 
 const Root = () => {
   return (
@@ -20,7 +20,7 @@ const Root = () => {
                 <Redirect to="/Home" />
               </Route>
               <Route exact path="/games/:slug?">
-                <Games />
+                <GameDetails />
               </Route>
               <Route path="/:page?/:slug?">
                 <Dashboard />

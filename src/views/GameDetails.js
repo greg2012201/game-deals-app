@@ -1,9 +1,9 @@
 import React from 'react'
 import { useGameDetail } from 'hooks/useGameDetail'
 import { useParams } from 'react-router'
-import { Wrapper } from './Games.style'
+import { Wrapper } from './GameDetails.style'
 
-const Games = () => {
+const GameDetails = () => {
   const { slug } = useParams()
 
   const {
@@ -14,4 +14,4 @@ const Games = () => {
   return <Wrapper>{!id && !error ? <p>loading...</p> : !error ? <h1 key={id}>{name}</h1> : <p>{error}</p>}</Wrapper>
 }
 
-export default Games
+export default GameDetails
