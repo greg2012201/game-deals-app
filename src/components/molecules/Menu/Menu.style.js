@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   left: 0;
   right: 0;
   height: 56px;
-  z-index: ${({ isVisible }) => (isVisible ? '100' : '0')};
+  z-index: ${({ isVisible }) => (isVisible ? '1' : '0')};
   bottom: calc(100vh - 56px);
   display: flex;
   grid-column: 1/2;
