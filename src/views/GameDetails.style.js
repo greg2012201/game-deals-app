@@ -6,12 +6,11 @@ export const Wrapper = styled.div`
   grid-row: 3;
   grid-column: 1/2;
   background-color: ${({ theme }) => theme.colors.lightBlack};
-  /* overflow: hidden; */
+  min-height: 100vh;
 `
 export const ScreenshotsWrapper = styled.div`
   display: flex;
   overflow-x: scroll;
-  justify-content: space-between;
   &::-webkit-scrollbar {
     display: none;
   }
