@@ -2,7 +2,7 @@ import React from 'react'
 import { useTheme } from 'styled-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation, Pagination, Keyboard } from 'swiper'
-import { Wrapper } from './Slider.style'
+import { Wrapper, Button } from './Slider.style'
 
 const Slider = ({ images, handleSliderClose, isOpen, index }) => {
   const theme = useTheme()
@@ -11,8 +11,6 @@ const Slider = ({ images, handleSliderClose, isOpen, index }) => {
   return (
     <Wrapper
       style={{ overlay: { zIndex: 10, backgroundColor: theme.colors.deepBlack } }}
-      portalClassName={'ReactModalPortal'}
-      className={'MODAL'}
       appElement={document.getElementById('app')}
       onRequestClose={handleSliderClose}
       shouldCloseOnEsc={true}
@@ -28,7 +26,7 @@ const Slider = ({ images, handleSliderClose, isOpen, index }) => {
         </Swiper>
       ) : null}
 
-      <button onClick={handleSliderClose}>close</button>
+      <Button isExit onClick={handleSliderClose} />
     </Wrapper>
   )
 }
