@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { useGameDetails } from 'hooks/useGameDetails'
 import { useParams } from 'react-router'
-import { Wrapper, ScreenshotsWrapper, ImgItem } from './GameDetails.style'
+import { Wrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Slider from 'components/molecules/Slider/Slider'
 import { useSlider } from 'components/molecules/Slider/useSlider'
+import Gallery from 'components/molecules/Gallery/Gallery'
+import { Title } from 'components/atoms/Title/Title.style'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -27,13 +29,9 @@ const GameDetails = () => {
         <p>loading...</p>
       ) : !error ? (
         <>
-          <h1 key={id}>{name}</h1>
+          <Title key={id}>{name}</Title>
           <>
-            <ScreenshotsWrapper>
-              {screenshots.map(({ image, id }, i) => (
-                <ImgItem onClick={(e) => handleSliderOpen(e)} data-index={i} key={id} data-testid="image" src={image} alt={name} />
-              ))}
-            </ScreenshotsWrapper>
+            <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
             <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
           </>
           <p>{description_raw}</p>

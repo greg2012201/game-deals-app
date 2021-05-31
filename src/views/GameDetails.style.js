@@ -7,47 +7,11 @@ export const Wrapper = styled.div`
   grid-column: 1/2;
   background-color: ${({ theme }) => theme.colors.lightBlack};
   min-height: 100vh;
-`
-export const ScreenshotsWrapper = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (min-width: 980px) {
-    & {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      grid-template-rows: 300px 120px 120px;
-      width: 390px;
-
-      img:first-of-type {
-        grid-column: 1/3;
-        grid-row: 1/2;
-        width: 95%;
-        height: 95%;
+  h3 {
+    @media (min-width: 980px) {
+      & {
+        font-size: ${({ theme }) => theme.fontSize.xxxl};
       }
-    }
-  }
-`
-export const ImgItem = styled.img`
-  margin: 0;
-  padding: 0;
-  margin-right: 10px;
-  width: 264px;
-  height: 168px;
-  border-radius: 10px;
-
-  @media (min-width: 980px) {
-    display: ${(props) => (props['data-index'] >= 5 ? 'none' : 'block')};
-
-    & {
-      margin: 0;
-      align-self: center;
-      justify-self: center;
-      width: 90%;
-      height: 90%;
     }
   }
 `
