@@ -7,7 +7,7 @@ import 'swiper/swiper-bundle.css'
 import Slider from 'components/molecules/Slider/Slider'
 import { useSlider } from 'components/molecules/Slider/useSlider'
 import Gallery from 'components/molecules/Gallery/Gallery'
-import { Title } from 'components/atoms/Title/Title.style'
+import Title from 'components/atoms/Title/Title'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -34,6 +34,7 @@ const GameDetails = () => {
             <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
             <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
           </>
+          <Title isSubTitle>About</Title>
           <p>{description_raw}</p>
         </>
       ) : (

@@ -7,7 +7,7 @@ import { useTitleByRoute } from 'hooks/useTitleByRoute'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { useVisibilityOnScroll } from 'hooks/useVisibilityOnScroll'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
-import { Title } from 'components/atoms/Title/Title.style'
+import Title from 'components/atoms/Title/Title'
 const Dashboard = () => {
   const {
     data: {
@@ -19,7 +19,7 @@ const Dashboard = () => {
   const { title } = useTitleByRoute(data, slug)
   return (
     <Wrapper>
-      <Title>{slug ? title : page}</Title>
+      <Title isMain>{slug ? title : page}</Title>
       <GamesList />
       <RoundButton onClick={customSmoothScrollTo} isVisible={isVisible} isReturn={true} />
     </Wrapper>

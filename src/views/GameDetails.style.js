@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   grid-column: 1/2;
   background-color: ${({ theme }) => theme.colors.lightBlack};
   min-height: 100vh;
-  h3 {
+  h1 {
     @media (min-width: 980px) {
       & {
         font-size: ${({ theme }) => theme.fontSize.xxxl};
