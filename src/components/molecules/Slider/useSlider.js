@@ -5,7 +5,7 @@ export const useSlider = () => {
   const [index, setIndex] = useState(false)
 
   const handleSliderOpen = (e) => {
-    setIndex(parseInt(e.target.getAttribute('index')))
+    setIndex(parseInt(e.target.getAttribute('data-index')))
     setOpen(true)
   }
   const handleSliderClose = () => setOpen(false)
@@ -13,6 +13,5 @@ export const useSlider = () => {
     if (isOpen) document.body.style.overflow = 'hidden'
     return () => (document.body.style.overflow = 'visible')
   }, [isOpen])
-
   return { isOpen, index, handleSliderClose, handleSliderOpen }
 }

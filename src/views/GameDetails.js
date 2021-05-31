@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useGameDetails } from 'hooks/useGameDetails'
 import { useParams } from 'react-router'
-import { Wrapper, ScreenshotsWrapper } from './GameDetails.style'
+import { Wrapper, ScreenshotsWrapper, ImgItem } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Slider from 'components/molecules/Slider/Slider'
@@ -31,7 +31,7 @@ const GameDetails = () => {
           <>
             <ScreenshotsWrapper>
               {screenshots.map(({ image, id }, i) => (
-                <img onClick={(e) => handleSliderOpen(e)} index={i} key={id} data-testid="image" src={image} alt={name} />
+                <ImgItem onClick={(e) => handleSliderOpen(e)} data-index={i} key={id} data-testid="image" src={image} alt={name} />
               ))}
             </ScreenshotsWrapper>
             <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
