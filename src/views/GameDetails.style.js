@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  z-index: 10;
 
   h1 {
     @media (min-width: 980px) {
@@ -30,7 +29,7 @@ export const Mask = styled.div`
   min-height: 100vh;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.lowTransparentBlack};
-  z-index: 2;
+
   div,
   h1,
   h2 {
