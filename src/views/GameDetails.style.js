@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import { Wrapper as GalleryWrapper } from 'components/molecules/Gallery/Gallery.style'
 
 export const Wrapper = styled.div`
+  box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,10 +10,12 @@ export const Wrapper = styled.div`
   grid-column: 1/2;
   background-color: ${({ theme }) => theme.colors.lightBlack};
   min-height: 100vh;
+
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   z-index: 10;
+
   h1 {
     @media (min-width: 980px) {
       & {
@@ -22,8 +26,19 @@ export const Wrapper = styled.div`
 `
 
 export const Mask = styled.div`
+  box-sizing: border-box;
   min-height: 100vh;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.lowTransparentBlack};
   z-index: 2;
+  div,
+  h1,
+  h2 {
+    margin: 20px;
+  }
+  ${GalleryWrapper} {
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 20px;
+  }
 `
