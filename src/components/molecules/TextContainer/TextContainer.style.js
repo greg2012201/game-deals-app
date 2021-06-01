@@ -5,7 +5,6 @@ export const ContentWrapper = styled.div`
   line-height: 20px;
   padding: 10px;
   overflow: hidden;
-  max-width: 400px;
 `
 export const ReadMoreButton = styled.button`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
