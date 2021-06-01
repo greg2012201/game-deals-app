@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useGameDetails } from 'hooks/useGameDetails'
 import { useParams } from 'react-router'
-import { Wrapper } from './GameDetails.style'
+import { Mask, Wrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Slider from 'components/molecules/Slider/Slider'
@@ -14,7 +14,7 @@ const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
   const {
-    data: { name, id, description_raw /* background_image_additional */ },
+    data: { name, id, description_raw, background_image },
     screenshots,
     error,
     fetchData,
@@ -25,22 +25,24 @@ const GameDetails = () => {
   }, [fetchData, slug])
 
   return (
-    <Wrapper>
-      {!id && !error ? (
-        <p>loading...</p>
-      ) : !error ? (
-        <>
-          <Title key={id}>{name}</Title>
+    <Wrapper style={{ backgroundImage: `url(${background_image})` }}>
+      <Mask>
+        {!id && !error ? (
+          <p>loading...</p>
+        ) : !error ? (
           <>
-            <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
-            <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
+            <Title key={id}>{name}</Title>
+            <>
+              <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
+              <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
+            </>
+            <Title isSubTitle>About</Title>
+            <TextContainer>{description_raw}</TextContainer>
           </>
-          <Title isSubTitle>About</Title>
-          <TextContainer>{description_raw}</TextContainer>
-        </>
-      ) : (
-        <p>{error}</p>
-      )}
+        ) : (
+          <p>{error}</p>
+        )}
+      </Mask>
     </Wrapper>
   )
 }
