@@ -9,4 +9,8 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBlack};
 
   min-height: 100vh;
+
+  h1 {
+    padding-left: 30px;
+  }
 `
