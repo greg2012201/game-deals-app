@@ -8,6 +8,7 @@ import Slider from 'components/molecules/Slider/Slider'
 import { useSlider } from 'components/molecules/Slider/useSlider'
 import Gallery from 'components/molecules/Gallery/Gallery'
 import Title from 'components/atoms/Title/Title'
+import TextContainer from 'components/molecules/TextContainer/TextContainer'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -35,7 +36,7 @@ const GameDetails = () => {
             <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
           </>
           <Title isSubTitle>About</Title>
-          <p>{description_raw}</p>
+          <TextContainer>{description_raw}</TextContainer>
         </>
       ) : (
         <p>{error}</p>
