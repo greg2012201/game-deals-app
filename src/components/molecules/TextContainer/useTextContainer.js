@@ -1,21 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
-export const useTextContainer = (viewHeight, paragraph) => {
+export const useTextContainer = (view, paragraph) => {
   const [isOpen, setOpen] = useState(false)
-  const [isButtonVisible, setButtonVisible] = useState('')
-
+  const [isButtonVisible, setButtonVisible] = useState(false)
+  const heightComparison = useCallback(() => {
+    if (paragraph.current.getBoundingClientRect().height < view.current.getBoundingClientRect().height) {
+      setButtonVisible(false)
+    } else setButtonVisible(true)
+  }, [paragraph, view])
+  const handleOnResize = useCallback(() => {
+    setOpen(false)
+    heightComparison()
+  }, [heightComparison])
   useEffect(() => {
-    const handleOnResize = () => {
-      if (paragraph.current.getBoundingClientRect().height >= viewHeight) {
-        setButtonVisible(true)
-      } else setButtonVisible(false)
-    }
-    handleOnResize()
+    heightComparison()
+
     window.addEventListener('resize', handleOnResize)
+
     return () => {
       setOpen(false)
+      setButtonVisible(false)
       window.removeEventListener('resize', handleOnResize)
     }
-  }, [paragraph, viewHeight])
+  }, [paragraph, view, heightComparison, handleOnResize])
   return { isOpen, isButtonVisible, setOpen }
 }

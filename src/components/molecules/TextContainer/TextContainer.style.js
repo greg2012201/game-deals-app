@@ -17,9 +17,12 @@ export const ReadMoreButton = styled.button`
   border: ${({ theme }) => theme.colors.black};
 `
 export const StyledP = styled.p`
-  max-height: ${({ isOpen, viewHeight }) => (isOpen ? 'auto' : `${viewHeight}px`)};
-  overflow: hidden;
   color: ${({ theme }) => theme.colors.white};
   font-family: Lato;
   text-align: justify;
+`
+
+export const ViewWrapper = styled.div`
+  overflow: hidden;
+  max-height: ${({ isOpen, viewHeight }) => (isOpen ? 'auto' : '200px')};
 `
