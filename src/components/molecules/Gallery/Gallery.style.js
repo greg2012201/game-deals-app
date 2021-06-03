@@ -30,7 +30,7 @@ export const ImgItem = styled.img`
   width: 264px;
   height: 168px;
   border-radius: 10px;
-
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   @media (min-width: 980px) {
     display: ${(props) => (props['data-index'] >= 5 ? 'none' : 'block')};
 
@@ -40,6 +40,12 @@ export const ImgItem = styled.img`
       justify-self: center;
       width: 90%;
       height: 90%;
+      cursor: pointer;
+      box-shadow: none;
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        transition: 0.2s;
+      }
     }
   }
 `
