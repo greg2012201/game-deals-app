@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Button = styled.button`
+  display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   font-family: Lato;
   font-style: normal;
   font-weight: bold;

@@ -20,6 +20,6 @@ export const useGameDetails = () => {
       )
       .catch(() => setError('Something went wrong'))
   }, [])
-
+  console.log(data)
   return { screenshots, data, error, fetchData }
 }
