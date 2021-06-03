@@ -12,4 +12,13 @@ export const Button = styled.button`
   border: none;
   background-color: ${({ theme, isLight }) => (isLight ? theme.colors.white : theme.colors.lightGrey)};
   color: ${({ theme, isLight }) => (isLight ? theme.colors.black : theme.colors.white)};
+  @media (min-width: 980px) {
+    & {
+      cursor: pointer;
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        transition: 0.2s;
+      }
+    }
+  }
 `
