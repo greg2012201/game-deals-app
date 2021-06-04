@@ -8,13 +8,14 @@ import Slider from 'components/molecules/Slider/Slider'
 import { useSlider } from 'components/molecules/Slider/useSlider'
 import Gallery from 'components/molecules/Gallery/Gallery'
 import Title from 'components/atoms/Title/Title'
-import TextContainer from 'components/molecules/TextContainer/TextContainer'
+
+import ArticleTemplate from 'components/templates/ArticleTemplate/ArticleTemplate'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
   const {
-    data: { name, id, description_raw, background_image },
+    data: { name, id, description_raw: descripton, background_image: backgroundImage },
     screenshots,
     error,
     fetchData,
@@ -25,7 +26,7 @@ const GameDetails = () => {
   }, [fetchData, slug])
 
   return (
-    <Wrapper style={{ backgroundImage: `url(${background_image})` }}>
+    <Wrapper style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Mask>
         {!id && !error ? (
           <p>loading...</p>
@@ -36,8 +37,7 @@ const GameDetails = () => {
               <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
               <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
             </>
-            <Title isSubTitle>About</Title>
-            <TextContainer>{description_raw}</TextContainer>
+            <ArticleTemplate textContent={descripton} title={'About'} />
           </>
         ) : (
           <p>{error}</p>
