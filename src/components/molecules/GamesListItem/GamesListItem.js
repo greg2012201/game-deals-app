@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactTooltip from 'react-tooltip'
-import { GameLink, GenresLink, GenresWrapper, Rating, StyledProductCard } from './GamesListItem.style'
+import { GameLink, GenresLink, GenresWrapper, StyledProductCard } from './GamesListItem.style'
 import { useLocation } from 'react-router'
 import { useScrollToTopWhenClickedLinkIsSameAsCurrentURL } from 'hooks/useScrollToTopWhenClickedLinkIsSameAsCurrentURL'
+import { Score } from 'components/atoms/Score/Score'
 const GamesListItem = ({ gamesData: { name, background_image, genres, slug, metacritic } }) => {
   const { pathname } = useLocation()
   const { handleOnClick } = useScrollToTopWhenClickedLinkIsSameAsCurrentURL(pathname)
@@ -16,10 +17,10 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
         {name}
       </GameLink>
       {metacritic ? (
-        <Rating data-testid="metascore" value={metacritic} data-tip="Metascore">
+        <Score data-testid="metascore" value={metacritic} data-tip="Metascore">
           {metacritic}
           <ReactTooltip data-testid="tooltip" />
-        </Rating>
+        </Score>
       ) : null}
       <GenresWrapper>
         Genres:
