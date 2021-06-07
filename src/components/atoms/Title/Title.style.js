@@ -1,18 +1,23 @@
 import styled from 'styled-components'
 
-export const MainTitle = styled.h1`
+export const StyledH1 = styled.h1`
   display: block;
   font-family: Lato;
   font-weight: 900;
-  font-size: ${({ theme }) => theme.fontSize.xxl};
   color: ${({ theme }) => theme.colors.white};
   letter-spacing: 3px;
 `
-export const SubTitle = styled.h2`
+export const StyledH2 = styled.h2`
   margin: 0;
   display: block;
   font-family: Lato;
   font-weight: 600;
-  font-size: ${({ theme }) => theme.fontSize.xxl};
+  color: ${({ theme }) => theme.colors.white};
+`
+export const StyledH3 = styled.h3`
+  margin: 0;
+  display: block;
+  font-family: Lato;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.white};
 `

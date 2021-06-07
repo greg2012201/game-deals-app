@@ -6,7 +6,7 @@ import { ArticleWrapper } from './ArticleTemplate.style'
 const ArticleTemplate = ({ textContent, title }) => {
   return (
     <ArticleWrapper>
-      <Title isSubTitle>{title}</Title>
+      <Title titleType="h2">{title}</Title>
       <TextContainer>{textContent}</TextContainer>
     </ArticleWrapper>
   )

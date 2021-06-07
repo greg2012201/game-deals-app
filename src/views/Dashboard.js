@@ -19,7 +19,7 @@ const Dashboard = () => {
   const { title } = useTitleByRoute(data, slug)
   return (
     <Wrapper>
-      <Title isMain>{slug ? title : page}</Title>
+      <Title>{slug ? title : page}</Title>
       <GamesList />
       <RoundButton onClick={customSmoothScrollTo} isVisible={isVisible} isReturn={true} />
     </Wrapper>
