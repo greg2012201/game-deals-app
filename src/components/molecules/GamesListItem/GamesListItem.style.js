@@ -1,3 +1,4 @@
+import { Score } from 'components/atoms/Score/Score'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -15,6 +16,10 @@ export const StyledProductCard = styled.li`
   font-family: Lato;
   font-style: normal;
   transition: 0.2s;
+
+  ${Score} {
+    margin: 10px 0 -15px;
+  }
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   }
