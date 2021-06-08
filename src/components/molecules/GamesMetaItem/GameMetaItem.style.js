@@ -2,6 +2,9 @@ import { StyledH3 } from 'components/atoms/Title/Title.style'
 import styled from 'styled-components'
 
 export const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   p,
   a {
     margin: 0;
