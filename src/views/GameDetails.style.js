@@ -27,12 +27,11 @@ export const Wrapper = styled.div`
 export const Mask = styled.div`
   box-sizing: border-box;
   min-height: 100vh;
+
   width: 100%;
   background-color: ${({ theme }) => theme.colors.lowTransparentBlack};
 
-  div,
-  h1,
-  h2 {
+  h1 {
     margin: 20px;
   }
   ${GalleryWrapper} {
@@ -40,4 +39,10 @@ export const Mask = styled.div`
     margin-left: 0;
     padding-left: 20px;
   }
+`
+export const InformationsContainer = styled.div`
+  margin-top: 20px;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.lightBlack};
+  width: 100%;
 `
