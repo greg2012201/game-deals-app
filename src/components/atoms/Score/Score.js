@@ -4,7 +4,7 @@ export const Score = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 0 -15px;
+
   grid-row: 2;
   grid-column: 2;
   width: 25px;
@@ -14,6 +14,9 @@ export const Score = styled.div`
   color: ${({ theme }) => theme.colors.red};
   border-radius: 5px;
   cursor: default;
+  font-family: Lato;
+  background-color: transparent;
+
   ${({ value, theme }) => {
     if (value >= 80) {
       return `border-color : ${theme.colors.green}; color:${theme.colors.green};`
