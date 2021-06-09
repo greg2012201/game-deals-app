@@ -14,5 +14,9 @@ export const MetaContentWrapper = styled.div`
     margin: 0;
     padding: 0;
   }
+  h2 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
   color: ${({ theme }) => theme.colors.white};
 `
