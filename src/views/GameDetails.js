@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useGameDetails } from 'hooks/useGameDetails'
 import { useParams } from 'react-router'
-import { Mask, Wrapper, InformationsContainer } from './GameDetails.style'
+import { Mask, Wrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Slider from 'components/molecules/Slider/Slider'
@@ -11,6 +11,8 @@ import Title from 'components/atoms/Title/Title'
 
 import ArticleTemplate from 'components/templates/ArticleTemplate/ArticleTemplate'
 import GameMetaWrapper from 'components/molecules/GameMetaWrapper/GameMetaWrapper'
+import PCRequirements from 'components/molecules/PCRequirements/PCRequirements'
+import { InformationsTemplate } from 'components/templates/InformationsTemplate/InformationsTemplate'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -40,9 +42,10 @@ const GameDetails = () => {
               <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
             </>
             <ArticleTemplate textContent={descripton} title={'About'} />
-            <InformationsContainer>
+            <InformationsTemplate>
               <GameMetaWrapper data={data} />
-            </InformationsContainer>
+              <PCRequirements data={data} />
+            </InformationsTemplate>
           </>
         ) : (
           <p>{error}</p>
