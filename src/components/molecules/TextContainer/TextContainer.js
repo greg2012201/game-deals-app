@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import { useTextContainer } from './useTextContainer'
-import { ContentWrapper, ViewWrapper, StyledP } from './TextContainer.style'
+import { ContentWrapper, ViewWrapper } from './TextContainer.style'
 import { Button } from 'components/atoms/Button/Button'
-const TextContainer = ({ children, viewHeight = 200 }) => {
+import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
+const TextContainer = ({ children, viewHeight = 200, keyProvider = 1 }) => {
   const view = useRef(null)
   const paragraph = useRef(null)
 
@@ -10,7 +11,9 @@ const TextContainer = ({ children, viewHeight = 200 }) => {
   return (
     <ContentWrapper>
       <ViewWrapper viewHeight={viewHeight} ref={view} isOpen={isOpen}>
-        <StyledP ref={paragraph}>{children}</StyledP>
+        <Paragraph key={1} ref={paragraph}>
+          {children}
+        </Paragraph>
       </ViewWrapper>
       <Button isLight isVisible={isButtonVisible} onClick={() => setOpen((toggle) => !toggle)}>
         {isOpen ? 'Show less' : 'Read more'}
