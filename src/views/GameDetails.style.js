@@ -41,6 +41,8 @@ export const Mask = styled.div`
   }
 `
 export const InformationsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.lightBlack};
