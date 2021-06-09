@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
 import { StyledEndMessage, StyledList, StyledLoader } from './GamesList.style'
 import { useParams } from 'react-router'
-import { useGamesList } from 'hooks/useGamesList'
+import { useFetchData } from 'hooks/useFetchData'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useTheme } from 'styled-components'
@@ -13,11 +13,11 @@ const { url, key } = RAWGOptions
 const GamesList = () => {
   const theme = useTheme()
   const {
-    gamesData: { data, nextPage, limit, error, loading },
+    fetchedData: { data, nextPage, limit, error, loading },
     resetData,
     fetchData,
     getCancelToken,
-  } = useGamesList()
+  } = useFetchData()
   const { page, slug } = useParams()
   useEffect(() => {
     const cancelToken = getCancelToken()
