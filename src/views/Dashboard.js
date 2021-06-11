@@ -5,7 +5,6 @@ import { Wrapper } from './Dashboard.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useTitleByRoute } from 'hooks/useTitleByRoute'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
-import { useVisibilityOnScroll } from 'hooks/useVisibilityOnScroll'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import Title from 'components/atoms/Title/Title'
 import { useGamesList } from 'hooks/useGamesList'
@@ -17,7 +16,7 @@ const Dashboard = () => {
       genresData: { data },
     },
   } = useContext(GamesContext)
-  const isVisible = useVisibilityOnScroll()
+
   const { page, slug } = useParams()
   const { title } = useTitleByRoute(data, slug)
 
@@ -37,7 +36,7 @@ const Dashboard = () => {
     <Wrapper>
       <Title>{slug ? title : page}</Title>
       <GamesList fetchMoreData={fetchData} fetchedData={fetchedData} />
-      <RoundButton onClick={customSmoothScrollTo} isVisible={isVisible} isReturn={true} />
+      <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
     </Wrapper>
   )
 }
