@@ -8,7 +8,7 @@ import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { useVisibilityOnScroll } from 'hooks/useVisibilityOnScroll'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import Title from 'components/atoms/Title/Title'
-import { useFetchData } from 'hooks/useFetchData'
+import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
 const { url, key } = RAWGOptions
 const Dashboard = () => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
   const { page, slug } = useParams()
   const { title } = useTitleByRoute(data, slug)
 
-  const { fetchedData, resetData, fetchData, getCancelToken } = useFetchData()
+  const { fetchedData, resetData, fetchData, getCancelToken } = useGamesList()
 
   useEffect(() => {
     const cancelToken = getCancelToken()

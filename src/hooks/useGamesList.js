@@ -46,7 +46,7 @@ const reducer = (state, action) => {
       return state
   }
 }
-export const useFetchData = () => {
+export const useGamesList = () => {
   const [fetchedData, dispatch] = useReducer(reducer, initialState)
 
   const fetchData = useCallback(async (url, source = null) => {
