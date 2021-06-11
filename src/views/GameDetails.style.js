@@ -40,3 +40,9 @@ export const Mask = styled.div`
     padding-left: 20px;
   }
 `
+export const ListWrapper = styled.div`
+  margin-top: 20px;
+  h2 {
+    margin-left: 20px;
+  }
+`
