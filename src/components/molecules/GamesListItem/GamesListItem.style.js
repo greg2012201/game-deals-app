@@ -11,7 +11,7 @@ export const StyledProductCard = styled.li`
   grid-template-rows: 2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
-  background-color: ${({ theme }) => theme.colors.transparentGrey};
+  background-color: ${({ theme }) => theme.colors.darkerGrey};
 
   font-family: Lato;
   font-style: normal;

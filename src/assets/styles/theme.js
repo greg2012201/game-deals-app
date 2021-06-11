@@ -12,6 +12,7 @@ export const theme = {
     lightBlack: '#262626',
     transparentGrey: 'rgba(196, 196, 196, 0.2)',
     grey: '#474747',
+    darkerGrey: '#454545',
     violet: '#3A4CEE',
     transparentViolet: 'rgba(58, 76, 238, 0.8);',
     lightGrey: '#434343',
