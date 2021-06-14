@@ -1,4 +1,3 @@
-import { StyledH3 } from 'components/atoms/Title/Title.style'
 import styled from 'styled-components'
 
 export const ItemWrapper = styled.div`
@@ -18,9 +17,7 @@ export const ItemWrapper = styled.div`
   }
   width: 50%;
 
-  ${StyledH3} {
+  h4 {
     margin-bottom: 10px;
-    font-size: ${({ theme }) => theme.fontSize.m};
-    color: ${({ theme }) => theme.colors.lighterGrey};
   }
 `

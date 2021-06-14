@@ -7,14 +7,14 @@ function GameMetaItem({ children, title, data = [], text = '', handleClassName }
     <ItemWrapper className={handleClassName}>
       {data.length !== 0 ? (
         <>
-          <Title titleType="h3">{title}</Title>
+          <Title titleType="h4">{title}</Title>
           {data.map(({ id, name }) => (
             <p key={id}>{name}</p>
           ))}
         </>
       ) : (
         <>
-          <Title titleType="h3">{title}</Title>
+          <Title titleType="h4">{title}</Title>
           {text ? <p>{text}</p> : null}
         </>
       )}
