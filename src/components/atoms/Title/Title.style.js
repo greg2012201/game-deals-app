@@ -21,3 +21,11 @@ export const StyledH3 = styled.h3`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.white};
 `
+export const StyledH4 = styled.h4`
+  margin: 0;
+  display: block;
+  font-family: Lato;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.lighterGrey};
+`
