@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useCallback } from 'react'
 
-export const useAchievementsList = () => {
+export const useAchievementsListData = () => {
   const [achievements, setAchievements] = useState([])
   const [page, setPage] = useState({})
   const [loading, setLoading] = useState(false)

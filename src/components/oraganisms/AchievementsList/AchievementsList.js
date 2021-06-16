@@ -2,7 +2,7 @@ import AchievementsListItem from 'components/molecules/AchievementsListItem/Achi
 import React, { useRef } from 'react'
 import Pagination from 'rc-pagination'
 import { StyledAchivementsList } from './Achievements.style'
-import { useAchievementsList } from './useAchievementsList'
+import { useAchievementsListData } from './useAchievementsListData'
 import { usePagination } from './usePagination'
 
 const AchievementsList = ({ achievementsFor }) => {
@@ -14,7 +14,7 @@ const AchievementsList = ({ achievementsFor }) => {
     resetData,
     achievements,
     page: { count },
-  } = useAchievementsList()
+  } = useAchievementsListData()
   const { handleOnPageChange, currentPage } = usePagination({ achievementsFor, fetchData, resetData, getCancelToken, listRef })
   return (
     <StyledAchivementsList ref={listRef}>
