@@ -15,29 +15,31 @@ import { InformationsTemplate } from 'components/templates/InformationsTemplate/
 import GamesList from 'components/oraganisms/GamesList/GamesList'
 import { useGamesList } from 'hooks/useGamesList'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
-import { useVisibilityOnScroll } from 'hooks/useVisibilityOnScroll'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
+import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
   const { fetchedData: fetchedGameListData, fetchData: fetchGamesListData, getCancelToken, resetData } = useGamesList()
   const {
-    data,
-    data: { name, id, description_raw: descripton, background_image: backgroundImage },
+    data: detailsData,
+    data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
     screenshots,
     error,
-    fetchData,
+
+    fetchData: fetchDetailsData,
   } = useGameDetails()
+
   const { isOpen, index, handleSliderClose, handleSliderOpen } = useSlider()
   useEffect(() => {
     window.scrollTo(0, 0)
     const cancelToken = getCancelToken()
-    fetchData([`${url}/games/${slug}?key=${key}`, `${url}/games/${slug}/screenshots?key=${key}`])
+    fetchDetailsData([`${url}/games/${slug}?key=${key}`, `${url}/games/${slug}/screenshots?key=${key}`])
     fetchGamesListData(`${url}/games/${slug}/game-series?key=${key}`)
+
     return () => resetData(cancelToken)
-  }, [fetchData, fetchGamesListData, getCancelToken, resetData, slug])
-  const isVisible = useVisibilityOnScroll()
+  }, [fetchDetailsData, fetchGamesListData, getCancelToken, resetData, slug])
 
   return (
     <Wrapper style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -47,15 +49,16 @@ const GameDetails = () => {
         ) : !error ? (
           <>
             <Title key={id}>{name}</Title>
-            <RoundButton onClick={customSmoothScrollTo} isVisible={isVisible} isReturn={true} />
+            <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
             <>
               <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
               <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
             </>
             <ArticleTemplate textContent={descripton} title={'About'} />
             <InformationsTemplate>
-              <GameMetaWrapper data={data} />
-              <PCRequirements data={data} />
+              <GameMetaWrapper data={detailsData} />
+              <PCRequirements data={detailsData} />
+              {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
             </InformationsTemplate>
 
             {fetchedGameListData.length !== 0 ? (
