@@ -56,12 +56,12 @@ const GameDetails = () => {
             </>
             <ArticleTemplate textContent={descripton} title={'About'} />
             <InformationsTemplate>
+              {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
-              {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
             </InformationsTemplate>
 
-            {fetchedGameListData.length !== 0 ? (
+            {fetchedGameListData.data.length !== 0 ? (
               <ListWrapper>
                 <Title titleType="h2">Games like</Title>
                 <GamesList fetchMoreData={fetchGamesListData} fetchedData={fetchedGameListData} />
