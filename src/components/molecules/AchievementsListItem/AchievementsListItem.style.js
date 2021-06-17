@@ -10,9 +10,9 @@ export const StyledAchievementsListItem = styled.li`
   p {
     font-size: ${({ theme }) => theme.fontSize.s};
     margin: 0;
+    line-height: 1.3em;
   }
   img {
     max-width: 50px;
   }
 `
-export const StyledWrapper = styled.div``
