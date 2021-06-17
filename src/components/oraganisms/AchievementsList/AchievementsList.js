@@ -4,7 +4,8 @@ import Pagination from 'rc-pagination'
 import { StyledAchivementsList } from './Achievements.style'
 import { useAchievementsListData } from './useAchievementsListData'
 import { usePagination } from './usePagination'
-
+import Title from 'components/atoms/Title/Title'
+const pageSize = 4
 const AchievementsList = ({ achievementsFor }) => {
   const listRef = useRef(null)
 
@@ -15,13 +16,24 @@ const AchievementsList = ({ achievementsFor }) => {
     achievements,
     page: { count },
   } = useAchievementsListData()
-  const { handleOnPageChange, currentPage } = usePagination({ achievementsFor, fetchData, resetData, getCancelToken, listRef })
+  const { handleOnPageChange, currentPage } = usePagination({ pageSize, achievementsFor, fetchData, resetData, getCancelToken, listRef })
   return (
     <StyledAchivementsList ref={listRef}>
+      <Title titleType="h2">Achievements</Title>
       {achievements.map((achievements, i) => {
         return <AchievementsListItem key={i} achievementsData={achievements} />
       })}
-      <Pagination onChange={handleOnPageChange} pageSize={10} total={count} current={currentPage} className={'pagination'} />
+      <Pagination
+        onChange={handleOnPageChange}
+        pageSize={pageSize}
+        total={count}
+        current={currentPage}
+        className={'pagination'}
+        nextIcon={'>'}
+        prevIcon={'<'}
+        jumpPrevIcon={'...'}
+        jumpNextIcon={'...'}
+      />
     </StyledAchivementsList>
   )
 }
