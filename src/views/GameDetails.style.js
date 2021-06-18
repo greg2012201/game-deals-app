@@ -25,13 +25,24 @@ export const Wrapper = styled.div`
 `
 
 export const Mask = styled.div`
+  display: flex;
+  flex-direction: column;
+
   box-sizing: border-box;
   min-height: 100vh;
 
   width: 100%;
   background-color: ${({ theme }) => theme.colors.lowTransparentBlack};
 
+  @media (min-width: 980px) {
+    & {
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+  }
   h1 {
+    grid-row: 1;
+    grid-column: 1/3;
     margin: 20px;
   }
   ${GalleryWrapper} {
@@ -42,6 +53,7 @@ export const Mask = styled.div`
 `
 export const ListWrapper = styled.div`
   margin-top: 20px;
+  grid-column: 1/3;
   h2 {
     margin-left: 20px;
   }

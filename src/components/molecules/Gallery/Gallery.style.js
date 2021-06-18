@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   display: flex;
   overflow-x: scroll;
+  justify-self: center;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -12,7 +13,7 @@ export const Wrapper = styled.div`
       display: grid;
       grid-template-columns: 50% 50%;
       grid-template-rows: 300px 120px 120px;
-      width: 390px;
+      width: 500px;
 
       img:first-of-type {
         grid-column: 1/3;

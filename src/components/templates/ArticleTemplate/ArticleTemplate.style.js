@@ -4,7 +4,6 @@ export const ArticleWrapper = styled.div`
   margin: 0;
   padding: 0 20px;
 
-  h2,
   p,
   button {
     margin-top: 20px;

@@ -9,6 +9,12 @@ export const StyledAchivementsList = styled.ul`
   grid-template-columns: repeat(50%);
   grid-template-rows: 30px 170px 150px;
   min-height: 400px;
+
+  @media (min-width: 980px) {
+    & {
+      min-height: 600px;
+    }
+  }
   h2 {
     grid-column: 1/3;
     grid-row: 1;
@@ -24,8 +30,13 @@ export const StyledAchivementsList = styled.ul`
     margin-top: 20px;
     list-style: none;
     color: ${({ theme }) => theme.colors.lighterGrey};
-    font-family: Lato;
     font-size: ${({ theme }) => theme.fontSize.s};
+    font-family: Lato;
+    @media (min-width: 980px) {
+      & {
+        font-size: ${({ theme }) => theme.fontSize.m};
+      }
+    }
   }
   .rc-pagination-prev,
   .rc-pagination-next {

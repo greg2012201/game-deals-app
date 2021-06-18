@@ -11,6 +11,12 @@ export const ItemWrapper = styled.div`
     font-size: ${({ theme }) => theme.fontSize.s};
     color: ${({ theme }) => theme.colors.white};
     line-height: 1.8em;
+
+    @media (min-width: 980px) {
+      & {
+        font-size: ${({ theme }) => theme.fontSize.m};
+      }
+    }
   }
   & {
     margin-bottom: 12px;

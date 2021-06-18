@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 export const RequirementsWrapper = styled.div`
   margin-top: 20px;
-
+  width: 360px;
+  align-self: flex-start;
   ${Paragraph} {
     font-size: ${({ theme }) => theme.fontSize.s};
   }
@@ -15,4 +16,8 @@ export const RequirementsWrapper = styled.div`
 
     height: 22px;
   }
+
+  /* @media (max-width: 980px) {
+    align-self: center;
+  } */
 `
