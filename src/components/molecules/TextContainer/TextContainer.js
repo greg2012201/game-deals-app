@@ -3,7 +3,7 @@ import { useTextContainer } from './useTextContainer'
 import { ContentWrapper, ViewWrapper } from './TextContainer.style'
 import { Button } from 'components/atoms/Button/Button'
 import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
-const TextContainer = ({ children, viewHeight = 200, keyProvider = 1 }) => {
+const TextContainer = ({ children, viewHeight = 200 }) => {
   const view = useRef(null)
   const paragraph = useRef(null)
 
