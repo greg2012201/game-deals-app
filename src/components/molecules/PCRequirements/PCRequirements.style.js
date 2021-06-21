@@ -7,6 +7,9 @@ export const RequirementsWrapper = styled.div`
   align-self: flex-start;
   ${Paragraph} {
     font-size: ${({ theme }) => theme.fontSize.s};
+    @media (min-width: 980px) {
+      font-size: ${({ theme }) => theme.fontSize.m};
+    }
   }
   p {
     margin: 0;

@@ -19,4 +19,9 @@ export const MetaContentWrapper = styled.div`
     margin-bottom: 20px;
   }
   color: ${({ theme }) => theme.colors.white};
+  @media (min-width: 980px) {
+    & {
+      margin-top: 20px;
+    }
+  }
 `

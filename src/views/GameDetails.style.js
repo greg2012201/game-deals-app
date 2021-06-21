@@ -56,5 +56,8 @@ export const ListWrapper = styled.div`
   grid-column: 1/3;
   h2 {
     margin-left: 20px;
+    @media (min-width: 980px) {
+      margin-left: 10%;
+    }
   }
 `
