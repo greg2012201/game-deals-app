@@ -17,6 +17,7 @@ import { useGamesList } from 'hooks/useGamesList'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
+import GameDetailsSkeletonLoader from 'components/atoms/GameDetailsSkeletonLoader/GameDetailsSkeletonLoader'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -43,11 +44,11 @@ const GameDetails = () => {
 
   return (
     <Wrapper style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <Mask>
         {!id && !error ? (
-          <p>loading...</p>
+          <GameDetailsSkeletonLoader />
         ) : !error ? (
           <>
+      <Mask>
             <Title key={id}>{name}</Title>
             <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
             <>
@@ -67,11 +68,11 @@ const GameDetails = () => {
                 <GamesList endMessage={false} fetchMoreData={fetchGamesListData} fetchedData={fetchedGameListData} />
               </ListWrapper>
             ) : null}
+      </Mask>
           </>
         ) : (
           <p>{error}</p>
         )}
-      </Mask>
     </Wrapper>
   )
 }
