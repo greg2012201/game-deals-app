@@ -2,7 +2,7 @@ import React from 'react'
 import ContentLoader from 'react-content-loader'
 import { useTheme } from 'styled-components'
 
-const SkeletonLoader = () => {
+const GamesListSkeletonLoader = () => {
   const theme = useTheme()
 
   return (
@@ -25,4 +25,4 @@ const SkeletonLoader = () => {
     </ContentLoader>
   )
 }
-export default SkeletonLoader
+export default GamesListSkeletonLoader

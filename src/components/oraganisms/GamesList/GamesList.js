@@ -4,7 +4,7 @@ import { StyledEndMessage, StyledList, StyledLoader } from './GamesList.style'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useTheme } from 'styled-components'
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
-import SkeletonLoader from 'components/atoms/SkeletonLoader/SkeletonLoader'
+import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader'
 
 const GamesList = ({ endMessage = 'Yay! You have seen it all', fetchMoreData, fetchedData: { data, loading, error, nextPage, limit } }) => {
   const theme = useTheme()
@@ -28,7 +28,7 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', fetchMoreData, fe
           ) : (
             Array(20)
               .fill('')
-              .map((e, i) => <SkeletonLoader key={i} />)
+              .map((e, i) => <GamesListSkeletonLoader key={i} />)
           )
         ) : (
           data.map((data) => {
