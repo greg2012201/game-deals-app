@@ -54,7 +54,7 @@ const GameDetails = () => {
               <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
               <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
             </>
-            <ArticleTemplate textContent={descripton} title={'About'} />
+            <ArticleTemplate title={'About'}>{descripton}</ArticleTemplate>
             <InformationsTemplate>
               {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />

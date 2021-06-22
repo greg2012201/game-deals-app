@@ -5,12 +5,12 @@ import { ArticleWrapper } from './ArticleTemplate.style'
 import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
 import { useWindowSize } from 'react-use'
 
-const ArticleTemplate = ({ textContent, title }) => {
+const ArticleTemplate = ({ children, title }) => {
   const { width: windowWidth } = useWindowSize()
   return (
     <ArticleWrapper>
       <Title titleType="h2">{title}</Title>
-      {windowWidth < 980 ? <TextContainer>{textContent}</TextContainer> : <Paragraph>{textContent}</Paragraph>}
+      {windowWidth < 980 ? <TextContainer>{children}</TextContainer> : <Paragraph>{children}</Paragraph>}
     </ArticleWrapper>
   )
 }
