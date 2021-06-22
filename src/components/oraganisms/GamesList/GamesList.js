@@ -6,7 +6,7 @@ import { useTheme } from 'styled-components'
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
 import SkeletonLoader from 'components/atoms/SkeletonLoader/SkeletonLoader'
 
-const GamesList = ({ fetchMoreData, fetchedData: { data, loading, error, nextPage, limit } }) => {
+const GamesList = ({ endMessage = 'Yay! You have seen it all', fetchMoreData, fetchedData: { data, loading, error, nextPage, limit } }) => {
   const theme = useTheme()
   const handleFetchMoreData = () => {
     if (!nextPage) return
@@ -18,7 +18,7 @@ const GamesList = ({ fetchMoreData, fetchedData: { data, loading, error, nextPag
       dataLength={data.length}
       next={handleFetchMoreData}
       hasMore={data.length <= limit && nextPage !== null}
-      endMessage={<StyledEndMessage style={{ textAlign: 'center' }}>Yay! You have seen it all</StyledEndMessage>}
+      endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
       loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
     >
       <StyledList>
