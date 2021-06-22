@@ -64,7 +64,7 @@ const GameDetails = () => {
             {fetchedGameListData.data.length !== 0 ? (
               <ListWrapper>
                 <Title titleType="h2">Games like</Title>
-                <GamesList fetchMoreData={fetchGamesListData} fetchedData={fetchedGameListData} />
+                <GamesList endMessage={false} fetchMoreData={fetchGamesListData} fetchedData={fetchedGameListData} />
               </ListWrapper>
             ) : null}
           </>
