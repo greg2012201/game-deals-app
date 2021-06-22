@@ -30,4 +30,12 @@ export const theme = {
   resolutions: {
     xl: 1200,
   },
+  skeletonLoaderTheme : {
+    backgroundColor:'#434343', 
+    foregroundColor: '#434343',
+    backgroundOpacity:0.4,
+    style:{margin:'0 auto'},
+    speed:2,
+
+}
 }
