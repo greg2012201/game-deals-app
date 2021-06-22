@@ -9,10 +9,10 @@ const GamesListSkeletonLoader = () => {
     <ContentLoader
       height={360}
       width={360}
-      speed={2}
-      backgroundColor={theme.colors.lightGrey}
-      foregroundColor={theme.colors.lightGrey}
-      backgroundOpacity={0.4}
+      speed={theme.skeletonLoaderTheme.speed}
+      backgroundColor={theme.skeletonLoaderTheme.backgroundColor}
+      foregroundColor={theme.skeletonLoaderTheme.foregroundColor}
+      backgroundOpacity={theme.skeletonLoaderTheme.backgroundOpacity}
     >
       <rect x="165" y="119" rx="0" ry="0" width="2" height="14" />
       <rect x="9" y="8" rx="0" ry="0" width="260" height="140" />
