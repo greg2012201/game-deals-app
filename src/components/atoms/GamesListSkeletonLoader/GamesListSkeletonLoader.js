@@ -6,14 +6,7 @@ const GamesListSkeletonLoader = () => {
   const theme = useTheme()
 
   return (
-    <ContentLoader
-      height={360}
-      width={360}
-      speed={theme.skeletonLoaderTheme.speed}
-      backgroundColor={theme.skeletonLoaderTheme.backgroundColor}
-      foregroundColor={theme.skeletonLoaderTheme.foregroundColor}
-      backgroundOpacity={theme.skeletonLoaderTheme.backgroundOpacity}
-    >
+    <ContentLoader height={360} width={360} {...theme.skeletonLoaderTheme}>
       <rect x="165" y="119" rx="0" ry="0" width="2" height="14" />
       <rect x="9" y="8" rx="0" ry="0" width="260" height="140" />
       <rect x="194" y="91" rx="0" ry="0" width="21" height="2" />
