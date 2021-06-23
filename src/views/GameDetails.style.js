@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import { Wrapper as GalleryWrapper } from 'components/molecules/Gallery/Gallery.style'
-
+export const Background = styled.div`
+  grid-row: 3;
+  grid-column: 1/2;
+  background-color: ${({ theme }) => theme.colors.lightBlack};
+`
 export const Wrapper = styled.div`
   box-sizing: border-box;
   position: relative;
