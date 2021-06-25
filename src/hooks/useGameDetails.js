@@ -3,29 +3,21 @@ import axios from 'axios'
 
 export const useGameDetails = () => {
   const [data, setData] = useState({})
-  const [screenshots, setScreenshots] = useState([])
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true )
- 
+  const [loading, setLoading] = useState(false)
 
-  const fetchData = useCallback(async ([dataUrl, screenshotsUrl]) => {
-    const dataReq = axios.get(dataUrl)
-    const screenshotsReq = axios.get(screenshotsUrl)
-setLoading(true)
-    await axios
-      .all([dataReq, screenshotsReq])
-      .then(
-       
-        axios.spread((dataRes, screenshotsRes) => {
-          setLoading(false)
-          setData(dataRes.data)
-          setScreenshots(screenshotsRes.data.results)
-        })
-      )
-      .catch(() => { 
-        setLoading(false)
-        return setError('Something went wrong')})
+  const fetchData = useCallback(async (url) => {
+    setLoading(true)
+
+    try {
+      const response = await axios.get(url)
+      setLoading(false)
+      setData(response.data)
+    } catch (e) {
+      setLoading(false)
+      return setError('Something went wrong')
+    }
   }, [])
 
-  return { screenshots, data, error, fetchData, loading }
+  return { data, error, fetchData, loading }
 }
