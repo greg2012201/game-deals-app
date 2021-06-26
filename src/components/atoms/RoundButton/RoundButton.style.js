@@ -15,7 +15,7 @@ export const Wrapper = styled.button`
   height: 45px;
   border-radius: 50%;
   border: none;
-  z-index: 1000;
+  z-index: 1;
   cursor: pointer;
   transition: 0.2;
   &:hover {
