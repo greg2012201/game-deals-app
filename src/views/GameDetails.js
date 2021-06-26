@@ -5,7 +5,7 @@ import { Background, Mask, Wrapper, ListWrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Title from 'components/atoms/Title/Title'
-import ArticleTemplate from 'components/templates/ArticleTemplate/ArticleTemplate'
+import ArticleContainer from 'components/oraganisms/ArticleContainer/ArticleContainer'
 import GameMetaWrapper from 'components/molecules/GameMetaWrapper/GameMetaWrapper'
 import PCRequirements from 'components/molecules/PCRequirements/PCRequirements'
 import { InformationsTemplate } from 'components/templates/InformationsTemplate/InformationsTemplate'
@@ -55,7 +55,7 @@ const GameDetails = () => {
             <Screenshots isLoading={loading} slug={slug} />
             {Object.keys(detailsData).length !== 0 ? (
               <>
-                <ArticleTemplate title={'About'}>{descripton}</ArticleTemplate>
+                <ArticleContainer title={'About'}>{descripton}</ArticleContainer>
                 <InformationsTemplate>
                   {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
                   <GameMetaWrapper data={detailsData} />
