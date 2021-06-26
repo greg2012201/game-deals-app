@@ -36,7 +36,7 @@ export const Mask = styled.div`
   min-height: 100vh;
 
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.lowTransparentBlack};
+  background-color: ${({ theme, isLoading }) => (isLoading ? theme.colors.lightBlack : theme.colors.lowTransparentBlack)};
 
   @media (min-width: 980px) {
     & {
