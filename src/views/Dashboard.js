@@ -15,6 +15,7 @@ const Dashboard = () => {
     data: {
       genresData: { data },
     },
+    data: generalData,
   } = useContext(GamesContext)
 
   const { page, slug } = useParams()
@@ -34,7 +35,7 @@ const Dashboard = () => {
 
   return (
     <Wrapper>
-      <Title>{slug ? title : page}</Title>
+      <Title isLoading={generalData.loading}>{slug ? title : page}</Title>
       <GamesList fetchMoreData={fetchData} fetchedData={fetchedData} />
       <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
     </Wrapper>
