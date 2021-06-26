@@ -4,9 +4,6 @@ import { useParams } from 'react-router'
 import { Background, Mask, Wrapper, ListWrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
-import Slider from 'components/molecules/Slider/Slider'
-import { useSlider } from 'components/molecules/Slider/useSlider'
-import Gallery from 'components/molecules/Gallery/Gallery'
 import Title from 'components/atoms/Title/Title'
 import ArticleTemplate from 'components/templates/ArticleTemplate/ArticleTemplate'
 import GameMetaWrapper from 'components/molecules/GameMetaWrapper/GameMetaWrapper'
@@ -17,54 +14,46 @@ import { useGamesList } from 'hooks/useGamesList'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
-import GameDetailsSkeletonLoader from 'components/atoms/GameDetailsSkeletonLoader/GameDetailsSkeletonLoader'
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
+import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
   const { fetchedData: fetchedGameListData, fetchData: fetchGamesListData, getCancelToken, resetData } = useGamesList()
   const {
-    data,
     data: detailsData,
     data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
-    screenshots,
     error,
     loading,
 
     fetchData: fetchDetailsData,
   } = useGameDetails()
-
-  const { isOpen, index, handleSliderClose, handleSliderOpen } = useSlider()
   useEffect(() => {
     window.scrollTo(0, 0)
     const cancelToken = getCancelToken()
-    fetchDetailsData([`${url}/games/${slug}?key=${key}`, `${url}/games/${slug}/screenshots?key=${key}`])
+    fetchDetailsData(`${url}/games/${slug}?key=${key}`)
     fetchGamesListData(`${url}/games/${slug}/game-series?key=${key}`)
 
     return () => {
       resetData(cancelToken)
     }
   }, [fetchDetailsData, fetchGamesListData, getCancelToken, resetData, slug])
+
   return (
     <Background>
-      {loading ? (
-        error ? (
-          <ErrorMessage>{'Something went wrong !'}</ErrorMessage>
-        ) : (
-          <GameDetailsSkeletonLoader />
-        )
+      {error ? (
+        <ErrorMessage>{'Something went wrong !'}</ErrorMessage>
       ) : (
-        <Wrapper style={{ backgroundImage: `url(${backgroundImage})` }}>
-          <Mask>
-            <Title key={id}>{name}</Title>
+        <Wrapper style={!loading ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
+          <Mask isLoading={loading}>
+            <Title isLoading={loading} key={id}>
+              {name}
+            </Title>
             <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
-            <>
-              <Gallery handleSliderOpen={handleSliderOpen} images={screenshots} />
-              <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={screenshots} index={index} />
-            </>
 
-            {Object.keys(data).length !== 0 ? (
+            <Screenshots isLoading={loading} slug={slug} />
+            {Object.keys(detailsData).length !== 0 ? (
               <>
                 <ArticleTemplate title={'About'}>{descripton}</ArticleTemplate>
                 <InformationsTemplate>
