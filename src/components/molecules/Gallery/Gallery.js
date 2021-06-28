@@ -3,7 +3,7 @@ import { Wrapper, ImgItem } from './Gallery.style'
 import GallerySkeletonLoader from './GallerySkeletonLoader'
 
 function Gallery({ handleSliderOpen, images, isLoading }) {
-  if (isLoading || images === undefined) {
+  if (isLoading || !images) {
     return (
       <Wrapper>
         {Array(5)
