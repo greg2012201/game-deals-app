@@ -53,9 +53,11 @@ const GameDetails = () => {
             <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
 
             <Screenshots isLoading={loading} slug={slug} />
+            <ArticleContainer data={detailsData} isLoading={loading} title={'About'}>
+              {descripton}
+            </ArticleContainer>
             {Object.keys(detailsData).length !== 0 ? (
               <>
-                <ArticleContainer title={'About'}>{descripton}</ArticleContainer>
                 <InformationsTemplate>
                   {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
                   <GameMetaWrapper data={detailsData} />
