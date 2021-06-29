@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { useState, useCallback } from 'react'
-
+const achievementsInitialState = []
 export const useAchievementsListData = () => {
   const [achievements, setAchievements] = useState([])
   const [page, setPage] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(achievementsInitialState)
 
   const fetchData = useCallback(async (url, source = null) => {
     setLoading(true)
@@ -20,8 +20,8 @@ export const useAchievementsListData = () => {
           : null
       )
       setAchievements(results)
-      setPage({ next, previous, count })
       setLoading(false)
+      setPage({ next, previous, count })
     } catch (e) {
       return setLoading(false)
     }
@@ -31,6 +31,7 @@ export const useAchievementsListData = () => {
   }, [])
   const resetData = useCallback((source) => {
     source.cancel()
+    setAchievements(achievementsInitialState)
   }, [])
 
   return { fetchData, achievements, getCancelToken, resetData, page, loading }
