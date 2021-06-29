@@ -28,10 +28,12 @@ export const StyledAchivementsList = styled.ul`
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    min-width: 320px;
     list-style: none;
     color: ${({ theme }) => theme.colors.lighterGrey};
     font-size: ${({ theme }) => theme.fontSize.s};
     font-family: Lato;
+
     @media (min-width: 980px) {
       & {
         font-size: ${({ theme }) => theme.fontSize.m};
