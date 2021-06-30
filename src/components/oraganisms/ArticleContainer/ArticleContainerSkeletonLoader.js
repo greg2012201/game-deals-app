@@ -22,7 +22,7 @@ const ArticleContainerSkeletonLoader = () => {
     )
   } else {
     return (
-      <ContentLoader width="320px" height="600px" {...theme.skeletonLoaderTheme}>
+      <ContentLoader width="320px" height="350px" {...theme.skeletonLoaderTheme}>
         <rect x="0" y="20" rx="10" ry="10" width="80" height="28" />
         <rect x="0" y="71" rx="5" ry="5" width="221" height="12" />
         <rect x="0" y="96" rx="5" ry="5" width="300" height="12" />
