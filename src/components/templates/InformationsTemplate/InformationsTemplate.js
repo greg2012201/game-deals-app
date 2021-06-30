@@ -1,19 +1,20 @@
-import styled from 'styled-components'
+import React from 'react'
+import { useTheme } from 'styled-components'
+import { StyledInformationsTemplate } from './InformationsTemplate.style'
+import Loader from 'react-loader-spinner'
 
-export const InformationsTemplate = styled.div`
-  grid-column: 1/3;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  padding: 20px;
-  background-color: ${({ theme }) => theme.colors.lightBlack};
-  width: 100%;
-  @media (min-width: 980px) {
-    & {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      justify-items: center;
-    }
+const InformationsTemplate = ({ children, isLoading }) => {
+  const theme = useTheme()
+
+  if (isLoading) {
+    return (
+      <StyledInformationsTemplate>
+        <Loader className="loader" type="Oval" color={theme.colors.darkWhite} height={60} width={60} />
+      </StyledInformationsTemplate>
+    )
+  } else {
+    return <StyledInformationsTemplate>{children}</StyledInformationsTemplate>
   }
-`
+}
+
+export default InformationsTemplate
