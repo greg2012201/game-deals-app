@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
 import { StyledEndMessage, StyledList, StyledLoader } from './GamesList.style'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useTheme } from 'styled-components'
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
 import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader'
-
-const GamesList = ({ endMessage = 'Yay! You have seen it all', fetchMoreData, fetchedData: { data, loading, error, nextPage, limit } }) => {
+import { useGamesList } from 'hooks/useGamesList'
+import { RAWGOptions } from 'utils/fetchingOptions'
+const { url, key } = RAWGOptions
+const GamesList = ({ endMessage = 'Yay! You have seen it all', fecthingRoute }) => {
   const theme = useTheme()
+
+  const {
+    fetchedData: { data, loading, error, nextPage, limit },
+    resetData,
+    fetchData,
+    getCancelToken,
+  } = useGamesList()
+
+  useEffect(() => {
+    const cancelToken = getCancelToken()
+
+    fetchData(`${url}${fecthingRoute}key=${key}`, cancelToken)
+    return () => {
+      resetData(cancelToken)
+    }
+  }, [fetchData, fecthingRoute, resetData, getCancelToken])
   const handleFetchMoreData = () => {
     if (!nextPage) return
-    return fetchMoreData(nextPage)
+    return fetchData(nextPage)
   }
   return (
     <InfiniteScroll
