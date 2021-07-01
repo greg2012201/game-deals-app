@@ -5,7 +5,7 @@ import TextContainer from '../TextContainer/TextContainer'
 import { RequirementsWrapper } from './PCRequirements.style'
 
 const PCRequirements = ({ data }) => {
-  return (
+  return Object.keys(data).length !== 0 ? (
     <RequirementsWrapper>
       <Title titleType="h2">System requirements</Title>
       {data.platforms.map(({ platform, requirements }, index) => {
@@ -22,7 +22,7 @@ const PCRequirements = ({ data }) => {
         ) : null
       })}
     </RequirementsWrapper>
-  )
+  ) : null
 }
 
 export default PCRequirements
