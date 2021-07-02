@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Wrapper as GalleryWrapper } from 'components/molecules/Gallery/Gallery.style'
+import { StyledListWrapper } from 'components/oraganisms/GamesList/GamesList.style'
 export const Background = styled.div`
   grid-row: 3;
   grid-column: 1/2;
@@ -14,10 +15,13 @@ export const Wrapper = styled.div`
   grid-column: 1/2;
   background-color: ${({ theme }) => theme.colors.lightBlack};
   min-height: 100vh;
-
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+
+  ${StyledListWrapper} {
+    grid-column: 1/3;
+  }
 
   h1 {
     @media (min-width: 980px) {
@@ -53,15 +57,5 @@ export const Mask = styled.div`
     margin-right: 0;
     margin-left: 0;
     padding-left: 20px;
-  }
-`
-export const ListWrapper = styled.div`
-  margin-top: 20px;
-  grid-column: 1/3;
-  h2 {
-    margin-left: 20px;
-    @media (min-width: 980px) {
-      margin-left: 10%;
-    }
   }
 `
