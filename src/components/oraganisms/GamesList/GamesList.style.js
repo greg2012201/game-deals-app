@@ -24,3 +24,13 @@ export const StyledEndMessage = styled.p`
   line-height: 2em;
   font-family: Lato;
 `
+export const StyledListWrapper = styled.div`
+  margin-top: 20px;
+
+  h2 {
+    margin-left: 20px;
+    @media (min-width: 980px) {
+      margin-left: 10%;
+    }
+  }
+`
