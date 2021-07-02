@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useGameDetails } from 'hooks/useGameDetails'
 import { useParams } from 'react-router'
-import { Background, Mask, Wrapper, ListWrapper } from './GameDetails.style'
+import { Background, Mask, Wrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Title from 'components/atoms/Title/Title'
@@ -41,7 +41,6 @@ const GameDetails = () => {
             <Title isLoading={loading} key={id}>
               {name}
             </Title>
-            <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
             <Screenshots isLoading={loading} slug={slug} />
             <ArticleContainer data={detailsData} isLoading={loading} title={'About'}>
               {descripton}
@@ -51,11 +50,9 @@ const GameDetails = () => {
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
             </InformationsTemplate>
-            <ListWrapper>
-              <Title titleType="h2">Games like</Title>
-              <GamesList endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
-            </ListWrapper>
+            <GamesList title="Games like" like endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
           </Mask>
+          <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
         </Wrapper>
       )}
     </Background>
