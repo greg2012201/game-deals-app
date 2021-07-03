@@ -31,35 +31,48 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
     if (!nextPage) return
     return fetchData(nextPage)
   }
-  return (
-    <StyledListWrapper>
-      <InfiniteScroll
-        scrollThreshold={'200px'}
-        dataLength={data.length}
-        next={handleFetchMoreData}
-        hasMore={data.length <= limit && nextPage !== null}
-        endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
-        loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
-      >
-        {title ? <Title titleType="h2">{title}</Title> : null}
+
+  if (error && data.length === 0) {
+    return (
+      <StyledListWrapper>
         <StyledList>
-          {loading ? (
-            error && data.length === 0 ? (
-              <ErrorPage>{error}</ErrorPage>
-            ) : (
-              Array(20)
-                .fill('')
-                .map((e, i) => <GamesListSkeletonLoader key={i} />)
-            )
-          ) : (
-            data.map((data) => {
-              return <ProductCard key={data.id} gamesData={data} />
-            })
-          )}
+          <ErrorPage>{error}</ErrorPage>
         </StyledList>
-      </InfiniteScroll>
-    </StyledListWrapper>
-  )
+      </StyledListWrapper>
+    )
+  } else if (loading) {
+    return (
+      <StyledList>
+        {Array(20)
+          .fill('')
+          .map((e, i) => (
+            <GamesListSkeletonLoader key={i} />
+          ))}
+      </StyledList>
+    )
+  } else if (data.length !== 0) {
+    return (
+      <StyledListWrapper>
+        <InfiniteScroll
+          scrollThreshold={'200px'}
+          dataLength={data.length}
+          next={handleFetchMoreData}
+          hasMore={data.length <= limit && nextPage !== null}
+          endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
+          loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
+        >
+          {title ? <Title titleType="h2">{title}</Title> : null}
+          <StyledList>
+            {data.map((data) => (
+              <ProductCard key={data.id} gamesData={data} />
+            ))}
+          </StyledList>
+        </InfiniteScroll>
+      </StyledListWrapper>
+    )
+  } else {
+    return null
+  }
 }
 
 export default GamesList
