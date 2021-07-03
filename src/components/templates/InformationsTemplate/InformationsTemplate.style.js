@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledInformationsTemplate = styled.div`
+  position: relative;
   grid-column: 1/3;
   display: flex;
   flex-direction: row;
