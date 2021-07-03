@@ -13,8 +13,8 @@ import GamesList from 'components/oraganisms/GamesList/GamesList'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
-import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
 import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
+import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
@@ -34,7 +34,7 @@ const GameDetails = () => {
   return (
     <Background>
       {error ? (
-        <ErrorMessage>{'Something went wrong !'}</ErrorMessage>
+        <ErrorPage>Something Went Wrong</ErrorPage>
       ) : (
         <Wrapper style={!loading ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
           <Mask isLoading={loading}>
@@ -42,10 +42,10 @@ const GameDetails = () => {
               {name}
             </Title>
             <Screenshots isLoading={loading} slug={slug} />
-            <ArticleContainer data={detailsData} isLoading={loading} title={'About'}>
+            <ArticleContainer data={detailsData} isLoading={loading} title={'About'} error={error}>
               {descripton}
             </ArticleContainer>
-            <InformationsTemplate isLoading={loading}>
+            <InformationsTemplate error={error} isLoading={loading}>
               {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
