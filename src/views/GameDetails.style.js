@@ -4,6 +4,7 @@ import { StyledListWrapper } from 'components/oraganisms/GamesList/GamesList.sty
 export const Background = styled.div`
   grid-row: 3;
   grid-column: 1/2;
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.lightBlack};
 `
 export const Wrapper = styled.div`
