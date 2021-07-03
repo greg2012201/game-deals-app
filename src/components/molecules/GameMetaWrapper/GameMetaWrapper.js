@@ -1,6 +1,6 @@
 import { Score } from 'components/atoms/Score/Score'
 import Title from 'components/atoms/Title/Title'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import GameMetaItem from '../GamesMetaItem/GameMetaItem'
 import { MetaContentWrapper } from './GameMetaWrapper.style'
