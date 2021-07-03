@@ -1,8 +1,12 @@
+import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 import React from 'react'
 import { Wrapper, ImgItem } from './Gallery.style'
 import GallerySkeletonLoader from './GallerySkeletonLoader'
 
-function Gallery({ handleSliderOpen, images, isLoading }) {
+function Gallery({ handleSliderOpen, images, isLoading, error }) {
+  if (error) {
+    return <ErrorMessage>Ups! Something went wrong. Try again.</ErrorMessage>
+  }
   if (isLoading || !images) {
     return (
       <Wrapper>

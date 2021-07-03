@@ -7,7 +7,7 @@ import { useScreenshots } from './useScreenshots'
 const { url, key } = RAWGOptions
 const Screenshots = ({ slug }) => {
   const { isOpen, index, handleSliderClose, handleSliderOpen } = useSlider()
-  const { data, loading, fetchData } = useScreenshots()
+  const { data, loading, error, fetchData } = useScreenshots()
 
   useEffect(() => {
     fetchData(`${url}/games/${slug}/screenshots?key=${key}`)
@@ -15,7 +15,7 @@ const Screenshots = ({ slug }) => {
 
   return (
     <div>
-      <Gallery isLoading={loading} handleSliderOpen={handleSliderOpen} images={data} />
+      <Gallery isLoading={loading} handleSliderOpen={handleSliderOpen} images={data} error={error} />
       <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={data} index={index} />
     </div>
   )
