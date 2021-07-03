@@ -28,11 +28,6 @@ export const Circle = styled.div`
   letter-spacing: 5px;
 `
 
-export const Message = styled.p`
-  margin-top: 25px;
-  text-align: center;
-  line-height: 1.5em;
-`
 export const LinkButton = styled(Link)`
   margin-top: 30px;
   display: flex;
