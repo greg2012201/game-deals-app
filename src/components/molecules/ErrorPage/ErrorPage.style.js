@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   position: absolute;
-  top: 230px;
+  top: 50%;
   left: 50%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   color: ${({ theme }) => theme.colors.white};
   font-family: Lato;
 
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 `
 export const Circle = styled.div`
   display: flex;
