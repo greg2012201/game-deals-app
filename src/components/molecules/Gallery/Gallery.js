@@ -5,7 +5,7 @@ import GallerySkeletonLoader from './GallerySkeletonLoader'
 
 function Gallery({ handleSliderOpen, images, isLoading, error }) {
   if (error) {
-    return <ErrorMessage>Ups! Something went wrong. Try again.</ErrorMessage>
+    return <ErrorMessage>Ups! Something went wrong. We can't load images.</ErrorMessage>
   }
   if (isLoading || !images) {
     return (
