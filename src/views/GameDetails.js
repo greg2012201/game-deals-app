@@ -45,7 +45,7 @@ const GameDetails = () => {
             <ArticleContainer data={detailsData} isLoading={loading} title={'About'} error={error}>
               {descripton}
             </ArticleContainer>
-            <InformationsTemplate error={error} isLoading={loading}>
+            <InformationsTemplate isLoading={loading}>
               {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
