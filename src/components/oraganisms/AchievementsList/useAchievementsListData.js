@@ -5,6 +5,7 @@ export const useAchievementsListData = () => {
   const [achievements, setAchievements] = useState([])
   const [page, setPage] = useState({})
   const [loading, setLoading] = useState(achievementsInitialState)
+  const [error, setError] = useState(false)
 
   const fetchData = useCallback(async (url, source = null) => {
     setLoading(true)
@@ -23,6 +24,7 @@ export const useAchievementsListData = () => {
       setLoading(false)
       setPage({ next, previous, count })
     } catch (e) {
+      setError(e)
       return setLoading(false)
     }
   }, [])
@@ -34,5 +36,5 @@ export const useAchievementsListData = () => {
     setAchievements(achievementsInitialState)
   }, [])
 
-  return { fetchData, achievements, getCancelToken, resetData, page, loading }
+  return { fetchData, achievements, getCancelToken, resetData, page, loading, error }
 }

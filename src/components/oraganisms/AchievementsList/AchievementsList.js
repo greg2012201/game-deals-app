@@ -6,6 +6,7 @@ import { useAchievementsListData } from './useAchievementsListData'
 import { usePagination } from './usePagination'
 import Title from 'components/atoms/Title/Title'
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
+import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 const pageSize = 4
 const AchievementsList = ({ achievementsFor }) => {
   const listRef = useRef(null)
@@ -13,6 +14,7 @@ const AchievementsList = ({ achievementsFor }) => {
   const {
     fetchData,
     loading,
+    error,
     getCancelToken,
     resetData,
     achievements,
@@ -23,13 +25,17 @@ const AchievementsList = ({ achievementsFor }) => {
   return (
     <StyledAchivementsList ref={listRef}>
       <Title titleType="h2">Achievements</Title>
-      {loading || achievements.length === 0
-        ? Array(4)
-            .fill('')
-            .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)
-        : achievements.map((achievements, i) => {
-            return <AchievementsListItem key={i} achievementsData={achievements} />
-          })}
+      {error ? (
+        <ErrorMessage>Something went wrong</ErrorMessage>
+      ) : loading || achievements.length === 0 ? (
+        Array(4)
+          .fill('')
+          .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)
+      ) : (
+        achievements.map((achievements, i) => {
+          return <AchievementsListItem key={i} achievementsData={achievements} />
+        })
+      )}
       <Pagination
         onChange={handleOnPageChange}
         pageSize={pageSize}
