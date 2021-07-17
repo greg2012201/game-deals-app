@@ -9,6 +9,7 @@ export const StyledAchivementsList = styled.ul`
   grid-template-columns: repeat(50%);
   grid-template-rows: 30px 170px 150px;
   min-height: 400px;
+  min-width: 340px;
 
   @media (min-width: 980px) {
     & {
