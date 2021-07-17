@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const StyledAchievementsListItem = styled.li`
   list-style: none;
+  min-height: 130px;
   h4,
   p,
   img {
