@@ -50,7 +50,7 @@ const GameDetails = () => {
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
             </InformationsTemplate>
-            <GamesList title="Games like" like endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
+            <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
           </Mask>
           <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
         </Wrapper>
