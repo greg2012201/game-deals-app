@@ -1,65 +1,78 @@
 import React, { useEffect } from 'react'
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
-import { StyledEndMessage, StyledList, StyledLoader } from './GamesList.style'
-import { useParams } from 'react-router'
-import { useGamesList } from 'hooks/useGamesList'
-import { RAWGOptions } from 'utils/fetchingOptions'
+import { StyledEndMessage, StyledListWrapper, StyledList, StyledLoader } from './GamesList.style'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useTheme } from 'styled-components'
-import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage'
-import SkeletonLoader from 'components/atoms/SkeletonLoader/SkeletonLoader'
-
+import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
+import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader'
+import { useGamesList } from 'hooks/useGamesList'
+import { RAWGOptions } from 'utils/fetchingOptions'
+import Title from 'components/atoms/Title/Title'
 const { url, key } = RAWGOptions
-const GamesList = () => {
+const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fecthingRoute }) => {
   const theme = useTheme()
+
   const {
-    gamesData: { data, nextPage, limit, error, loading },
+    fetchedData: { data, loading, error, nextPage, limit },
     resetData,
     fetchData,
     getCancelToken,
   } = useGamesList()
-  const { page, slug } = useParams()
+
   useEffect(() => {
     const cancelToken = getCancelToken()
-    if (page === 'Home') {
-      fetchData(`${url}/games?key=${key}`, cancelToken)
-    } else if (page === 'genres') fetchData(`${url}/games?genres=${slug}&key=${key}`, cancelToken)
+
+    fetchData(`${url}${fecthingRoute}key=${key}`, cancelToken)
     return () => {
       resetData(cancelToken)
     }
-  }, [page, fetchData, slug, resetData, getCancelToken])
-
+  }, [fetchData, fecthingRoute, resetData, getCancelToken])
   const handleFetchMoreData = () => {
     if (!nextPage) return
-
-    fetchData(nextPage)
+    return fetchData(nextPage)
   }
 
-  return (
-    <InfiniteScroll
-      dataLength={data.length}
-      next={handleFetchMoreData}
-      hasMore={data.length <= limit && nextPage !== null}
-      endMessage={<StyledEndMessage style={{ textAlign: 'center' }}>Yay! You have seen it all</StyledEndMessage>}
-      loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
-    >
+  if (error && data.length === 0) {
+    return (
+      <StyledListWrapper>
+        <StyledList>
+          <ErrorPage>{error}</ErrorPage>
+        </StyledList>
+      </StyledListWrapper>
+    )
+  } else if (loading) {
+    return (
       <StyledList>
-        {loading ? (
-          error && data.length === 0 ? (
-            <ErrorMessage>{error}</ErrorMessage>
-          ) : (
-            Array(20)
-              .fill('')
-              .map((e, i) => <SkeletonLoader key={i} />)
-          )
-        ) : (
-          data.map((data) => {
-            return <ProductCard key={data.id} gamesData={data} />
-          })
-        )}
+        {Array(20)
+          .fill('')
+          .map((e, i) => (
+            <GamesListSkeletonLoader key={i} />
+          ))}
       </StyledList>
-    </InfiniteScroll>
-  )
+    )
+  } else if (data.length !== 0) {
+    return (
+      <StyledListWrapper>
+        <InfiniteScroll
+          scrollThreshold={'200px'}
+          dataLength={data.length}
+          next={handleFetchMoreData}
+          hasMore={data.length <= limit && nextPage !== null}
+          endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
+          loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
+        >
+          {title ? <Title titleType="h2">{title}</Title> : null}
+          <StyledList>
+            {data.map((data) => (
+              <ProductCard key={data.id} gamesData={data} />
+            ))}
+          </StyledList>
+        </InfiniteScroll>
+      </StyledListWrapper>
+    )
+  } else {
+    return null
+  }
 }
 
 export default GamesList

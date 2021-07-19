@@ -10,12 +10,12 @@ export const Wrapper = styled.button`
   position: fixed;
   bottom: 10px;
   right: 10px;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   width: 45px;
   height: 45px;
   border-radius: 50%;
   border: none;
-
+  z-index: 1;
   cursor: pointer;
   transition: 0.2;
   &:hover {

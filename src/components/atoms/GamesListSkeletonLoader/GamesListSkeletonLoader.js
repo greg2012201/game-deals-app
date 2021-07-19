@@ -2,18 +2,11 @@ import React from 'react'
 import ContentLoader from 'react-content-loader'
 import { useTheme } from 'styled-components'
 
-const SkeletonLoader = () => {
+const GamesListSkeletonLoader = () => {
   const theme = useTheme()
 
   return (
-    <ContentLoader
-      height={360}
-      width={360}
-      speed={2}
-      backgroundColor={theme.colors.lightGrey}
-      foregroundColor={theme.colors.lightGrey}
-      backgroundOpacity={0.4}
-    >
+    <ContentLoader height={360} width={360} {...theme.skeletonLoaderTheme}>
       <rect x="165" y="119" rx="0" ry="0" width="2" height="14" />
       <rect x="9" y="8" rx="0" ry="0" width="260" height="140" />
       <rect x="194" y="91" rx="0" ry="0" width="21" height="2" />
@@ -25,4 +18,4 @@ const SkeletonLoader = () => {
     </ContentLoader>
   )
 }
-export default SkeletonLoader
+export default GamesListSkeletonLoader

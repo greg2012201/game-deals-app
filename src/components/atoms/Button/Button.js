@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Button = styled.button`
+  display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   font-family: Lato;
   font-style: normal;
   font-weight: bold;
@@ -9,6 +10,15 @@ export const Button = styled.button`
   height: 32px;
   border-radius: 7px;
   border: none;
-  background-color: ${({ theme }) => theme.colors.lightGrey};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, isLight }) => (isLight ? theme.colors.white : theme.colors.lightGrey)};
+  color: ${({ theme, isLight }) => (isLight ? theme.colors.black : theme.colors.white)};
+  @media (min-width: 980px) {
+    & {
+      cursor: pointer;
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        transition: 0.2s;
+      }
+    }
+  }
 `

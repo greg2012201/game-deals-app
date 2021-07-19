@@ -47,7 +47,7 @@ const reducer = (state, action) => {
   }
 }
 export const useGamesList = () => {
-  const [gamesData, dispatch] = useReducer(reducer, initialState)
+  const [fetchedData, dispatch] = useReducer(reducer, initialState)
 
   const fetchData = useCallback(async (url, source = null) => {
     try {
@@ -86,5 +86,5 @@ export const useGamesList = () => {
     return axios.CancelToken.source()
   }, [])
 
-  return { gamesData, fetchData, resetData, getCancelToken }
+  return { fetchedData, fetchData, resetData, getCancelToken }
 }

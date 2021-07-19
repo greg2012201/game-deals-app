@@ -10,13 +10,7 @@ export const Wrapper = styled.div`
 
   min-height: 100vh;
 
-  h3 {
-    display: block;
-    font-family: Lato;
+  h1 {
     padding-left: 30px;
-    font-weight: 900;
-    font-size: ${({ theme }) => theme.fontSize.xxl};
-    color: ${({ theme }) => theme.colors.white};
-    letter-spacing: 3px;
   }
 `

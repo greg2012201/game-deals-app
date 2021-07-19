@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
-export const useReturnButtonVisibility = () => {
+export const useVisibilityOnScroll = (visibilityBorder = 0) => {
   const [isVisible, setVisibility] = useState(false)
-  const handleScroll = () => {
-    if (window.scrollY > 0) {
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > visibilityBorder) {
       return setVisibility(true)
     } else {
       return setVisibility(false)
     }
-  }
+  }, [visibilityBorder])
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [handleScroll])
   return isVisible
 }

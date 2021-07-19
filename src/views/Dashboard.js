@@ -4,20 +4,28 @@ import { useParams } from 'react-router'
 import { Wrapper } from './Dashboard.style'
 import { GamesContext } from 'providers/GamesDataProvider'
 import { useTitleByRoute } from 'hooks/useTitleByRoute'
-import ReturnButton from 'components/atoms/ReturnButton/ReturnButton'
+import RoundButton from 'components/atoms/RoundButton/RoundButton'
+import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
+import Title from 'components/atoms/Title/Title'
+
 const Dashboard = () => {
   const {
     data: {
       genresData: { data },
     },
+    data: generalData,
   } = useContext(GamesContext)
+
   const { page, slug } = useParams()
   const { title } = useTitleByRoute(data, slug)
+
   return (
     <Wrapper>
-      <h3>{slug ? title : page}</h3>
-      <GamesList />
-      <ReturnButton />
+      <Title isLoading={generalData.loading}>{slug ? title : page}</Title>
+
+      {page === 'Home' ? <GamesList fecthingRoute={'/games?&'} /> : <GamesList fecthingRoute={`/games?genres=${slug}&`} />}
+
+      <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
     </Wrapper>
   )
 }

@@ -2,6 +2,7 @@ import Loader from 'react-loader-spinner'
 import styled from 'styled-components'
 
 export const StyledList = styled.ul`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
 
@@ -10,6 +11,7 @@ export const StyledList = styled.ul`
   padding: 15px 10px;
   justify-content: center;
   overflow: hidden;
+  min-height: 350px;
 `
 export const StyledLoader = styled(Loader)`
   display: flex;
@@ -23,4 +25,14 @@ export const StyledEndMessage = styled.p`
   letter-spacing: 1px;
   line-height: 2em;
   font-family: Lato;
+`
+export const StyledListWrapper = styled.div`
+  margin-top: 20px;
+
+  h2 {
+    margin-left: 20px;
+    @media (min-width: 980px) {
+      margin-left: 10%;
+    }
+  }
 `
