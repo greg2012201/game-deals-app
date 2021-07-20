@@ -1,23 +1,22 @@
 import { useState, useCallback } from 'react'
 import axios from 'axios'
+import { actions } from 'utils/state/transitions'
 
 export const useGameDetails = () => {
   const [data, setData] = useState({})
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-
-  const fetchData = useCallback(async (url) => {
-    setLoading(true)
-
+  const fetchData = useCallback(async (url, updateState) => {
+    const { fetch, success, error: stateError } = actions
+    updateState(fetch)
     try {
       const response = await axios.get(url)
-      setLoading(false)
+      updateState(success)
       setData(response.data)
     } catch (e) {
-      setLoading(false)
+      updateState(stateError)
       return setError('Something went wrong')
     }
   }, [])
 
-  return { data, error, fetchData, loading }
+  return { data, error, fetchData }
 }
