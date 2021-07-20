@@ -15,37 +15,39 @@ import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
 import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
+import { states } from 'utils/state/states'
+import { useStateMachine } from 'hooks/useStateMachine'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
+  const { compareState, updateState } = useStateMachine()
   const {
     data: detailsData,
     data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
     error,
-    loading,
+
     fetchData,
   } = useGameDetails()
   useEffect(() => {
     window.scrollTo(0, 0)
-    fetchData(`${url}/games/${slug}?key=${key}`)
-  }, [fetchData, slug])
-
+    fetchData(`${url}/games/${slug}?key=${key}`, updateState)
+  }, [fetchData, slug, updateState])
   return (
     <Background>
-      {error ? (
+      {compareState(states.hasError) ? (
         <ErrorPage>Something Went Wrong</ErrorPage>
       ) : (
-        <Wrapper style={!loading ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
-          <Mask isLoading={loading}>
-            <Title isLoading={loading} key={id}>
+        <Wrapper style={compareState(states.hasLoaded) ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
+          <Mask isLoading={compareState(states.isLoading)}>
+            <Title isLoading={compareState(states.isLoading)} key={id}>
               {name}
             </Title>
-            <Screenshots isLoading={loading} slug={slug} />
-            <ArticleContainer data={detailsData} isLoading={loading} title={'About'} error={error}>
+            <Screenshots compareState={compareState} slug={slug} />
+            <ArticleContainer compareState={compareState} title={'About'} error={error}>
               {descripton}
             </ArticleContainer>
-            <InformationsTemplate isLoading={loading}>
+            <InformationsTemplate compareState={compareState}>
               {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
