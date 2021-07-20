@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useMenuVisibilityToggle } from 'hooks/useMenuVisibility'
+import { useMenuVisibilityToggle } from 'hooks/useMenuVisibilityToggle'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
 import { DropdownPanel, PathsList, PathItem, NavLink } from './Menu.style'
 import { Wrapper } from './Menu.style'
