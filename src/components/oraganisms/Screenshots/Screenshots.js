@@ -5,9 +5,9 @@ import { RAWGOptions } from 'utils/fetchingOptions'
 import React, { useEffect } from 'react'
 import { useScreenshots } from './useScreenshots'
 const { url, key } = RAWGOptions
-const Screenshots = ({ slug }) => {
+const Screenshots = ({ slug, compareState }) => {
   const { isOpen, index, handleSliderClose, handleSliderOpen } = useSlider()
-  const { data, loading, error, fetchData } = useScreenshots()
+  const { data, fetchData } = useScreenshots()
 
   useEffect(() => {
     fetchData(`${url}/games/${slug}/screenshots?key=${key}`)
@@ -15,7 +15,7 @@ const Screenshots = ({ slug }) => {
 
   return (
     <div>
-      <Gallery isLoading={loading} handleSliderOpen={handleSliderOpen} images={data} error={error} />
+      <Gallery compareState={compareState} handleSliderOpen={handleSliderOpen} images={data} />
       <Slider handleSliderClose={handleSliderClose} isOpen={isOpen} images={data} index={index} />
     </div>
   )
