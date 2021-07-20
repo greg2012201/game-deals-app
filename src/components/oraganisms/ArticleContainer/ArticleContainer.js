@@ -6,13 +6,14 @@ import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
 import ArticleContainerSkeletonLoader from './ArticleContainerSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 import { useWindowSize } from 'react-use'
+import { states } from 'utils/state/states'
 
-const ArticleContainer = ({ children, title, isLoading, data, error }) => {
+const ArticleContainer = ({ children, title, compareState }) => {
   const { width: windowWidth } = useWindowSize()
-  if (error) {
+  if (compareState(states.hasEror)) {
     return <ErrorMessage>Something went wrong</ErrorMessage>
   }
-  if (isLoading || Object.keys(data).length === 0) {
+  if (compareState(states.isLoading)) {
     return <ArticleContainerSkeletonLoader />
   } else {
     return (
