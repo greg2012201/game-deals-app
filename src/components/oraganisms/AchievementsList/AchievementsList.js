@@ -7,27 +7,37 @@ import { usePagination } from './usePagination'
 import Title from 'components/atoms/Title/Title'
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
+import { useStateMachine } from 'hooks/useStateMachine'
+import { states } from 'utils/state/states'
 const pageSize = 4
 const AchievementsList = ({ achievementsFor }) => {
   const listRef = useRef(null)
-
+  const { updateState, compareState } = useStateMachine()
   const {
     fetchData,
-    loading,
     error,
     getCancelToken,
     resetData,
     achievements,
     page: { count },
   } = useAchievementsListData()
-  const { handleOnPageChange, currentPage } = usePagination({ pageSize, achievementsFor, fetchData, resetData, getCancelToken, listRef })
+  const { handleOnPageChange, currentPage } = usePagination({
+    pageSize,
+    achievementsFor,
+    fetchData,
+    resetData,
+    getCancelToken,
+    listRef,
+    compareState,
+    updateState,
+  })
 
   return (
     <StyledAchivementsList ref={listRef}>
       <Title titleType="h2">Achievements</Title>
-      {error ? (
-        <ErrorMessage>Something went wrong</ErrorMessage>
-      ) : loading || achievements.length === 0 ? (
+      {compareState(states.hasError) ? (
+        <ErrorMessage>{error}</ErrorMessage>
+      ) : compareState(states.isLoading) || compareState(states.empty) ? (
         Array(4)
           .fill('')
           .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)

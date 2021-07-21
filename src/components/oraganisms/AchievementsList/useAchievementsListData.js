@@ -1,14 +1,17 @@
 import axios from 'axios'
 import { useState, useCallback } from 'react'
+import { actions } from 'utils/state/transitions'
 const achievementsInitialState = []
+const fetchingCancelMessage = 'cancel'
 export const useAchievementsListData = () => {
   const [achievements, setAchievements] = useState([])
   const [page, setPage] = useState({})
-  const [loading, setLoading] = useState(achievementsInitialState)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const fetchData = useCallback(async (url, source = null) => {
+  const fetchData = useCallback(async ({ url, source = null, updateState }) => {
     setLoading(true)
+    updateState(actions.fetch)
     try {
       const {
         data: { next, previous, count, results },
@@ -21,20 +24,22 @@ export const useAchievementsListData = () => {
           : null
       )
       setAchievements(results)
+      updateState(actions.success)
       setLoading(false)
       setPage({ next, previous, count })
     } catch (e) {
-      setError(e)
-      return setLoading(false)
+      if (e.message === fetchingCancelMessage) return
+      setError('Something went wrong')
+      updateState(actions.error)
     }
   }, [])
   const getCancelToken = useCallback(() => {
     return axios.CancelToken.source()
   }, [])
   const resetData = useCallback((source) => {
-    source.cancel()
+    source.cancel(fetchingCancelMessage)
     setAchievements(achievementsInitialState)
   }, [])
 
-  return { fetchData, achievements, getCancelToken, resetData, page, loading, error }
+  return { fetchData, achievements, getCancelToken, resetData, page, error, loading }
 }
