@@ -10,11 +10,11 @@ export const useGameDetails = () => {
     updateState(fetch)
     try {
       const response = await axios.get(url)
-      updateState(success)
       setData(response.data)
+      updateState(success)
     } catch (e) {
+      setError('Something went wrong')
       updateState(stateError)
-      return setError('Something went wrong')
     }
   }, [])
 
