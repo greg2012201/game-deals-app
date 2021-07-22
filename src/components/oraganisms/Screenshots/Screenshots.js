@@ -4,14 +4,17 @@ import { useSlider } from 'components/molecules/Slider/useSlider'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import React, { useEffect } from 'react'
 import { useScreenshots } from './useScreenshots'
+import { useStateMachine } from 'hooks/useStateMachine'
 const { url, key } = RAWGOptions
-const Screenshots = ({ slug, compareState }) => {
+const Screenshots = ({ slug }) => {
   const { isOpen, index, handleSliderClose, handleSliderOpen } = useSlider()
-  const { data, fetchData } = useScreenshots()
-
+  const { data, fetchData, getCancelToken, resetData } = useScreenshots()
+  const { compareState, updateState } = useStateMachine()
   useEffect(() => {
-    fetchData(`${url}/games/${slug}/screenshots?key=${key}`)
-  }, [fetchData, slug])
+    const cancelToken = getCancelToken()
+    fetchData({ url: `${url}/games/${slug}/screenshots?key=${key}`, source: cancelToken, updateState })
+    return () => resetData(cancelToken)
+  }, [fetchData, slug, updateState, getCancelToken, resetData])
 
   return (
     <div>
