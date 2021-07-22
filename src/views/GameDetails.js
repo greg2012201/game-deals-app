@@ -28,11 +28,15 @@ const GameDetails = () => {
     error,
 
     fetchData,
+    getCancelToken,
+    resetData,
   } = useGameDetails()
   useEffect(() => {
+    const cancelToken = getCancelToken()
     window.scrollTo(0, 0)
-    fetchData(`${url}/games/${slug}?key=${key}`, updateState)
-  }, [fetchData, slug, updateState])
+    fetchData({ url: `${url}/games/${slug}?key=${key}`, updateState, source: cancelToken })
+    return () => resetData(cancelToken)
+  }, [fetchData, slug, updateState, resetData, getCancelToken])
   return (
     <Background>
       {compareState(states.hasError) ? (
