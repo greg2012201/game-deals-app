@@ -51,7 +51,7 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
         </StyledList>
       ) : (
         <InfiniteScroll
-          scrollThreshold={'200px'}
+          scrollThreshold={'500px'}
           dataLength={data.length}
           next={handleFetchMoreData}
           hasMore={data.length <= limit && nextPage !== null}
