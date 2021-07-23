@@ -14,8 +14,7 @@ const initialState = {
   nextPage: '',
   limit: 0,
   error: '',
-  loading: true,
-  hasInitialFetch: null,
+  hasInitialFetch: true,
 }
 
 const reducer = (state, action) => {
@@ -31,7 +30,6 @@ const reducer = (state, action) => {
         data: [...state.data, ...action.data],
         nextPage: action.nextPage,
         limit: action.limit,
-        loading: false,
       }
 
     case actionTypes.error:
@@ -52,8 +50,8 @@ export const useGamesList = () => {
   const [results, dispatch] = useReducer(reducer, initialState)
 
   const fetchData = useCallback(async ({ url, source = null, updateState, initial = true }) => {
-    updateState(actions.fetch)
     dispatch({ type: actionTypes.setInitialFetch, initial })
+    updateState(actions.fetch)
     try {
       const {
         data: { results, next, count },
