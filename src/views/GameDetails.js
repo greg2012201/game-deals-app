@@ -24,7 +24,15 @@ const GameDetails = () => {
   const { compareState, updateState } = useStateMachine()
   const {
     data: detailsData,
-    data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
+    data: {
+      name,
+      id,
+      description_raw: descripton,
+      background_image: backgroundImage,
+      achievements_count: achievementsCount,
+      game_series_count: gamesLikeCount,
+    },
+
     error,
 
     fetchData,
@@ -56,7 +64,7 @@ const GameDetails = () => {
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
             </InformationsTemplate>
-            <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
+            {gamesLikeCount && <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />}
           </Mask>
           <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
         </Wrapper>
