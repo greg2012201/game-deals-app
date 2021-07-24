@@ -3,17 +3,17 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from 'assets/styles/GlobalStyle'
 import { theme } from 'assets/styles/theme'
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate'
-import GamesDataProvider from 'providers/GamesDataProvider'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GameDetails from './GameDetails'
+import { GenresDataProvider } from 'hooks/useGenresData'
 
 const Root = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <GamesDataProvider>
+        <GenresDataProvider>
           <MainTemplate>
             <Switch>
               <Route exact path="/">
@@ -27,7 +27,7 @@ const Root = () => {
               </Route>
             </Switch>
           </MainTemplate>
-        </GamesDataProvider>
+        </GenresDataProvider>
       </ThemeProvider>
     </Router>
   )
