@@ -16,12 +16,10 @@ import AchievementsList from 'components/oraganisms/AchievementsList/Achievement
 import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
 import { states } from 'utils/state/states'
-import { useStateMachine } from 'hooks/useStateMachine'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
-  const { compareState, updateState } = useStateMachine()
   const {
     data: detailsData,
     data: {
@@ -34,17 +32,20 @@ const GameDetails = () => {
     },
 
     error,
-
+    compareState,
     fetchData,
     getCancelToken,
     resetData,
   } = useGameDetails()
   useEffect(() => {
     const cancelToken = getCancelToken()
+
     window.scrollTo(0, 0)
-    fetchData({ url: `${url}/games/${slug}?key=${key}`, updateState, source: cancelToken })
-    return () => resetData(cancelToken)
-  }, [fetchData, slug, updateState, resetData, getCancelToken])
+    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken })
+    return () => {
+      resetData(cancelToken)
+    }
+  }, [fetchData, slug, resetData, getCancelToken])
   return (
     <Background>
       {compareState(states.hasError) ? (
@@ -55,7 +56,7 @@ const GameDetails = () => {
             <Title isLoading={compareState(states.isLoading)} key={id}>
               {name}
             </Title>
-            <Screenshots compareState={compareState} slug={slug} />
+            <Screenshots slug={slug} />
             <ArticleContainer compareState={compareState} title={'About'} error={error}>
               {descripton}
             </ArticleContainer>
