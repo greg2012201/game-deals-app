@@ -7,6 +7,7 @@ import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GameDetails from './GameDetails'
 import { GenresDataProvider } from 'hooks/useGenresData'
+import { GameDetailsProvider } from 'hooks/useGameDetails'
 
 const Root = () => {
   return (
@@ -20,7 +21,9 @@ const Root = () => {
                 <Redirect to="/Home" />
               </Route>
               <Route exact path="/games/:slug?">
-                <GameDetails />
+                <GameDetailsProvider>
+                  <GameDetails />
+                </GameDetailsProvider>
               </Route>
               <Route path="/:page?/:slug?">
                 <Dashboard />
