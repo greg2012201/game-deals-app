@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { RAWGOptions } from 'utils/fetchingOptions'
 const { url, key } = RAWGOptions
 
-export const usePagination = ({ pageSize, achievementsFor, fetchData, resetData, getCancelToken, listRef, updateState }) => {
+export const usePagination = ({ pageSize, achievementsFor, fetchData, resetData, getCancelToken, listRef }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [initialPage, setInitialPage] = useState(true)
   const handleOnPageChange = (current) => {
@@ -26,10 +26,9 @@ export const usePagination = ({ pageSize, achievementsFor, fetchData, resetData,
     fetchData({
       url: `${url}/games/${achievementsFor}/achievements?page=${currentPage}&page_size=${pageSize}&key=${key}`,
       source: cancelToken,
-      updateState,
     })
     return () => (!initialPage ? resetData(cancelToken) : null)
-  }, [achievementsFor, currentPage, fetchData, initialPage, getCancelToken, resetData, pageSize, updateState])
+  }, [achievementsFor, currentPage, fetchData, initialPage, getCancelToken, resetData, pageSize])
 
   return { handleOnPageChange, currentPage }
 }

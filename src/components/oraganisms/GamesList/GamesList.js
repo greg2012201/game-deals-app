@@ -8,30 +8,30 @@ import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/Ga
 import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import Title from 'components/atoms/Title/Title'
-import { useStateMachine } from 'hooks/useStateMachine'
 import { states } from 'utils/state/states'
 const { url, key } = RAWGOptions
 const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fecthingRoute }) => {
   const theme = useTheme()
-  const { updateState, compareState } = useStateMachine()
+
   const {
     results: { data, error, nextPage, limit, hasInitialFetch },
     resetData,
     fetchData,
     getCancelToken,
+    compareState,
   } = useGamesList()
 
   useEffect(() => {
     const cancelToken = getCancelToken()
 
-    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken, updateState })
+    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken })
     return () => {
       resetData(cancelToken)
     }
-  }, [fetchData, fecthingRoute, resetData, getCancelToken, updateState])
+  }, [fetchData, fecthingRoute, resetData, getCancelToken])
   const handleFetchMoreData = () => {
     if (!nextPage) return
-    return fetchData({ url: nextPage, updateState, initial: false })
+    return fetchData({ url: nextPage, initial: false })
   }
 
   return (

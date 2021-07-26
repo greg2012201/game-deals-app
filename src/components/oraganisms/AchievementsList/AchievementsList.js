@@ -7,18 +7,19 @@ import { usePagination } from './usePagination'
 import Title from 'components/atoms/Title/Title'
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
-import { useStateMachine } from 'hooks/useStateMachine'
+
 import { states } from 'utils/state/states'
 const pageSize = 4
 const AchievementsList = ({ achievementsFor }) => {
   const listRef = useRef(null)
-  const { updateState, compareState } = useStateMachine()
   const {
     fetchData,
     error,
+    compareState,
     getCancelToken,
     resetData,
     achievements,
+
     page: { count },
   } = useAchievementsListData()
   const { handleOnPageChange, currentPage } = usePagination({
@@ -29,7 +30,6 @@ const AchievementsList = ({ achievementsFor }) => {
     getCancelToken,
     listRef,
     compareState,
-    updateState,
   })
 
   return (
