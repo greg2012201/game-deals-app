@@ -1,9 +1,12 @@
 import { useCallback, useReducer } from 'react'
 import axios from 'axios'
+import { actions } from 'utils/state/transitions'
+import { useStateMachine } from './useStateMachine'
+
 const fetchingCancelMessage = 'cancel'
 const actionTypes = {
   getData: 'GET_DATA',
-
+  setInitialFetch: 'SET_INITAL_FETCH',
   reset: 'RESET',
   lodaing: 'LOADING',
   error: 'ERROR',
@@ -13,25 +16,24 @@ const initialState = {
   nextPage: '',
   limit: 0,
   error: '',
-  loading: true,
+  hasInitialFetch: true,
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case actionTypes.setInitialFetch:
+      return {
+        ...state,
+        hasInitialFetch: action.initial,
+      }
     case actionTypes.getData:
       return {
         ...state,
         data: [...state.data, ...action.data],
         nextPage: action.nextPage,
         limit: action.limit,
-        loading: false,
       }
 
-    case actionTypes.loading:
-      return {
-        ...state,
-        loading: true,
-      }
     case actionTypes.error:
       return {
         ...initialState,
@@ -47,37 +49,43 @@ const reducer = (state, action) => {
   }
 }
 export const useGamesList = () => {
-  const [fetchedData, dispatch] = useReducer(reducer, initialState)
+  const [results, dispatch] = useReducer(reducer, initialState)
+  const { updateState, compareState } = useStateMachine()
+  const fetchData = useCallback(
+    async ({ url, source = null, initial = true }) => {
+      dispatch({ type: actionTypes.setInitialFetch, initial })
+      updateState(actions.fetch)
+      try {
+        const {
+          data: { results, next, count },
+        } = await axios.get(
+          url,
+          source
+            ? {
+                cancelToken: source.token,
+              }
+            : null
+        )
 
-  const fetchData = useCallback(async (url, source = null) => {
-    try {
-      const {
-        data: { results, next, count },
-      } = await axios.get(
-        url,
-        source
-          ? {
-              cancelToken: source.token,
-            }
-          : null
-      )
-
-      return dispatch({
-        type: actionTypes.getData,
-        data: results,
-        nextPage: next,
-        limit: count,
-      })
-    } catch (e) {
-      if (e.message === fetchingCancelMessage) return
-      return dispatch({
-        type: actionTypes.error,
-      })
-    }
-  }, [])
+        dispatch({
+          type: actionTypes.getData,
+          data: results,
+          nextPage: next,
+          limit: count,
+        })
+        updateState(actions.success)
+      } catch (e) {
+        if (e.message === fetchingCancelMessage) return
+        dispatch({
+          type: actionTypes.error,
+        })
+        updateState(actions.error)
+      }
+    },
+    [updateState]
+  )
   const resetData = useCallback((source) => {
     source.cancel(fetchingCancelMessage)
-
     dispatch({
       type: actionTypes.reset,
     })
@@ -86,5 +94,5 @@ export const useGamesList = () => {
     return axios.CancelToken.source()
   }, [])
 
-  return { fetchedData, fetchData, resetData, getCancelToken }
+  return { results, fetchData, resetData, getCancelToken, compareState }
 }

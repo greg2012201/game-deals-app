@@ -15,42 +15,57 @@ import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import AchievementsList from 'components/oraganisms/AchievementsList/AchievementsList'
 import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
+import { states } from 'utils/state/states'
 
 const { url, key } = RAWGOptions
 const GameDetails = () => {
   const { slug } = useParams()
   const {
     data: detailsData,
-    data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
+    data: {
+      name,
+      id,
+      description_raw: descripton,
+      background_image: backgroundImage,
+      achievements_count: achievementsCount,
+      game_series_count: gamesLikeCount,
+    },
+
     error,
-    loading,
+    compareState,
     fetchData,
+    getCancelToken,
+    resetData,
   } = useGameDetails()
   useEffect(() => {
-    window.scrollTo(0, 0)
-    fetchData(`${url}/games/${slug}?key=${key}`)
-  }, [fetchData, slug])
+    const cancelToken = getCancelToken()
 
+    window.scrollTo(0, 0)
+    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken })
+    return () => {
+      resetData(cancelToken)
+    }
+  }, [fetchData, slug, resetData, getCancelToken])
   return (
     <Background>
-      {error ? (
+      {compareState(states.hasError) ? (
         <ErrorPage>Something Went Wrong</ErrorPage>
       ) : (
-        <Wrapper style={!loading ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
-          <Mask isLoading={loading}>
-            <Title isLoading={loading} key={id}>
+        <Wrapper style={compareState(states.hasLoaded) ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
+          <Mask isLoading={compareState(states.isLoading)}>
+            <Title isLoading={compareState(states.isLoading)} key={id}>
               {name}
             </Title>
-            <Screenshots isLoading={loading} slug={slug} />
-            <ArticleContainer data={detailsData} isLoading={loading} title={'About'} error={error}>
+            <Screenshots slug={slug} />
+            <ArticleContainer compareState={compareState} title={'About'} error={error}>
               {descripton}
             </ArticleContainer>
-            <InformationsTemplate isLoading={loading}>
+            <InformationsTemplate compareState={compareState}>
               {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
               <GameMetaWrapper data={detailsData} />
               <PCRequirements data={detailsData} />
             </InformationsTemplate>
-            <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
+            {gamesLikeCount && <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />}
           </Mask>
           <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
         </Wrapper>

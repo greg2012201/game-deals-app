@@ -23,7 +23,10 @@ export const usePagination = ({ pageSize, achievementsFor, fetchData, resetData,
       setCurrentPage(1)
       return resetData(cancelToken)
     }
-    fetchData(`${url}/games/${achievementsFor}/achievements?page=${currentPage}&page_size=${pageSize}&key=${key}`, cancelToken)
+    fetchData({
+      url: `${url}/games/${achievementsFor}/achievements?page=${currentPage}&page_size=${pageSize}&key=${key}`,
+      source: cancelToken,
+    })
     return () => (!initialPage ? resetData(cancelToken) : null)
   }, [achievementsFor, currentPage, fetchData, initialPage, getCancelToken, resetData, pageSize])
 

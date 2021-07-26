@@ -8,71 +8,66 @@ import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/Ga
 import { useGamesList } from 'hooks/useGamesList'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import Title from 'components/atoms/Title/Title'
+import { states } from 'utils/state/states'
 const { url, key } = RAWGOptions
 const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fecthingRoute }) => {
   const theme = useTheme()
 
   const {
-    fetchedData: { data, loading, error, nextPage, limit },
+    results: { data, error, nextPage, limit, hasInitialFetch },
     resetData,
     fetchData,
     getCancelToken,
+    compareState,
   } = useGamesList()
 
   useEffect(() => {
     const cancelToken = getCancelToken()
 
-    fetchData(`${url}${fecthingRoute}key=${key}`, cancelToken)
+    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken })
     return () => {
       resetData(cancelToken)
     }
   }, [fetchData, fecthingRoute, resetData, getCancelToken])
   const handleFetchMoreData = () => {
     if (!nextPage) return
-    return fetchData(nextPage)
+    return fetchData({ url: nextPage, initial: false })
   }
 
-  if (error && data.length === 0) {
-    return (
-      <StyledListWrapper>
+  return (
+    <StyledListWrapper>
+      {compareState(states.hasError) && (
         <StyledList>
           <ErrorPage>{error}</ErrorPage>
         </StyledList>
-      </StyledListWrapper>
-    )
-  } else if (loading) {
-    return (
-      <StyledList>
-        {Array(20)
-          .fill('')
-          .map((e, i) => (
-            <GamesListSkeletonLoader key={i} />
-          ))}
-      </StyledList>
-    )
-  } else if (data.length !== 0) {
-    return (
-      <StyledListWrapper>
+      )}
+      {hasInitialFetch && compareState(states.isLoading) ? (
+        <StyledList>
+          {Array(20)
+            .fill('')
+            .map((e, i) => (
+              <GamesListSkeletonLoader key={i} />
+            ))}
+        </StyledList>
+      ) : (
         <InfiniteScroll
-          scrollThreshold={'200px'}
+          scrollThreshold={'500px'}
           dataLength={data.length}
           next={handleFetchMoreData}
           hasMore={data.length <= limit && nextPage !== null}
           endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
           loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
         >
-          {title ? <Title titleType="h2">{title}</Title> : null}
+          {title && <Title titleType="h2">{title}</Title>}
           <StyledList>
             {data.map((data) => (
               <ProductCard key={data.id} gamesData={data} />
             ))}
           </StyledList>
         </InfiniteScroll>
-      </StyledListWrapper>
-    )
-  } else {
-    return null
-  }
+      )}
+    </StyledListWrapper>
+  )
 }
 
 export default GamesList
