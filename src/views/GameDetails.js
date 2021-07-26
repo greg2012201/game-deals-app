@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useGameDetails } from 'hooks/useGameDetails'
+import { useGameDetailsData } from 'hooks/useGameDetailsData'
 import { useParams } from 'react-router'
 import { Background, Mask, Wrapper } from './GameDetails.style'
 import { RAWGOptions } from 'utils/fetchingOptions'
@@ -36,7 +36,7 @@ const GameDetails = () => {
     fetchData,
     getCancelToken,
     resetData,
-  } = useGameDetails()
+  } = useGameDetailsData()
   useEffect(() => {
     const cancelToken = getCancelToken()
 

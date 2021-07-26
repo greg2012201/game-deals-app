@@ -4,7 +4,7 @@ import { actions } from 'utils/state/transitions'
 import { useStateMachine } from './useStateMachine'
 const initialState = {}
 const fetchingCancelMessage = 'cancel'
-export const useGameDetails = () => {
+export const useGameDetailsData = () => {
   const { updateState, compareState } = useStateMachine()
   const [data, setData] = useState({})
   const [error, setError] = useState('')
