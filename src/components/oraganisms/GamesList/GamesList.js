@@ -23,8 +23,8 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
 
   useEffect(() => {
     const cancelToken = getCancelToken()
-
     fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken })
+
     return () => {
       resetData(cancelToken)
     }
@@ -33,7 +33,9 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
     if (!nextPage) return
     return fetchData({ url: nextPage, initial: false })
   }
-
+  if (data.length === 0 && compareState(states.hasLoaded)) {
+    return null
+  }
   return (
     <StyledListWrapper>
       {compareState(states.hasError) && (
