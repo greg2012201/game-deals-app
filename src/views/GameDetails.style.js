@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  background-image: ${({ hasLoaded, backgroundURL }) => (hasLoaded ? `url(${backgroundURL})` : 'none')};
 
   ${StyledListWrapper} {
     grid-column: 1/3;
