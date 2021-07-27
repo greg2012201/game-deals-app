@@ -9,11 +9,11 @@ const { url, key } = RAWGOptions
 
 export const GameDetailsProvider = ({ children }) => {
   const { slug } = useParams()
+
   const { data, error, compareState, fetchData, getCancelToken, resetData } = useGameDetailsData()
+
   useEffect(() => {
     const cancelToken = getCancelToken()
-
-    window.scrollTo(0, 0)
     fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken })
     return () => {
       resetData(cancelToken)
