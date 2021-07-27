@@ -7,11 +7,12 @@ import { usePagination } from './usePagination'
 import Title from 'components/atoms/Title/Title'
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
-
 import { states } from 'utils/state/states'
+import { useParams } from 'react-router'
 const pageSize = 4
-const AchievementsList = ({ achievementsFor }) => {
+const AchievementsList = () => {
   const listRef = useRef(null)
+  const { slug } = useParams()
   const {
     fetchData,
     error,
@@ -24,7 +25,7 @@ const AchievementsList = ({ achievementsFor }) => {
   } = useAchievementsListData()
   const { handleOnPageChange, currentPage } = usePagination({
     pageSize,
-    achievementsFor,
+    slug,
     fetchData,
     resetData,
     getCancelToken,
