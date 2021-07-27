@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import { useGameDetailsData } from 'hooks/useGameDetailsData'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Background, Mask, Wrapper } from './GameDetails.style'
-import { RAWGOptions } from 'utils/fetchingOptions'
 import 'swiper/swiper-bundle.css'
 import Title from 'components/atoms/Title/Title'
 import ArticleContainer from 'components/oraganisms/ArticleContainer/ArticleContainer'
@@ -16,56 +14,46 @@ import AchievementsList from 'components/oraganisms/AchievementsList/Achievement
 import Screenshots from 'components/oraganisms/Screenshots/Screenshots'
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
 import { states } from 'utils/state/states'
+import { useGameDetails } from 'hooks/useGameDetails'
+import ArticleContainerSkeletonLoader from 'components/oraganisms/ArticleContainer/ArticleContainerSkeletonLoader'
+import Loader from 'react-loader-spinner'
+import { useTheme } from 'styled-components'
 
-const { url, key } = RAWGOptions
 const GameDetails = () => {
+  const theme = useTheme()
   const { slug } = useParams()
+
   const {
-    data: detailsData,
-    data: {
-      name,
-      id,
-      description_raw: descripton,
-      background_image: backgroundImage,
-      achievements_count: achievementsCount,
-      game_series_count: gamesLikeCount,
-    },
-
-    error,
+    data: { name, id, description_raw: descripton, background_image: backgroundImage, achievements_count: achievementsCount },
     compareState,
-    fetchData,
-    getCancelToken,
-    resetData,
-  } = useGameDetailsData()
+  } = useGameDetails()
   useEffect(() => {
-    const cancelToken = getCancelToken()
-
     window.scrollTo(0, 0)
-    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken })
-    return () => {
-      resetData(cancelToken)
-    }
-  }, [fetchData, slug, resetData, getCancelToken])
+  }, [slug])
   return (
     <Background>
       {compareState(states.hasError) ? (
         <ErrorPage>Something Went Wrong</ErrorPage>
       ) : (
-        <Wrapper style={compareState(states.hasLoaded) ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: 'none' }}>
+        <Wrapper hasLoaded={compareState(states.hasLoaded)} backgroundURL={backgroundImage}>
           <Mask isLoading={compareState(states.isLoading)}>
             <Title isLoading={compareState(states.isLoading)} key={id}>
               {name}
             </Title>
-            <Screenshots slug={slug} />
-            <ArticleContainer compareState={compareState} title={'About'} error={error}>
-              {descripton}
-            </ArticleContainer>
-            <InformationsTemplate compareState={compareState}>
-              {achievementsCount > 0 ? <AchievementsList achievementsFor={slug} /> : null}
-              <GameMetaWrapper data={detailsData} />
-              <PCRequirements data={detailsData} />
+            <Screenshots />
+            {compareState(states.isLoading) ? <ArticleContainerSkeletonLoader /> : <ArticleContainer title={'About'}>{descripton}</ArticleContainer>}
+            <InformationsTemplate>
+              {compareState(states.isLoading) ? (
+                <Loader className="loader" type="Oval" color={theme.colors.darkWhite} height={60} width={60} />
+              ) : (
+                <>
+                  {achievementsCount > 0 && <AchievementsList />}
+                  <GameMetaWrapper />
+                  <PCRequirements />
+                </>
+              )}
             </InformationsTemplate>
-            {gamesLikeCount && <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />}
+            <GamesList title="Games like" endMessage={false} fecthingRoute={`/games/${slug}/game-series?`} />
           </Mask>
           <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
         </Wrapper>

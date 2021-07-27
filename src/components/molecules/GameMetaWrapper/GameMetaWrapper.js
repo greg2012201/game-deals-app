@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom'
 import GameMetaItem from '../GamesMetaItem/GameMetaItem'
 import { MetaContentWrapper } from './GameMetaWrapper.style'
 import { useConvertNestedObjectsInArrayIntoAnArrayOfObjects } from 'hooks/useConvertNestedObjectsInArrayIntoAnArrayOfObjects'
+import { useGameDetails } from 'hooks/useGameDetails'
 
-const GameMetaWrapper = ({
-  data,
-  data: { parent_platforms: parentPlatforms, released, publishers, website, genres, metacritic, esrb_rating: ageRating, developers },
-}) => {
+const GameMetaWrapper = () => {
+  const {
+    data,
+    data: { parent_platforms: parentPlatforms, released, publishers, website, genres, metacritic, esrb_rating: ageRating, developers },
+  } = useGameDetails()
   const { transformedData: platformData } = useConvertNestedObjectsInArrayIntoAnArrayOfObjects(parentPlatforms)
 
   return Object.keys(data).length !== 0 ? (
