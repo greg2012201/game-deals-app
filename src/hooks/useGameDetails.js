@@ -1,43 +1,34 @@
-import { useState, useCallback } from 'react'
-import axios from 'axios'
-import { actions } from 'utils/state/transitions'
-import { useStateMachine } from './useStateMachine'
-const initialState = {}
-const fetchingCancelMessage = 'cancel'
-export const useGameDetails = () => {
-  const { updateState, compareState } = useStateMachine()
-  const [data, setData] = useState({})
-  const [error, setError] = useState('')
-  const fetchData = useCallback(
-    async ({ url, source }) => {
-      const { fetch, success, error: stateError } = actions
-      updateState(fetch)
-      try {
-        const response = await axios.get(
-          url,
-          source
-            ? {
-                cancelToken: source.token,
-              }
-            : null
-        )
-        setData(response.data)
-        updateState(success)
-      } catch (e) {
-        if (e.message === fetchingCancelMessage) return
-        setError('Something went wrong')
-        updateState(stateError)
-      }
-    },
-    [updateState]
-  )
-  const getCancelToken = useCallback(() => {
-    return axios.CancelToken.source()
-  }, [])
-  const resetData = useCallback((source) => {
-    source.cancel(fetchingCancelMessage)
-    setData(initialState)
-  }, [])
+import React, { useContext, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { RAWGOptions } from 'utils/fetchingOptions'
+import { useParams } from 'react-router-dom'
+import { useFetchData } from './useFetchData'
 
-  return { data, error, fetchData, resetData, getCancelToken, compareState }
+const GameDetailsContext = React.createContext(null)
+const { url, key } = RAWGOptions
+const initialState = []
+export const GameDetailsProvider = ({ children }) => {
+  const [data, setData] = useState(initialState)
+  const { slug } = useParams()
+
+  const { error, compareState, fetchData, getCancelToken, resetData } = useFetchData(setData)
+
+  useEffect(() => {
+    const cancelToken = getCancelToken()
+    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken, setData })
+    return () => {
+      resetData(cancelToken, initialState)
+    }
+  }, [fetchData, slug, resetData, getCancelToken])
+  return <GameDetailsContext.Provider value={{ data, error, compareState }}>{children}</GameDetailsContext.Provider>
+}
+export const useGameDetails = () => {
+  const gameDetailsContext = useContext(GameDetailsContext)
+  if (!gameDetailsContext) {
+    throw Error('useGameDetails needs to be used inside the GameDetailsContext')
+  }
+  return gameDetailsContext
+}
+GameDetailsProvider.propTypes = {
+  children: PropTypes.element.isRequired,
 }
