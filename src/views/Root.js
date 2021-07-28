@@ -6,7 +6,7 @@ import MainTemplate from 'components/templates/MainTemplate/MainTemplate'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GameDetails from './GameDetails'
-import { GenresDataProvider } from 'hooks/useGenresData'
+import { GenresDataProvider } from 'hooks/useGenres'
 import { GameDetailsProvider } from 'hooks/useGameDetails'
 
 const Root = () => {

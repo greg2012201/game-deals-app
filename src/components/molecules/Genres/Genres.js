@@ -1,23 +1,23 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { ButtonsWrapper, PaginationButton, StyledLinkButton, Wrapper } from './Genres.style'
 import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
 import { horizontalMenuScroll } from 'helpers/horizontalMenuScroll'
 import { usePaginationButtons } from 'hooks/usePaginationButtons'
-import { useGenresData } from 'hooks/useGenresData'
+import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
 
 const scrollDistance = 200
 export const Genres = React.forwardRef((props, ref) => {
   const buttonsWrapper = useRef(null)
 
-  const { data, fetchGenres, compareState } = useGenresData()
+  const {
+    data: { results: genres },
+    compareState,
+  } = useGenres()
   const handleOnClick = (direction) => {
     horizontalMenuScroll(direction, buttonsWrapper, scrollDistance)
   }
   const isPagination = usePaginationButtons(buttonsWrapper, compareState(states.isLoading))
-  useEffect(() => {
-    fetchGenres()
-  }, [fetchGenres])
 
   return (
     <Wrapper ref={ref} {...props}>
@@ -32,13 +32,14 @@ export const Genres = React.forwardRef((props, ref) => {
         </>
       ) : null}
       <ButtonsWrapper data-testid="buttons-wrapper" ref={buttonsWrapper}>
-        {data.map(({ name, slug, id }) => {
-          return (
-            <StyledLinkButton data-testid="genre-link" key={id} to={`/genres/${slug}`}>
-              {name}
-            </StyledLinkButton>
-          )
-        })}
+        {compareState(states.hasLoaded) &&
+          genres.map(({ name, slug, id }) => {
+            return (
+              <StyledLinkButton data-testid="genre-link" key={id} to={`/genres/${slug}`}>
+                {name}
+              </StyledLinkButton>
+            )
+          })}
       </ButtonsWrapper>
     </Wrapper>
   )

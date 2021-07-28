@@ -6,13 +6,16 @@ import { useTitleByRoute } from 'hooks/useTitleByRoute'
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import Title from 'components/atoms/Title/Title'
-import { useGenresData } from 'hooks/useGenresData'
+import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
 
 const Dashboard = () => {
-  const { data, compareState } = useGenresData()
+  const {
+    data: { results: genres },
+    compareState,
+  } = useGenres()
   const { page, slug } = useParams()
-  const { title } = useTitleByRoute(data, slug)
+  const { title } = useTitleByRoute(genres, slug)
 
   return (
     <Wrapper>
