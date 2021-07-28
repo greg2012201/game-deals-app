@@ -2,16 +2,14 @@ import { useState, useCallback } from 'react'
 import axios from 'axios'
 import { actions } from 'utils/state/transitions'
 import { useStateMachine } from './useStateMachine'
-const initialState = {}
+
 const fetchingCancelMessage = 'cancel'
-export const useGameDetailsData = () => {
+export const useFetchData = (setData) => {
   const { updateState, compareState } = useStateMachine()
-  const [data, setData] = useState({})
   const [error, setError] = useState('')
   const fetchData = useCallback(
     async ({ url, source }) => {
-      const { fetch, success, error: stateError } = actions
-      updateState(fetch)
+      updateState(actions.fetch)
       try {
         const response = await axios.get(
           url,
@@ -22,22 +20,25 @@ export const useGameDetailsData = () => {
             : null
         )
         setData(response.data)
-        updateState(success)
+        updateState(actions.success)
       } catch (e) {
         if (e.message === fetchingCancelMessage) return
         setError('Something went wrong')
-        updateState(stateError)
+        updateState(actions.error)
       }
     },
-    [updateState]
+    [updateState, setData]
   )
   const getCancelToken = useCallback(() => {
     return axios.CancelToken.source()
   }, [])
-  const resetData = useCallback((source) => {
-    source.cancel(fetchingCancelMessage)
-    setData(initialState)
-  }, [])
+  const resetData = useCallback(
+    (source, initialState) => {
+      source.cancel(fetchingCancelMessage)
+      setData(initialState)
+    },
+    [setData]
+  )
 
-  return { data, error, fetchData, resetData, getCancelToken, compareState }
+  return { error, fetchData, resetData, getCancelToken, compareState }
 }

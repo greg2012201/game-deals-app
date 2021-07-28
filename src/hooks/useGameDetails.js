@@ -1,22 +1,23 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { RAWGOptions } from 'utils/fetchingOptions'
 import { useParams } from 'react-router-dom'
-import { useGameDetailsData } from './useGameDetailsData'
+import { useFetchData } from './useFetchData'
 
 const GameDetailsContext = React.createContext(null)
 const { url, key } = RAWGOptions
-
+const initialState = []
 export const GameDetailsProvider = ({ children }) => {
+  const [data, setData] = useState(initialState)
   const { slug } = useParams()
 
-  const { data, error, compareState, fetchData, getCancelToken, resetData } = useGameDetailsData()
+  const { error, compareState, fetchData, getCancelToken, resetData } = useFetchData(setData)
 
   useEffect(() => {
     const cancelToken = getCancelToken()
-    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken })
+    fetchData({ url: `${url}/games/${slug}?key=${key}`, source: cancelToken, setData })
     return () => {
-      resetData(cancelToken)
+      resetData(cancelToken, initialState)
     }
   }, [fetchData, slug, resetData, getCancelToken])
   return <GameDetailsContext.Provider value={{ data, error, compareState }}>{children}</GameDetailsContext.Provider>
