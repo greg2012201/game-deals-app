@@ -1,28 +1,28 @@
 import AchievementsListItem from 'components/molecules/AchievementsListItem/AchievementsListItem'
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Pagination from 'rc-pagination'
 import { StyledAchivementsList } from './Achievements.style'
-import { useAchievementsListData } from './useAchievementsListData'
 import { usePagination } from './usePagination'
 import Title from 'components/atoms/Title/Title'
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 import { states } from 'utils/state/states'
 import { useParams } from 'react-router'
+import { useFetchData } from 'hooks/useFetchData'
 const pageSize = 4
 const AchievementsList = () => {
+  const [data, setData] = useState({})
+  const [count, setCount] = useState(0)
+  const { fetchData, getCancelToken, compareState, resetData, error } = useFetchData(setData)
+  useEffect(() => {
+    if (data) {
+      return setCount(data.count)
+    }
+  }, [data, setCount])
+
   const listRef = useRef(null)
   const { slug } = useParams()
-  const {
-    fetchData,
-    error,
-    compareState,
-    getCancelToken,
-    resetData,
-    achievements,
 
-    page: { count },
-  } = useAchievementsListData()
   const { handleOnPageChange, currentPage } = usePagination({
     pageSize,
     slug,
@@ -43,7 +43,7 @@ const AchievementsList = () => {
           .fill('')
           .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)
       ) : (
-        achievements.map((achievements, i) => {
+        data.results.map((achievements, i) => {
           return <AchievementsListItem key={i} achievementsData={achievements} />
         })
       )}
