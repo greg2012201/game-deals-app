@@ -6,15 +6,16 @@ import GameMetaItem from '../GamesMetaItem/GameMetaItem'
 import { MetaContentWrapper } from './GameMetaWrapper.style'
 import { useConvertNestedObjectsInArrayIntoAnArrayOfObjects } from 'hooks/useConvertNestedObjectsInArrayIntoAnArrayOfObjects'
 import { useGameDetails } from 'hooks/useGameDetails'
+import { states } from 'utils/state/states'
 
 const GameMetaWrapper = () => {
   const {
-    data,
     data: { parent_platforms: parentPlatforms, released, publishers, website, genres, metacritic, esrb_rating: ageRating, developers },
+    compareState,
   } = useGameDetails()
   const { transformedData: platformData } = useConvertNestedObjectsInArrayIntoAnArrayOfObjects(parentPlatforms)
 
-  return Object.keys(data).length !== 0 ? (
+  return compareState(states.hasLoaded) ? (
     <MetaContentWrapper>
       <Title titleType="h2">Meta</Title>
       <GameMetaItem title="Platforms" data={platformData} />
