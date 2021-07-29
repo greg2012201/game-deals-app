@@ -1,6 +1,7 @@
 import React from 'react'
 import { ReactComponent as Icon } from 'assets/icons/magnifier-icon.svg'
-import { Wrapper } from './SearchBar.style'
+import { HintWrapper, Wrapper } from './SearchBar.style'
+
 const SearchBar = () => {
   return (
     <Wrapper>
@@ -8,6 +9,7 @@ const SearchBar = () => {
         <Icon />
       </label>
       <input id="search" name="search" placeholder="Szukaj..." />
+      <HintWrapper></HintWrapper>
     </Wrapper>
   )
 }
