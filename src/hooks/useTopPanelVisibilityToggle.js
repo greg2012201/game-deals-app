@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useMenuVisibilityToggle = (changingElement, targetElement) => {
+export const useTopPanelVisibilityToggle = (changingElement, targetElement) => {
   const [visibility, setVisibility] = useState(true)
   useEffect(() => {
     const isTarget = () => {
