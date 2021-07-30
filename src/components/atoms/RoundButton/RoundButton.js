@@ -8,7 +8,7 @@ const RoundButton = (props) => {
   return (
     <Wrapper isVisible={props.isExit ? true : isVisible} {...props}>
       {props.isReturn ? <ReturnArrow /> : null}
-      {props.isExit ? <ExitCross /> : null}
+      {props.isExit || props.isReset ? <ExitCross /> : null}
     </Wrapper>
   )
 }
