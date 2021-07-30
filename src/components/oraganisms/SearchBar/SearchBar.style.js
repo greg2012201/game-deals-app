@@ -1,3 +1,4 @@
+import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import Loader from 'react-loader-spinner'
 import styled from 'styled-components'
 
@@ -82,4 +83,12 @@ export const HintWrapper = styled.ul`
 `
 export const StyledLoader = styled(Loader)`
   align-self: center;
+`
+export const StyledResetRoundButton = styled(RoundButton)`
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
 `
