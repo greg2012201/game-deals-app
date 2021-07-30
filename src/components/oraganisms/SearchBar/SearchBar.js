@@ -1,33 +1,19 @@
-import React, { useState, useMemo } from 'react'
+import React from 'react'
 import { ReactComponent as Icon } from 'assets/icons/magnifier-icon.svg'
 import { HintWrapper, Wrapper } from './SearchBar.style'
-import { useFetchData } from 'hooks/useFetchData'
-import { RAWGOptions } from 'utils/fetchingOptions'
-import debounce from 'lodash.debounce'
 import { useCombobox } from 'downshift'
-import { useStateMachine } from 'hooks/useStateMachine'
-import { actions } from 'utils/state/transitions'
 import { states } from 'utils/state/states'
-
-const { url, key } = RAWGOptions
+import Loader from 'react-loader-spinner'
+import { useTheme } from 'styled-components'
+import { useSearchBar } from './useSearchBar'
 const SearchBar = () => {
-  const [machingGames, setMachingGames] = useState({})
-  const { fetchData, compareState: compareFetchstate } = useFetchData(setMachingGames)
-  const { updateState, compareState: compareSearchState } = useStateMachine()
-  const handleItemToString = (item) => item && ''
-  const getMachingGames = useMemo(() => {
-    updateState(actions.fetch)
-    return debounce(({ inputValue }) => {
-      fetchData({ url: `${url}/games?search=303%20${inputValue}&key=${key}` })
-      updateState(actions.success)
-    }, 200)
-  }, [fetchData, updateState])
+  const theme = useTheme()
 
+  const { handleItemToString, handleOnInputValueChange, compareFetchstate, compareSearchState, machingGames } = useSearchBar()
   const { isOpen, getMenuProps, getInputProps, getComboboxProps, getItemProps } = useCombobox({
     items: machingGames.results ? machingGames.results : [],
-    onInputValueChange: getMachingGames,
+    onInputValueChange: handleOnInputValueChange,
     itemToString: handleItemToString,
-    onStateChange: () => updateState(actions.fetch),
   })
 
   return (
@@ -48,7 +34,7 @@ const SearchBar = () => {
               )
             })
           ) : (
-            <div>loading</div>
+            <Loader className="loader" type="Oval" color={theme.colors.darkWhite} height={20} width={20} />
           )
         ) : null}
       </HintWrapper>
