@@ -1,3 +1,4 @@
+import Loader from 'react-loader-spinner'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -63,12 +64,14 @@ export const Wrapper = styled.div`
   }
 `
 export const HintWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   margin: 0;
   padding: 0;
   top: 100%;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 300px;
   max-height: 150px;
   background-color: ${({ theme }) => theme.colors.black};
   border-radius: 7px;
@@ -76,4 +79,7 @@ export const HintWrapper = styled.ul`
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   overflow-y: scroll;
   z-index: 99;
+`
+export const StyledLoader = styled(Loader)`
+  align-self: center;
 `
