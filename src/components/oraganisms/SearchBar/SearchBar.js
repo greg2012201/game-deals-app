@@ -1,10 +1,12 @@
 import React from 'react'
 import { ReactComponent as Icon } from 'assets/icons/magnifier-icon.svg'
-import { HintWrapper, StyledLoader, StyledResetRoundButton, Wrapper } from './SearchBar.style'
+import { Hint, HintWrapper, StyledLoader, StyledResetRoundButton, Wrapper } from './SearchBar.style'
 import { useCombobox } from 'downshift'
 import { states } from 'utils/state/states'
 import { useTheme } from 'styled-components'
 import { useSearchBar } from './useSearchBar'
+import { Link } from 'react-router-dom'
+import Title from 'components/atoms/Title/Title'
 const SearchBar = () => {
   const theme = useTheme()
 
@@ -25,11 +27,14 @@ const SearchBar = () => {
         {isOpen ? (
           compareSearchState(states.hasLoaded) && compareFetchstate(states.hasLoaded) ? (
             machingGames.results &&
-            machingGames.results.map(({ name, id }, index) => {
+            machingGames.results.map(({ name, id, slug, background_image }, index) => {
               return (
-                <li {...getItemProps({ item: '', index })} key={id}>
-                  {name}
-                </li>
+                <Link {...getItemProps({ item: '', index })} key={id} to={`/games/${slug}`}>
+                  <Hint key={id}>
+                    <img src={background_image} alt={name} />
+                    <Title titleType="h4">{name}</Title>
+                  </Hint>
+                </Link>
               )
             })
           ) : (
