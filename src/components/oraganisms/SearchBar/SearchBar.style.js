@@ -63,23 +63,53 @@ export const Wrapper = styled.div`
       width: 300px;
     }
   }
+ 
 `
 export const HintWrapper = styled.ul`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   position: absolute;
   margin: 0;
-  padding: 0;
+  padding: ${({ isVisible }) => (isVisible ? '20px' : '0')};
   top: 100%;
   right: 0;
-  width: 300px;
-  max-height: 150px;
+  width: 330px;
+  max-height: 360px;
   background-color: ${({ theme }) => theme.colors.black};
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   overflow-y: scroll;
   z-index: 99;
+  border-radius: 7px;
+
+  a {
+    text-decoration: none;
+  }
+`
+export const Hint = styled.li`
+  display: flex;
+  align-items: center;
+  width: 287px;
+  height: 66px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.darkerGrey};
+  list-style: none;
+  border-radius: 7px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0.2s;
+  h4 {
+    margin-left: 10px;
+  }
+  img {
+    width: 74px;
+    height: 44px;
+  }
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  }
 `
 export const StyledLoader = styled(Loader)`
   align-self: center;
