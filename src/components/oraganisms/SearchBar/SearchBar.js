@@ -23,7 +23,7 @@ const SearchBar = () => {
       <label htmlFor="search">
         <Icon />
       </label>
-      <input {...getInputProps()} id="search" name="search" placeholder="Szukaj..." />
+      <input {...getInputProps()} id="search" name="search" placeholder="Search for game details..." />
       <StyledResetRoundButton isReset isVisible={inputValue} onClick={() => reset()} />
       <HintWrapper isVisible={isOpen} {...getMenuProps()}>
         {isOpen ? (
