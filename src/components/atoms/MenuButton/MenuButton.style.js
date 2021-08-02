@@ -3,7 +3,8 @@ export const Wrapper = styled.button`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 150px;
+  width: 135px;
+  height: 54px;
   border: none;
   background-color: ${({ theme, toggle }) => (toggle ? theme.colors.white : theme.colors.semiTransparentBlack)};
   transition: 0.2s;
