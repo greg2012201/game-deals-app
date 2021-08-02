@@ -35,7 +35,7 @@ export const Genres = React.forwardRef((props, ref) => {
         {compareState(states.hasLoaded) &&
           genres.map(({ name, slug, id }) => {
             return (
-              <StyledLinkButton data-testid="genre-link" key={id} to={`/genres/${slug}`}>
+              <StyledLinkButton data-testid="genre-link" key={id} to={`/library/genres/${slug}`}>
                 {name}
               </StyledLinkButton>
             )

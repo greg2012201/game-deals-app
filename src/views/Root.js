@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import GameDetails from './GameDetails'
 import { GenresDataProvider } from 'hooks/useGenres'
 import { GameDetailsProvider } from 'hooks/useGameDetails'
-
+import { pathsList } from 'routes'
+const { library, games } = pathsList
 const Root = () => {
   return (
     <Router>
@@ -18,14 +19,14 @@ const Root = () => {
           <MainTemplate>
             <Switch>
               <Route exact path="/">
-                <Redirect to="/Home" />
+                <Redirect to={library} />
               </Route>
-              <Route exact path="/games/:slug?">
+              <Route exact path={`${library}${games}/:slug?`}>
                 <GameDetailsProvider>
                   <GameDetails />
                 </GameDetailsProvider>
               </Route>
-              <Route path="/:page?/:slug?">
+              <Route path={`${library}/:page?/:slug?`}>
                 <Dashboard />
               </Route>
             </Switch>

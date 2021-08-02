@@ -7,6 +7,8 @@ import { useTheme } from 'styled-components'
 import { useSearchBar } from './useSearchBar'
 import { Link } from 'react-router-dom'
 import Title from 'components/atoms/Title/Title'
+import { pathsList } from 'routes'
+const { library, games } = pathsList
 const SearchBar = () => {
   const theme = useTheme()
 
@@ -29,7 +31,7 @@ const SearchBar = () => {
             machingGames.results &&
             machingGames.results.map(({ name, id, slug, background_image }, index) => {
               return (
-                <Link {...getItemProps({ item: '', index })} key={id} to={`/games/${slug}`}>
+                <Link {...getItemProps({ item: '', index })} key={id} to={`${library}${games}/${slug}`}>
                   <Hint key={id}>
                     <img src={background_image} alt={name} />
                     <Title titleType="h4">{name}</Title>

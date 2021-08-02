@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import MenuButton from 'components/atoms/MenuButton/MenuButton'
 import { DropdownPanel, PathsList, PathItem, NavLink } from './Menu.style'
 import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
-import { menuPaths } from 'utils/menuPaths'
+import { menuPaths } from 'routes/index'
 
 export const Menu = () => {
   const { buttonProps, itemProps, isOpen, setIsOpen } = useDropdownMenu(menuPaths.length)
-
   return (
     <>
       <MenuButton accesibleProps={buttonProps} role="button" toggle={isOpen} onClick={setIsOpen} />

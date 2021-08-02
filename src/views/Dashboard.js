@@ -8,21 +8,25 @@ import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 import Title from 'components/atoms/Title/Title'
 import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
+import { Route } from 'react-router-dom'
 
 const Dashboard = () => {
   const {
     data: { results: genres },
     compareState,
   } = useGenres()
-  const { page, slug } = useParams()
+  const { slug } = useParams()
   const { title } = useTitleByRoute(genres, slug)
 
   return (
     <Wrapper>
-      <Title isLoading={compareState(states.isLoading)}>{slug ? title : page}</Title>
-
-      {page === 'Home' ? <GamesList fecthingRoute={'/games?&'} /> : <GamesList fecthingRoute={`/games?genres=${slug}&`} />}
-
+      <Title isLoading={compareState(states.isLoading)}>{slug ? title : 'Library'}</Title>
+      <Route exact path="/library">
+        <GamesList fecthingRoute={'/games?&'} />
+      </Route>
+      <Route exact path="/library/genres/:slug?">
+        <GamesList fecthingRoute={`/games?genres=${slug}&`} />
+      </Route>
       <RoundButton onClick={customSmoothScrollTo} isReturn={true} />
     </Wrapper>
   )

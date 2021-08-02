@@ -5,6 +5,8 @@ import { GameLink, GenresLink, GenresWrapper, StyledProductCard } from './GamesL
 import { useLocation } from 'react-router'
 import { useScrollToTopWhenClickedLinkIsSameAsCurrentURL } from 'hooks/useScrollToTopWhenClickedLinkIsSameAsCurrentURL'
 import { Score } from 'components/atoms/Score/Score'
+import { pathsList } from 'routes'
+const { library, games, genres: genresRoute } = pathsList
 const GamesListItem = ({ gamesData: { name, background_image, genres, slug, metacritic } }) => {
   const { pathname } = useLocation()
   const { handleOnClick } = useScrollToTopWhenClickedLinkIsSameAsCurrentURL(pathname)
@@ -13,7 +15,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
     <StyledProductCard>
       {background_image ? <img data-testid="image" src={background_image} alt={name} /> : <img data-testid="image" src="" alt={name} />}
 
-      <GameLink data-testid="game-link" to={`/games/${slug}`}>
+      <GameLink data-testid="game-link" to={`${library}${games}/${slug}`}>
         {name}
       </GameLink>
       {metacritic ? (
@@ -26,7 +28,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
         Genres:
         <li>
           {genres.map((e) => (
-            <GenresLink data-testid="genre-link" onClick={(e) => handleOnClick(e)} to={`/genres/${e.slug}`} key={e.id}>
+            <GenresLink data-testid="genre-link" onClick={(e) => handleOnClick(e)} to={`${library}${genresRoute}/${e.slug}`} key={e.id}>
               {e.name}{' '}
             </GenresLink>
           ))}
