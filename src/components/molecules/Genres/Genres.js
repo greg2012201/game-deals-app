@@ -5,6 +5,7 @@ import { horizontalMenuScroll } from 'helpers/horizontalMenuScroll'
 import { usePaginationButtons } from 'hooks/usePaginationButtons'
 import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
+import LinkButtonSkeletonLoader from './LinkButtonSkeletonLoader'
 
 const scrollDistance = 200
 export const Genres = React.forwardRef((props, ref) => {
@@ -32,14 +33,17 @@ export const Genres = React.forwardRef((props, ref) => {
         </>
       ) : null}
       <ButtonsWrapper data-testid="buttons-wrapper" ref={buttonsWrapper}>
-        {compareState(states.hasLoaded) &&
-          genres.map(({ name, slug, id }) => {
-            return (
-              <StyledLinkButton data-testid="genre-link" key={id} to={`/library/genres/${slug}`}>
-                {name}
-              </StyledLinkButton>
-            )
-          })}
+        {compareState(states.hasLoaded)
+          ? genres.map(({ name, slug, id }) => {
+              return (
+                <StyledLinkButton data-testid="genre-link" key={id} to={`/library/genres/${slug}`}>
+                  {name}
+                </StyledLinkButton>
+              )
+            })
+          : Array(8)
+              .fill('')
+              .map((e, i) => <LinkButtonSkeletonLoader key={i} />)}
       </ButtonsWrapper>
     </Wrapper>
   )
