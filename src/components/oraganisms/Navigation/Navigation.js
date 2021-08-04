@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom'
 import { pathsList } from 'routes'
 import BottomPanel from 'components/molecules/BottomPanel/BottomPanel'
 import DealsSelect from 'components/molecules/DealsSelect/DealsSelect'
+import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu'
 const { library, deals } = pathsList
 const Navigation = () => {
   const categoriesRef = useRef()
@@ -27,7 +28,9 @@ const Navigation = () => {
       <BottomPanel ref={categoriesRef}>
         <Switch>
           <Route path={library}>
-            <Genres />
+            <HorizontalMenu>
+              <Genres />
+            </HorizontalMenu>
           </Route>
           <Route to={deals}>
             <DealsSelect />
