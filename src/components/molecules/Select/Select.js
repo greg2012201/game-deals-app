@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelect } from 'downshift'
+import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
+import { Wrapper, ToggleButton, SelectList, SelectListItem } from './Select.style'
 const Select = ({ options, title }) => {
   const handleSelectedItemChange = () => {}
   const { selectedItem, isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, getItemProps } = useSelect({
@@ -8,19 +10,20 @@ const Select = ({ options, title }) => {
   })
 
   return (
-    <>
-      <button type="button" {...getToggleButtonProps()}>
+    <Wrapper>
+      <ToggleButton isOpen={isOpen} type="button" {...getToggleButtonProps()}>
         {selectedItem || `${title}`}
-      </button>
-      <ul {...getMenuProps()}>
+        <Icon />
+      </ToggleButton>
+      <SelectList isVisible={isOpen} {...getMenuProps()}>
         {isOpen &&
           options.map((item, index) => (
-            <li isHighlited={highlightedIndex === index} key={`${item}${index}`} {...getItemProps({ item, index })}>
+            <SelectListItem isHighlited={highlightedIndex === index} key={`${item}${index}`} {...getItemProps({ item, index })}>
               {item}
-            </li>
+            </SelectListItem>
           ))}
-      </ul>
-    </>
+      </SelectList>
+    </Wrapper>
   )
 }
 
