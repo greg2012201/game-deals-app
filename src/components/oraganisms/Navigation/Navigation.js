@@ -3,10 +3,11 @@ import Genres from 'components/molecules/Genres/Genres'
 import Menu from 'components/molecules/Menu/Menu'
 import TopPanel from 'components/atoms/TopPanel/TopPanel'
 import SearchBar from 'components/oraganisms/SearchBar/SearchBar'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { pathsList } from 'routes'
 import BottomPanel from 'components/molecules/BottomPanel/BottomPanel'
-const { library } = pathsList
+import DealsSelect from 'components/molecules/DealsSelect/DealsSelect'
+const { library, deals } = pathsList
 const Navigation = () => {
   const categoriesRef = useRef()
   const [refs, setRefs] = useState('')
@@ -24,9 +25,14 @@ const Navigation = () => {
         <SearchBar />
       </TopPanel>
       <BottomPanel ref={categoriesRef}>
-        <Route path={`${library}`}>
-          <Genres />
-        </Route>
+        <Switch>
+          <Route path={library}>
+            <Genres />
+          </Route>
+          <Route to={deals}>
+            <DealsSelect />
+          </Route>
+        </Switch>
       </BottomPanel>
     </>
   )
