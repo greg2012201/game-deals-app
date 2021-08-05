@@ -52,6 +52,8 @@ export const SelectList = styled.ul`
   border-radius: 7px;
   z-index: 9999;
   list-style: none;
+
+  overflow-y: scroll;
 `
 export const SelectListItem = styled.li`
   padding: 10px;
