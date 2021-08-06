@@ -9,29 +9,33 @@ import GameDetails from './GameDetails'
 import { GenresDataProvider } from 'hooks/useGenres'
 import { GameDetailsProvider } from 'hooks/useGameDetails'
 import { pathsList } from 'routes'
+import { store } from 'store'
+import { Provider } from 'react-redux'
 const { library, games } = pathsList
 const Root = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <GenresDataProvider>
-          <MainTemplate>
-            <Switch>
-              <Route exact path="/">
-                <Redirect to={library} />
-              </Route>
-              <Route exact path={`${library}${games}/:slug?`}>
-                <GameDetailsProvider>
-                  <GameDetails />
-                </GameDetailsProvider>
-              </Route>
-              <Route path={`${library}/:page?/:slug?`}>
-                <Dashboard />
-              </Route>
-            </Switch>
-          </MainTemplate>
-        </GenresDataProvider>
+        <Provider store={store}>
+          <GenresDataProvider>
+            <MainTemplate>
+              <Switch>
+                <Route exact path="/">
+                  <Redirect to={library} />
+                </Route>
+                <Route exact path={`${library}${games}/:slug?`}>
+                  <GameDetailsProvider>
+                    <GameDetails />
+                  </GameDetailsProvider>
+                </Route>
+                <Route path={`${library}/:page?/:slug?`}>
+                  <Dashboard />
+                </Route>
+              </Switch>
+            </MainTemplate>
+          </GenresDataProvider>
+        </Provider>
       </ThemeProvider>
     </Router>
   )
