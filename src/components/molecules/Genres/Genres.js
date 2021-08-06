@@ -3,14 +3,16 @@ import { StyledLinkButton } from './Genres.style'
 import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
 import LinkButtonSkeletonLoader from './LinkButtonSkeletonLoader'
+import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 
 export const Genres = () => {
   const {
     data: { results: genres },
     compareState,
+    error,
   } = useGenres()
 
-  return (
+  return !error ? (
     <>
       {compareState(states.hasLoaded)
         ? genres.map(({ name, slug, id }) => {
@@ -24,6 +26,8 @@ export const Genres = () => {
             .fill('')
             .map((e, i) => <LinkButtonSkeletonLoader key={i} />)}
     </>
+  ) : (
+    <ErrorMessage>{error}</ErrorMessage>
   )
 }
 export default Genres
