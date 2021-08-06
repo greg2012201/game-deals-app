@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Genres from 'components/molecules/Genres/Genres'
 import Menu from 'components/molecules/Menu/Menu'
-import Panel from 'components/atoms/Panel/Panel'
+import TopPanel from 'components/atoms/TopPanel/TopPanel'
 import SearchBar from 'components/oraganisms/SearchBar/SearchBar'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { pathsList } from 'routes'
-const { library } = pathsList
+import BottomPanel from 'components/molecules/BottomPanel/BottomPanel'
+import DealsSelect from 'components/molecules/DealsSelect/DealsSelect'
+import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu'
+const { library, deals } = pathsList
 const Navigation = () => {
   const categoriesRef = useRef()
   const [refs, setRefs] = useState('')
@@ -18,13 +21,22 @@ const Navigation = () => {
 
   return (
     <>
-      <Panel receivedRefs={refs}>
+      <TopPanel receivedRefs={refs}>
         <Menu />
         <SearchBar />
-      </Panel>
-      <Route path={`${library}`}>
-        <Genres ref={categoriesRef} />
-      </Route>
+      </TopPanel>
+      <BottomPanel ref={categoriesRef}>
+        <Switch>
+          <Route path={library}>
+            <HorizontalMenu>
+              <Genres />
+            </HorizontalMenu>
+          </Route>
+          <Route to={deals}>
+            <DealsSelect />
+          </Route>
+        </Switch>
+      </BottomPanel>
     </>
   )
 }

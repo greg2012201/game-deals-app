@@ -1,7 +1,7 @@
 import { usePanelVisibilityToggle } from 'hooks/usePanelVisibilityToggle'
-import { Wrapper } from './Panel.style'
+import { Wrapper } from './TopPanelstyle'
 import React from 'react'
-const Panel = ({ children, receivedRefs }) => {
+const TopPanel = ({ children, receivedRefs }) => {
   const wrapperRef = React.useRef()
   const visibility = usePanelVisibilityToggle(wrapperRef, receivedRefs)
   return (
@@ -11,4 +11,4 @@ const Panel = ({ children, receivedRefs }) => {
   )
 }
 
-export default Panel
+export default TopPanel
