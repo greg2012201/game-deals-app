@@ -12,7 +12,7 @@ const Select = ({ options, title }) => {
   return (
     <Wrapper>
       <ToggleButton isOpen={isOpen} type="button" {...getToggleButtonProps()}>
-        {selectedItem || `${title}`}
+        {(selectedItem && `${title}: ${selectedItem}`) || `${title} : ${options[0]}`}
         <Icon />
       </ToggleButton>
       <SelectList isVisible={isOpen} {...getMenuProps()}>
