@@ -5,15 +5,15 @@ import { RAWGOptions } from 'utils/fetchingOptions'
 import { actions } from 'utils/state/transitions'
 const { url, key } = RAWGOptions
 
-export const useGetMachingGames = (updateState, setMachingGames) => {
-  const { fetchData, compareState: compareFetchstate } = useFetchData(setMachingGames)
+export const useGetMachingGames = (updateSearchState, setMachingGames) => {
+  const { fetchData, compareState: compareFetchstate, error } = useFetchData(setMachingGames)
   const getMachingGames = useMemo(() => {
-    updateState(actions.fetch)
+    updateSearchState(actions.fetch)
     return debounce((inputValue) => {
       fetchData({ url: `${url}/games?search=303%20${inputValue}&key=${key}` })
-      updateState(actions.success)
+      updateSearchState(actions.success)
     }, 200)
-  }, [fetchData, updateState])
+  }, [fetchData, updateSearchState])
 
-  return { getMachingGames, compareFetchstate }
+  return { getMachingGames, compareFetchstate, error }
 }

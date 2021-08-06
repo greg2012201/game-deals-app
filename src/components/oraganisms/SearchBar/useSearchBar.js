@@ -4,12 +4,12 @@ import { useStateMachine } from 'hooks/useStateMachine'
 import { useGetMachingGames } from './useGetMachingGames'
 export const useSearchBar = () => {
   const [machingGames, setMachingGames] = useState({})
-  const { updateState, compareState: compareSearchState } = useStateMachine()
-  const { getMachingGames, compareFetchstate } = useGetMachingGames(updateState, setMachingGames)
+  const { updateState: updateSearchState, compareState: compareSearchState } = useStateMachine()
+  const { getMachingGames, compareFetchstate, error } = useGetMachingGames(updateSearchState, setMachingGames)
   const handleItemToString = (item) => item && ''
   const handleOnInputValueChange = ({ inputValue }) => {
     getMachingGames(inputValue)
-    updateState(actions.fetch)
+    updateSearchState(actions.fetch)
   }
-  return { handleItemToString, handleOnInputValueChange, compareFetchstate, compareSearchState, machingGames }
+  return { handleItemToString, handleOnInputValueChange, compareFetchstate, compareSearchState, machingGames, error }
 }
