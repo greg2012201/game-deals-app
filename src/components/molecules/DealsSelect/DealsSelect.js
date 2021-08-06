@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetListCoveredRegionsQuery } from 'store'
+import { useGetListCoveredRegionsQuery } from 'features/DealsApi/DealsApi'
 import Select from '../Select/Select'
 import { Wrapper } from './DealsSelect.style'
 const DealsSelect = () => {
