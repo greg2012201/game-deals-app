@@ -36,6 +36,7 @@ export const StyledProductCard = styled.li`
     grid-column: 1/3;
     width: 100%;
     max-height: 200px;
+    min-height: 100px;
   }
 `
 export const GameLink = styled(Link)`
