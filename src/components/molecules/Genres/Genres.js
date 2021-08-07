@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyledLinkButton } from './Genres.style'
 import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
@@ -10,8 +10,12 @@ export const Genres = () => {
     data: { results: genres },
     compareState,
     error,
+    getGenresData,
   } = useGenres()
 
+  useEffect(() => {
+    getGenresData()
+  }, [getGenresData])
   return !error ? (
     <>
       {compareState(states.hasLoaded)
