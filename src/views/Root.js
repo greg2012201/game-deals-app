@@ -11,7 +11,8 @@ import { GameDetailsProvider } from 'hooks/useGameDetails'
 import { pathsList } from 'routes'
 import { store } from 'store'
 import { Provider } from 'react-redux'
-const { library, games } = pathsList
+import Deals from './Deals'
+const { library, games, deals } = pathsList
 const Root = () => {
   return (
     <Router>
@@ -31,6 +32,9 @@ const Root = () => {
                 </Route>
                 <Route path={`${library}/:page?/:slug?`}>
                   <Dashboard />
+                </Route>
+                <Route path={`${deals}`}>
+                  <Deals />
                 </Route>
               </Switch>
             </MainTemplate>
