@@ -1,8 +1,13 @@
+import DealsList from 'components/oraganisms/DealsList/DealsList'
 import React from 'react'
 import { Wrapper } from './Deals.style'
 
 const Deals = () => {
-  return <Wrapper>Hi. it's deals will be there.</Wrapper>
+  return (
+    <Wrapper>
+      <DealsList />
+    </Wrapper>
+  )
 }
 
 export default Deals
