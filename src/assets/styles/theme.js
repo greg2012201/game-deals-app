@@ -3,6 +3,7 @@ export const theme = {
     white: '#FFFFFF',
     red: 'red',
     green: '#6dc849',
+    darkerGreen: '#6DC849',
     orange: '#fdca52',
     darkWhite: '#FFdd',
     lowTransparentBlack: 'rgba(0, 0, 0, 0.72)',
@@ -30,12 +31,11 @@ export const theme = {
   resolutions: {
     xl: 1200,
   },
-  skeletonLoaderTheme : {
-    backgroundColor:'#434343', 
+  skeletonLoaderTheme: {
+    backgroundColor: '#434343',
     foregroundColor: '#434343',
-    backgroundOpacity:0.4,
-    style:{margin:'0 auto'},
-    speed:2,
-
-}
+    backgroundOpacity: 0.4,
+    style: { margin: '0 auto' },
+    speed: 2,
+  },
 }
