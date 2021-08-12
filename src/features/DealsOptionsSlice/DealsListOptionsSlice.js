@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { initialSelectsState } from 'utils/selectDataOptions'
 
-export const dealsSlice = createSlice({
-  name: 'deals',
+export const dealsListOptionsSlice = createSlice({
+  name: 'dealsListOptions',
   initialState: initialSelectsState,
   reducers: {
     takeSelections(state, action) {
@@ -10,4 +10,4 @@ export const dealsSlice = createSlice({
     },
   },
 })
-export const { takeSelections } = dealsSlice.actions
+export const { takeSelections } = dealsListOptionsSlice.actions

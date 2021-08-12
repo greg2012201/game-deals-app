@@ -6,7 +6,7 @@ import SelectSkeletonLoader from '../Select/SelectSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { takeSelections } from 'features/DealsSlice/DealsSlice'
+import { takeSelections } from 'features/DealsOptionsSlice/DealsListOptionsSlice'
 import { initialSelectsState } from 'utils/selectDataOptions'
 
 const DealsSelect = () => {
