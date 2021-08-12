@@ -5,17 +5,13 @@ import { Wrapper } from './DealsSelect.style'
 import SelectSkeletonLoader from '../Select/SelectSkeletonLoader'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
 import { Controller, useForm, useWatch } from 'react-hook-form'
-import { takeSelections } from 'store'
 import { useDispatch } from 'react-redux'
+import { takeSelections } from 'features/DealsSlice/DealsSlice'
+import { initialSelectsState } from 'utils/selectDataOptions'
 
 const DealsSelect = () => {
   const { control } = useForm({
-    defaultValues: {
-      region: 'eu1',
-      country: 'AL',
-      shops: 'gog',
-      price: 'asc',
-    },
+    defaultValues: initialSelectsState,
   })
 
   const dispatch = useDispatch()
@@ -38,7 +34,7 @@ const DealsSelect = () => {
               key={name}
               control={control}
               name={name.toLowerCase()}
-              render={({ field, onChange, value }) => <Select options={options} title={name} {...field} />}
+              render={({ field }) => <Select options={options} title={name} {...field} />}
             />
           ))}
     </Wrapper>
