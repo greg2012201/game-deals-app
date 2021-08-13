@@ -5,7 +5,7 @@ import { StyledAddButton, StyledDiscount, StyledListItem } from './DealsListItem
 const DealsListItem = ({ data: { title, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
   return (
     <StyledListItem>
-      <Title titleType="h2">{title}</Title>
+      <Title titleType="h3">{title}</Title>
       <p>
         Price:{' '}
         <span>
