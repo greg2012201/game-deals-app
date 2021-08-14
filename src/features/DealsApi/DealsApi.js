@@ -21,9 +21,11 @@ export const dealsApi = createApi({
       },
     }),
     getDealsList: builder.query({
-      query: ({ region, country, price }) => `v01/deals/list/?key=${key}&region=${region}&country=${country}&sort=price:${price}`,
+      query: ({ options: { region, country, price }, listSize }) => {
+        return `v01/deals/list/?key=${key}&limit=${listSize}&region=${region}&country=${country}&sort=price:${price}`
+      },
       transformResponse: (response) => {
-        return { ...response[Object.keys(response)[0]], list: response.data.list }
+        return { count: response.data.count, ...response[Object.keys(response)[0]], list: response.data.list }
       },
     }),
   }),
