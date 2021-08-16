@@ -1,16 +1,30 @@
 import DealsListItem from 'components/molecules/DealsListItem/DealsListItem'
-import { useGetDealsListQuery } from 'features/DealsApi/DealsApi'
 import { Wrapper } from './DealsList.style'
 import { useSelector } from 'react-redux'
-
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { StyledEndMessage } from '../GamesList/GamesList.style'
+import { useDealsListQuery } from 'components/oraganisms/DealsList/useDealsListQuery'
 const DealsList = () => {
   const options = useSelector((state) => state.dealsListOptions)
-  const { data, isLoading, isFetching } = useGetDealsListQuery(options)
+  const { handleFetchMoreData, data } = useDealsListQuery({ options })
 
-  return (
-    <Wrapper>
-      {isFetching || isLoading ? <p>loading</p> : data.list.map((item, i) => <DealsListItem currency={data.currency} data={item} key={i} />)}
-    </Wrapper>
+  return data.isLoading ? (
+    <h1>LOADER</h1>
+  ) : (
+    <InfiniteScroll
+      scrollThreshold={'500px'}
+      dataLength={data.list.length}
+      next={handleFetchMoreData}
+      hasMore={data.hasMoreItems}
+      endMessage={data.isLoadingMore && <StyledEndMessage style={{ textAlign: 'center' }}>this is the end</StyledEndMessage>}
+      loader={'loading'}
+    >
+      <Wrapper>
+        {data.list.map((item, i) => (
+          <DealsListItem currency={data.currency} data={item} key={i} />
+        ))}
+      </Wrapper>
+    </InfiniteScroll>
   )
 }
 
