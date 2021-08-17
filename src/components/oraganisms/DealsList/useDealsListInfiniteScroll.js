@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-
+const initialState = { list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, currency: '', isError: false }
 export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) => {
   const [listSize, setListSize] = useState(0)
   const [hasInitialLoader, setInitialLoader] = useState(true)
-  const [data, setData] = useState({ list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, currency: '' })
+  const [data, setData] = useState(initialState)
   const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= 20 })
   useEffect(() => {
     if (queryResult.isFetching) return
@@ -14,6 +14,13 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
     return setListSize(0)
   }, [options])
   useEffect(() => {
+    if (queryResult.isError) {
+      return setData({
+        ...initialState,
+        isError: queryResult.isError,
+      })
+    }
+
     return (
       queryResult.data &&
       setData({
@@ -24,7 +31,7 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
         currency: queryResult.data.currency,
       })
     )
-  }, [queryResult.data, hasInitialLoader, queryResult.isFetching, queryResult.isLoading])
+  }, [queryResult.data, hasInitialLoader, queryResult.isFetching, queryResult.isLoading, queryResult.isError])
 
   const handleFetchMoreData = () => {
     if (queryResult.isLoading || queryResult.isFetching) return
