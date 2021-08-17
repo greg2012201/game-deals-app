@@ -3,11 +3,12 @@ import { Wrapper } from './DealsList.style'
 import { useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { StyledEndMessage } from '../GamesList/GamesList.style'
-import { useDealsListQuery } from 'components/oraganisms/DealsList/useDealsListQuery'
+import { useDealsListInfiniteScroll } from 'components/oraganisms/DealsList/useDealsListInfiniteScroll'
+import { useGetDealsListQuery } from 'features/DealsApi/DealsApi'
+
 const DealsList = () => {
   const options = useSelector((state) => state.dealsListOptions)
-  const { handleFetchMoreData, data } = useDealsListQuery({ options })
-
+  const { handleFetchMoreData, data } = useDealsListInfiniteScroll({ options, query: useGetDealsListQuery })
   return data.isLoading ? (
     <h1>LOADER</h1>
   ) : (
