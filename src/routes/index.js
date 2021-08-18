@@ -3,6 +3,7 @@ export const pathsList = {
   deals: '/deals',
   genres: '/genres',
   games: '/games',
+  whishList: '/whish-list',
 }
 export const menuPaths = [
   { name: 'Home', path: pathsList.library },
