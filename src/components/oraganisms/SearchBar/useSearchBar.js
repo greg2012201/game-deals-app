@@ -18,7 +18,7 @@ export const useSearchBar = () => {
   }
   const handleOnInputValueChange = ({ inputValue }) => {
     getMachingGames(inputValue)
-    updateSearchState(actions.fetch)
+    updateSearchState(actions.initialize)
   }
   return { handleItemToString, handleOnInputValueChange, handleOnSelectedItemChange, compareFetchstate, compareSearchState, machingGames, error }
 }

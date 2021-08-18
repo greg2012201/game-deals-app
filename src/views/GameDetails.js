@@ -35,19 +35,19 @@ const GameDetails = () => {
       {compareState(states.hasError) ? (
         <ErrorPage>Something Went Wrong</ErrorPage>
       ) : (
-        <Wrapper hasLoaded={compareState(states.hasLoaded) || compareState(states.empty)} backgroundURL={backgroundImage}>
-          <Mask isLoading={compareState(states.isLoading) || compareState(states.empty)}>
+        <Wrapper hasLoaded={compareState(states.hasLoaded) || compareState(states.idle)} backgroundURL={backgroundImage}>
+          <Mask isLoading={compareState(states.isLoading) || compareState(states.idle)}>
             <Title isLoading={compareState(states.isLoading)} key={id}>
               {name}
             </Title>
             <Screenshots />
-            {compareState(states.isLoading) || compareState(states.empty) ? (
+            {compareState(states.isLoading) || compareState(states.idle) ? (
               <ArticleContainerSkeletonLoader />
             ) : (
               <ArticleContainer title={'About'}>{descripton}</ArticleContainer>
             )}
             <InformationsTemplate>
-              {compareState(states.isLoading) || compareState(states.empty) ? (
+              {compareState(states.isLoading) || compareState(states.idle) ? (
                 <Loader className="loader" type="Oval" color={theme.colors.darkWhite} height={60} width={60} />
               ) : (
                 <>

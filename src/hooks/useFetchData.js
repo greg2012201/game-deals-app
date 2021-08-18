@@ -9,7 +9,7 @@ export const useFetchData = (setData) => {
   const [error, setError] = useState('')
   const fetchData = useCallback(
     async ({ url, source }) => {
-      updateState(actions.fetch)
+      updateState(actions.initialize)
       try {
         const response = await axios.get(
           url,

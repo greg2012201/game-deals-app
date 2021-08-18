@@ -10,7 +10,7 @@ const PCRequirements = () => {
   const { data, compareState } = useGameDetails()
 
   return (
-    !compareState(states.empty) && (
+    !compareState(states.idle) && (
       <RequirementsWrapper>
         <Title titleType="h2">System requirements</Title>
         {data.platforms.map(({ platform, requirements }, index) => {

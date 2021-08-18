@@ -3,7 +3,7 @@ import { states } from 'utils/state/states'
 import { transitions } from 'utils/state/transitions'
 
 export const useStateMachine = () => {
-  const [currentState, setCurrentState] = useState(states.empty)
+  const [currentState, setCurrentState] = useState(states.idle)
 
   const transition = (currentState, action) => {
     const nextState = transitions[currentState][action]

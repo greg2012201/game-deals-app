@@ -54,7 +54,7 @@ export const useGamesList = () => {
   const fetchData = useCallback(
     async ({ url, source = null, initial = true }) => {
       dispatch({ type: actionTypes.setInitialFetch, initial })
-      updateState(actions.fetch)
+      updateState(actions.initialize)
       try {
         const {
           data: { results, next, count },

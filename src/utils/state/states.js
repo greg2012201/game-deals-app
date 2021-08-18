@@ -1,5 +1,5 @@
 export const states = {
-  empty: 'empty',
+  idle: 'idle',
   isLoading: 'loading',
   hasLoaded: 'loaded',
   hasError: 'error',

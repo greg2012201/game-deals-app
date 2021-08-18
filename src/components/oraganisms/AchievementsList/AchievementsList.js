@@ -38,7 +38,7 @@ const AchievementsList = () => {
       <Title titleType="h2">Achievements</Title>
       {compareState(states.hasError) ? (
         <ErrorMessage>{error}</ErrorMessage>
-      ) : compareState(states.isLoading) || compareState(states.empty) ? (
+      ) : compareState(states.isLoading) || compareState(states.idle) ? (
         Array(4)
           .fill('')
           .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)
