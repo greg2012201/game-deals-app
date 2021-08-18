@@ -30,8 +30,7 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
         payload: {
           list: queryResult.data.list,
           isLoading: queryResult.isFetching && hasInitialLoader,
-          isLoadingMore: !queryResult.isFetching,
-          hasMoreItems: !queryResult.isLoading && queryResult.data.list.length <= queryResult.data.count,
+          hasMoreItems: queryResult.data.list.length <= queryResult.data.count,
           currency: queryResult.data.currency,
         },
       })
