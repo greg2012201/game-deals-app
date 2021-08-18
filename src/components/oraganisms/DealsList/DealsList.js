@@ -36,7 +36,6 @@ const DealsList = ({ data, handleFetchMoreData }) => {
           <DealsListItem currency={data.currency} data={item} key={i} />
         ))}
       </Wrapper>
-      )
     </InfiniteScroll>
   )
 }
