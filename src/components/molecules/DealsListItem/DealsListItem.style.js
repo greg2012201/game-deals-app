@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const StyledListItem = styled.li`
   display: grid;
   grid-template-rows: 30% 30px 23px 23px 23px auto;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 65% 35%;
   padding: 10px;
   background-color: ${({ theme }) => theme.colors.darkerGrey};
   border-radius: 7px;
@@ -53,12 +53,11 @@ export const StyledAddButton = styled.button`
   box-sizing: border-box;
   grid-column: 2;
   grid-row: 5;
-  /* align-self: center; */
   justify-self: end;
   padding: 0;
   margin: 0;
   height: 40px;
-  width: 110px;
+  width: 105px;
   border: none;
   border-radius: 7px;
   font-size: ${({ theme }) => theme.fontSize.xs};
