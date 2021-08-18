@@ -20,8 +20,8 @@ const DealsListItemSkeletonLoader = () => {
     )
   } else {
     return (
-      <ContentLoader height={200} width={350} {...theme.skeletonLoaderTheme}>
-        <rect x="10" y="7" rx="10" ry="10" width="340" height="190" />
+      <ContentLoader height={200} width={320} {...theme.skeletonLoaderTheme}>
+        <rect x="10" y="7" rx="10" ry="10" width="310" height="190" />
       </ContentLoader>
     )
   }
