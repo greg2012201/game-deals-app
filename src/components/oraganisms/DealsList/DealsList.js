@@ -1,19 +1,16 @@
 import DealsListItem from 'components/molecules/DealsListItem/DealsListItem'
 import { Wrapper } from './DealsList.style'
-import { useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { StyledEndMessage } from '../GamesList/GamesList.style'
-import { useDealsListInfiniteScroll } from 'components/oraganisms/DealsList/useDealsListInfiniteScroll'
-import { useGetDealsListQuery } from 'features/DealsApi/DealsApi'
+
 import DealsListItemSkeletonLoader from 'components/molecules/DealsListItem/DealsListItemSkeletonLoader'
 import Loader from 'react-loader-spinner'
 import { useTheme } from 'styled-components'
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
 
-const DealsList = () => {
+const DealsList = ({ data, handleFetchMoreData }) => {
   const theme = useTheme()
-  const options = useSelector((state) => state.dealsListOptions)
-  const { handleFetchMoreData, data } = useDealsListInfiniteScroll({ options, query: useGetDealsListQuery })
+
   return data.isLoading ? (
     data.isError ? (
       <ErrorPage>Something went wrong, we couldn't load your content</ErrorPage>
