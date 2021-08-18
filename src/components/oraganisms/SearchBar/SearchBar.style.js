@@ -15,7 +15,6 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.black};
   z-index: 100;
 
-  visibility:${({ isVisible }) => (isVisible ? 'visible' : 'hidden')}
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
       rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -63,7 +62,6 @@ export const Wrapper = styled.div`
       width: 300px;
     }
   }
- 
 `
 export const HintWrapper = styled.ul`
   box-sizing: border-box;
@@ -72,6 +70,7 @@ export const HintWrapper = styled.ul`
   position: absolute;
   margin: 0;
   padding: ${({ isVisible }) => (isVisible ? '20px' : '0')};
+  visibility: ${({ isVisible, isEmpty }) => (isVisible && !isEmpty ? 'visible' : 'hidden')};
   top: 100%;
   right: 0;
   width: 330px;

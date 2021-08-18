@@ -7,7 +7,6 @@ import { useTheme } from 'styled-components'
 import { useSearchBar } from './useSearchBar'
 import Title from 'components/atoms/Title/Title'
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
-import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
 const SearchBar = () => {
   const theme = useTheme()
 
@@ -35,7 +34,7 @@ const SearchBar = () => {
       <StyledResetRoundButton isReset isVisible={inputValue} onClick={() => reset()} />
 
       {!compareFetchstate(states.hasError) ? (
-        <HintWrapper isVisible={isOpen} {...getMenuProps()}>
+        <HintWrapper isEmpty={!machingGames.results && !compareFetchstate(states.isLoading)} isVisible={isOpen} {...getMenuProps()}>
           {isOpen ? (
             compareSearchState(states.hasLoaded) && compareFetchstate(states.hasLoaded) ? (
               machingGames.results &&
@@ -54,8 +53,6 @@ const SearchBar = () => {
                   </Hint>
                 )
               })
-            ) : !machingGames.results && !compareFetchstate(states.isLoading) ? (
-              <Paragraph>Please provide the searching phrase...</Paragraph>
             ) : (
               <StyledLoader className="loader" type="Oval" color={theme.colors.darkWhite} height={40} width={40} />
             )
