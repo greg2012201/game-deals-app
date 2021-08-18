@@ -10,7 +10,7 @@ import { useGenres } from 'hooks/useGenres'
 import { states } from 'utils/state/states'
 import { Route } from 'react-router-dom'
 
-const Dashboard = () => {
+const Library = () => {
   const {
     data: { results: genres },
     compareState,
@@ -32,4 +32,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Library

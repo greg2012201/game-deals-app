@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from 'assets/styles/GlobalStyle'
 import { theme } from 'assets/styles/theme'
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate'
-import Dashboard from './Dashboard'
+import Library from './Library'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GameDetails from './GameDetails'
 import { GenresDataProvider } from 'hooks/useGenres'
@@ -31,7 +31,7 @@ const Root = () => {
                   </GameDetailsProvider>
                 </Route>
                 <Route path={`${library}/:page?/:slug?`}>
-                  <Dashboard />
+                  <Library />
                 </Route>
                 <Route path={`${deals}`}>
                   <Deals />
