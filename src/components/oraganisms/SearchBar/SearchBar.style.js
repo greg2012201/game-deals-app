@@ -98,7 +98,7 @@ export const Hint = styled.li`
   background-color: ${({ theme }) => theme.colors.darkerGrey};
   list-style: none;
   border-radius: 7px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: ${({ theme, isHighlited }) => (isHighlited ? `${theme.colors.violet} 0px 0px 0px 3px;` : '0px 4px 4px rgba(0, 0, 0, 0.25)')};
   transition: 0.2s;
   h4 {
     margin-left: 10px;
