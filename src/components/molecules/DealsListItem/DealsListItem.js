@@ -1,8 +1,29 @@
 import Title from 'components/atoms/Title/Title'
-import React from 'react'
+import db from 'db/firebase'
+import React, { useEffect, useState } from 'react'
 import { StyledAddButton, StyledDiscount, StyledListItem } from './DealsListItem.style'
 
-const DealsListItem = ({ data: { title, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
+const DealsListItem = ({ data: { title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
+  const [deals, setDeals] = useState([])
+
+  const handleOnClick = (selectedDeal) => {
+    const hasSelectedItem = deals.find(({ plain }) => plain === selectedDeal.plain)
+
+    if (!hasSelectedItem) {
+      db.collection('wishList').add(selectedDeal)
+    } else {
+      db.collection('wishList').doc(hasSelectedItem.id).delete()
+    }
+  }
+  useEffect(() => {
+    db.collection('wishList').onSnapshot((snapshot) => {
+      setDeals(
+        snapshot.docs.map((doc) => {
+          return { id: doc.id, plain: doc.data().plain }
+        })
+      )
+    })
+  }, [])
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -27,7 +48,11 @@ const DealsListItem = ({ data: { title, price_old: oldPrice, price_cut: discount
           {shop.name}
         </a>
       </p>
-      <StyledAddButton>add to whishlist</StyledAddButton>
+      {!deals.find((deal) => deal.plain === plain) ? (
+        <StyledAddButton onClick={() => handleOnClick({ plain })}>add to whishlist</StyledAddButton>
+      ) : (
+        <StyledAddButton onClick={() => handleOnClick({ plain })}>REMOVE</StyledAddButton>
+      )}
     </StyledListItem>
   )
 }
