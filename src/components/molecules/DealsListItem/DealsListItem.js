@@ -1,29 +1,25 @@
 import Title from 'components/atoms/Title/Title'
-import db from 'db/firebase'
-import React, { useEffect, useState } from 'react'
-import { StyledAddButton, StyledDiscount, StyledListItem } from './DealsListItem.style'
+import React from 'react'
+import { StyledDiscount, StyledListItem } from './DealsListItem.style'
+import { useSelector } from 'react-redux'
+import { useFirestore } from 'react-redux-firebase'
+import AddButton from 'components/atoms/AddButton/AddButton'
 
-const DealsListItem = ({ data: { title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
-  const [deals, setDeals] = useState([])
-
+const DealsListItem = ({ data, data: { title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
+  const firestore = useFirestore()
+  const wishList = useSelector((state) => state.firestore.ordered.wishList)
+  const findDuplicate = (item, items) => {
+    return items.find(({ plain }) => plain === item.plain)
+  }
   const handleOnClick = (selectedDeal) => {
-    const hasSelectedItem = deals.find(({ plain }) => plain === selectedDeal.plain)
-
-    if (!hasSelectedItem) {
-      db.collection('wishList').add(selectedDeal)
+    const isSelectedItem = findDuplicate(selectedDeal, wishList)
+    if (!isSelectedItem) {
+      firestore.collection('wishList').add(selectedDeal)
     } else {
-      db.collection('wishList').doc(hasSelectedItem.id).delete()
+      firestore.collection('wishList').doc(isSelectedItem.id).delete()
     }
   }
-  useEffect(() => {
-    db.collection('wishList').onSnapshot((snapshot) => {
-      setDeals(
-        snapshot.docs.map((doc) => {
-          return { id: doc.id, plain: doc.data().plain }
-        })
-      )
-    })
-  }, [])
+
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -48,11 +44,7 @@ const DealsListItem = ({ data: { title, plain, price_old: oldPrice, price_cut: d
           {shop.name}
         </a>
       </p>
-      {!deals.find((deal) => deal.plain === plain) ? (
-        <StyledAddButton onClick={() => handleOnClick({ plain })}>add to whishlist</StyledAddButton>
-      ) : (
-        <StyledAddButton onClick={() => handleOnClick({ plain })}>REMOVE</StyledAddButton>
-      )}
+      <AddButton isRemove={findDuplicate(data, wishList)} onClick={() => handleOnClick({ plain })} />
     </StyledListItem>
   )
 }
