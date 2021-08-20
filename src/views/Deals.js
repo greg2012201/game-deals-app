@@ -9,10 +9,12 @@ import { pathsList } from 'routes'
 import { StyledLinkButton, Wrapper } from './Deals.style'
 import WishList from 'components/oraganisms/WishList/WishList'
 import { Route } from 'react-router-dom'
+import { useFirestoreConnect } from 'react-redux-firebase'
 
 const { deals, whishList } = pathsList
 const Deals = () => {
   const options = useSelector((state) => state.dealsListOptions)
+  useFirestoreConnect('wishList')
   const { handleFetchMoreData, data } = useDealsListInfiniteScroll({ options, query: useGetDealsListQuery })
   const handleOnClick = () => customSmoothScrollTo()
 
