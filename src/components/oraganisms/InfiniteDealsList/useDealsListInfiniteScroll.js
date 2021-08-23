@@ -11,7 +11,7 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
     actionTypes: { incrementListSize, resetListSize, setInitialLoader, setData, setError },
     dispatch,
   } = useDealsListInfiniteScrollReducer({ initialState })
-  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= 20 })
+  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= pageSize })
   useEffect(() => {
     if (queryResult.isFetching) return
     return dispatch({ type: setInitialLoader, payload: true })
