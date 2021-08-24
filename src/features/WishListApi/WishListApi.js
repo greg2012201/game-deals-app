@@ -21,11 +21,10 @@ export const wishListApi = createApi({
       transformResponse: (response) => {
         const actualPrices = []
         for (const key in response.data) {
-          console.log(response)
           actualPrices.push({
             plain: key,
-            price_new: response.data[key].price.price,
-            price_cut: response.data[key].price.cut,
+            newPrice: response.data[key].price.price,
+            discount: response.data[key].price.cut,
           })
         }
 
