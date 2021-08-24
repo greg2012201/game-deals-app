@@ -10,7 +10,7 @@ import InfiniteDealsList from 'components/oraganisms/InfiniteDealsList/InfiniteD
 import { Wrapper } from './Deals.style'
 import Title from 'components/atoms/Title/Title'
 
-const { deals, whishList } = pathsList
+const { deals, wishList } = pathsList
 const Deals = () => {
   useFirestoreConnect('wishList')
   const handleOnClick = () => customSmoothScrollTo()
@@ -21,7 +21,7 @@ const Deals = () => {
         <Title titleType="h1">Deals</Title>
         <InfiniteDealsList />
       </Route>
-      <Route path={`${deals}${whishList}`}>
+      <Route path={`${deals}${wishList}`}>
         <Title titleType="h1">WishList</Title>
         <WishList />
       </Route>

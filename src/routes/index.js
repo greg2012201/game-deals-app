@@ -3,10 +3,10 @@ export const pathsList = {
   deals: '/deals',
   genres: '/genres',
   games: '/games',
-  whishList: '/whish-list',
+  wishList: '/wish-list',
 }
 export const menuPaths = [
   { name: 'Home', path: pathsList.library },
   { name: 'Deals', path: pathsList.deals },
-  { name: 'placeholder', path: '/placeholder' },
+  { name: 'WishList', path: `${pathsList.deals}${pathsList.wishList}` },
 ]
