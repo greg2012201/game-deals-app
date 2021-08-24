@@ -14,7 +14,8 @@ export const dealsApi = createApi({
         let countries = []
 
         Object.entries(response.data).map((item) => {
-          return (countries = [...countries, ...item[1].countries])
+          const country = item[1].countries
+          return (countries = [...countries, ...country])
         })
 
         return [{ name: 'Region', options: Object.keys(response.data) }, { name: 'Country', options: countries }, ...selectDataOptions]
@@ -25,7 +26,12 @@ export const dealsApi = createApi({
         return `v01/deals/list/?key=${key}&limit=${listSize}&region=${region}&country=${country}&sort=price:${price}`
       },
       transformResponse: (response) => {
-        return { count: response.data.count, ...response[Object.keys(response)[0]], list: response.data.list }
+        const list = []
+        const currency = response[Object.keys(response)[0]]
+        response.data.list.map(({ title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls: { buy }, shop }) =>
+          list.push({ ...currency, ...{ title, plain, oldPrice, discount, newPrice, buy, shop } })
+        )
+        return { count: response.data.count, list }
       },
     }),
   }),
