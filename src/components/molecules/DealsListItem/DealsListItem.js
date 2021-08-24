@@ -9,8 +9,7 @@ const DealsListItem = ({
   isWishList,
   handleOnClick,
   data,
-  data: { id, title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop },
-  currency,
+  data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency },
   updatedPrice,
 }) => {
   const wishList = useSelector((state) => state.firestore.ordered.wishList)
@@ -24,17 +23,17 @@ const DealsListItem = ({
         </span>
       </p>
       <p>
-        Discount: <StyledDiscount value={isWishList ? updatedPrice(plain).price_cut : discount}>{discount}%</StyledDiscount>
+        Discount: <StyledDiscount value={isWishList ? updatedPrice(plain).discount : discount}>{discount}%</StyledDiscount>
       </p>
       <p>
         New Price:{' '}
         <span>
-          {isWishList ? updatedPrice(plain).price_new : newPrice} {currency}
+          {isWishList ? updatedPrice(plain).newPrice : newPrice} {currency}
         </span>
       </p>
       <p>
         Shop:{' '}
-        <a target={'_blank'} rel={'noreferrer'} href={urls.buy}>
+        <a target={'_blank'} rel={'noreferrer'} href={buy}>
           {shop.name}
         </a>
       </p>
