@@ -6,7 +6,7 @@ export const dealsListOptionsSlice = createSlice({
   initialState: initialSelectsState,
   reducers: {
     takeSelections(state, action) {
-      return (state = action.payload)
+      return { ...state, ...action.payload }
     },
   },
 })
