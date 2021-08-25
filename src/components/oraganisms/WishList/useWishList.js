@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useFirestore } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { useGetActualPricesQuery } from 'features/WishListApi/WishListApi'
-import { findDuplicate } from 'helpers/findDuplicate'
 
 export const useWishList = () => {
   const firestore = useFirestore()
@@ -15,8 +14,17 @@ export const useWishList = () => {
     return () => setLoader(false)
   }, [isLoading, wishList])
 
-  const handleOnClick = (id) => {
-    removeFromStore(id)
+  const handleOnClick = ({ isWishList, id, data }) => {
+    if (isWishList) {
+      return removeFromStore(id)
+    } else {
+      return toggleItemInStore(data)
+    }
+  }
+  const findDuplicatedItemsByPlains = (plain, items) => {
+    return items.find((obj) => {
+      return obj.plain === plain
+    })
   }
   const comparePrice = (plain) => {
     const transformedData = data.actualPrices.find((e) => e.plain === plain)
@@ -29,13 +37,13 @@ export const useWishList = () => {
   const addToStore = (payload) => {
     firestore.collection('wishList').add(payload)
   }
-  const handleToggleItemInStore = (selectedDeal) => {
-    const isSelectedItem = findDuplicate(selectedDeal, wishList)
+  const toggleItemInStore = (selectedDeal) => {
+    const isSelectedItem = findDuplicatedItemsByPlains(selectedDeal.plain, wishList)
     if (!isSelectedItem) {
       addToStore(selectedDeal)
     } else {
       removeFromStore(isSelectedItem.id)
     }
   }
-  return { data: { list: wishList, isLoading: hasLoader }, comparePrice, handleOnClick, handleToggleItemInStore }
+  return { data: { list: wishList, isLoading: hasLoader }, comparePrice, handleOnClick, toggleItemInStore, findDuplicatedItemsByPlains }
 }
