@@ -1,7 +1,7 @@
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { pathsList } from 'routes'
 import WishList from 'components/oraganisms/WishList/WishList'
 import { Route } from 'react-router-dom'
