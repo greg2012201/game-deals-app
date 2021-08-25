@@ -6,6 +6,8 @@ import { useGetActualPricesQuery } from 'features/WishListApi/WishListApi'
 export const useWishList = () => {
   const firestore = useFirestore()
   const [hasLoader, setLoader] = useState(true)
+  const [isItemSwitching, setIsItemSwitching] = useState(false)
+  const [error, setError] = useState(false)
   const wishList = useSelector((state) => state.firestore.ordered.wishList)
   const { data, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader })
   useEffect(() => {
@@ -30,12 +32,26 @@ export const useWishList = () => {
     const transformedData = data.actualPrices.find((e) => e.plain === plain)
     return transformedData
   }
-  const removeFromStore = (id) => {
-    return firestore.collection('wishList').doc(id).delete()
+  const removeFromStore = async (id) => {
+    setIsItemSwitching(true)
+    try {
+      firestore.collection('wishList').doc(id).delete()
+      return setIsItemSwitching(false)
+    } catch (err) {
+      setIsItemSwitching(false)
+      setError(true)
+    }
   }
 
-  const addToStore = (payload) => {
-    firestore.collection('wishList').add(payload)
+  const addToStore = async (payload) => {
+    setIsItemSwitching(true)
+    try {
+      await firestore.collection('wishList').add(payload)
+      return setIsItemSwitching(false)
+    } catch (err) {
+      setIsItemSwitching(false)
+      setError(true)
+    }
   }
   const toggleItemInStore = (selectedDeal) => {
     const isSelectedItem = findDuplicatedItemsByPlains(selectedDeal.plain, wishList)
@@ -45,5 +61,13 @@ export const useWishList = () => {
       removeFromStore(isSelectedItem.id)
     }
   }
-  return { data: { list: wishList, isLoading: hasLoader }, comparePrice, handleOnClick, toggleItemInStore, findDuplicatedItemsByPlains }
+  return {
+    data: { list: wishList, isLoading: hasLoader },
+    comparePrice,
+    handleOnClick,
+    toggleItemInStore,
+    findDuplicatedItemsByPlains,
+    isItemSwitching,
+    error,
+  }
 }
