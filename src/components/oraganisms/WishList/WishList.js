@@ -3,9 +3,9 @@ import DealsList from '../DealsList.js/DealsList'
 import { useWishList } from './useWishList'
 
 const WishList = () => {
-  const { data, comparePrice, handleOnClick } = useWishList()
+  const { data } = useWishList()
 
-  return <DealsList isWishList data={data} updatedPrice={comparePrice} handleOnClick={handleOnClick} />
+  return <DealsList isWishList data={data} />
 }
 
 export default WishList

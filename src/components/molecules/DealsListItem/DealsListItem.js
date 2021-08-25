@@ -1,18 +1,15 @@
 import Title from 'components/atoms/Title/Title'
 import React from 'react'
 import { StyledDiscount, StyledListItem } from './DealsListItem.style'
-
 import AddButton from 'components/atoms/AddButton/AddButton'
-import { useSelector } from 'react-redux'
-import { findDuplicate } from 'helpers/findDuplicate'
-const DealsListItem = ({
-  isWishList,
-  handleOnClick,
-  data,
-  data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency },
-  updatedPrice,
-}) => {
-  const wishList = useSelector((state) => state.firestore.ordered.wishList)
+import { useWishList } from 'components/oraganisms/WishList/useWishList'
+const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency } }) => {
+  const {
+    handleOnClick,
+    comparePrice: updatedPrice,
+    findDuplicatedItemsByPlains,
+    data: { list },
+  } = useWishList()
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -37,7 +34,7 @@ const DealsListItem = ({
           {shop.name}
         </a>
       </p>
-      <AddButton isRemove={findDuplicate(data, wishList) || isWishList} onClick={isWishList ? () => handleOnClick(id) : () => handleOnClick(data)} />
+      <AddButton isRemove={findDuplicatedItemsByPlains(data.plain, list) || isWishList} onClick={() => handleOnClick({ isWishList, data, id })} />
     </StyledListItem>
   )
 }

@@ -3,7 +3,7 @@ import DealsListItemSkeletonLoader from 'components/molecules/DealsListItem/Deal
 import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
 import React from 'react'
 import { Wrapper } from './DealsList.style'
-const DealsList = ({ data, isWishList = false, handleOnClick, updatedPrice = null }) => {
+const DealsList = ({ data, isWishList = false }) => {
   return data.isLoading ? (
     data.isError ? (
       <ErrorPage>Something went wrong, we couldn't load your content</ErrorPage>
@@ -19,7 +19,7 @@ const DealsList = ({ data, isWishList = false, handleOnClick, updatedPrice = nul
   ) : (
     <Wrapper>
       {data.list.map((item, i) => (
-        <DealsListItem handleOnClick={handleOnClick} isWishList={isWishList} data={item} key={i} updatedPrice={updatedPrice} />
+        <DealsListItem isWishList={isWishList} data={item} key={i} />
       ))}
     </Wrapper>
   )
