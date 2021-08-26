@@ -1,18 +1,15 @@
 import RoundButton from 'components/atoms/RoundButton/RoundButton'
 import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { pathsList } from 'routes'
 import WishList from 'components/oraganisms/WishList/WishList'
 import { Route } from 'react-router-dom'
-import { useFirestoreConnect } from 'react-redux-firebase'
 import InfiniteDealsList from 'components/oraganisms/InfiniteDealsList/InfiniteDealsList'
 import { Wrapper } from './Deals.style'
 import Title from 'components/atoms/Title/Title'
-
 const { deals, wishList } = pathsList
 const Deals = () => {
-  useFirestoreConnect('wishList')
   const handleOnClick = () => customSmoothScrollTo()
 
   return (
