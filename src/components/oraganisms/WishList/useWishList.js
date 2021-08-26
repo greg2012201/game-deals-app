@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useFirestore } from 'react-redux-firebase'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { useGetActualPricesQuery } from 'features/WishListApi/WishListApi'
-import { useFirestoreConnect } from 'react-redux-firebase'
+import { useWishListStateMachine } from './useWishListStateMachine'
+import { useWishListFirestore } from './useWishListFirestore'
 
 export const useWishList = () => {
-  const firestore = useFirestore()
-  const [hasLoader, setLoader] = useState(true)
-  const [isItemSwitching, setIsItemSwitching] = useState(false)
-  const [error, setError] = useState(false)
-  const wishList = useSelector((state) => state.firestore.ordered.wishList)
+  const {
+    dispatch,
+    actionTypes,
+    state: { hasLoader },
+  } = useWishListStateMachine()
+  const { wishList, addToStore, removeFromStore, removeAllFromStore, isItemSwitching, error } = useWishListFirestore()
   const { data, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader })
-  useFirestoreConnect('wishList')
   useEffect(() => {
     if (isLoading || !wishList) return
-    setLoader(false)
-    return () => setLoader(false)
-  }, [isLoading, wishList])
+    dispatch({ type: actionTypes.hasListLoaded })
+    return () => {
+      return dispatch({ type: actionTypes.hasListLoaded })
+    }
+  }, [isLoading, wishList, dispatch, actionTypes.hasListLoaded])
 
   const handleOnClick = ({ isWishList, id, data }) => {
     if (isWishList) {
@@ -30,56 +31,23 @@ export const useWishList = () => {
       return obj.plain === plain
     })
   }
-  const comparePrice = (plain) => {
+  const compareItemsPriceByPlain = (plain) => {
     const transformedData = data.actualPrices.find((e) => e.plain === plain)
     return transformedData
   }
-  const removeFromStore = async (id) => {
-    setIsItemSwitching(true)
-    try {
-      await firestore.collection('wishList').doc(id).delete()
-      return setIsItemSwitching(false)
-    } catch (err) {
-      setIsItemSwitching(false)
-      setError(true)
-    }
-  }
-  const removeAllFromStore = async () => {
-    setIsItemSwitching(true)
 
-    const batch = firestore.batch()
-
-    try {
-      const items = (await firestore.collection('wishList').get()).docs
-      items.map((item) => batch.delete(item.ref))
-      batch.commit()
-      return setIsItemSwitching(false)
-    } catch (err) {
-      setIsItemSwitching(false)
-      setError(true)
-    }
-  }
-  const addToStore = async (payload) => {
-    setIsItemSwitching(true)
-    try {
-      await firestore.collection('wishList').add(payload)
-      return setIsItemSwitching(false)
-    } catch (err) {
-      setIsItemSwitching(false)
-      setError(true)
-    }
-  }
   const toggleItemInStore = (selectedDeal) => {
-    const isSelectedItem = findDuplicatedItemsByPlains(selectedDeal.plain, wishList)
-    if (!isSelectedItem) {
+    const foundItemInStore = findDuplicatedItemsByPlains(selectedDeal.plain, wishList)
+    if (!foundItemInStore) {
       addToStore(selectedDeal)
     } else {
-      removeFromStore(isSelectedItem.id)
+      removeFromStore(foundItemInStore.id)
     }
   }
+
   return {
     data: { list: wishList, isLoading: hasLoader },
-    comparePrice,
+    compareItemsPriceByPlain,
     handleOnClick,
     toggleItemInStore,
     removeAllFromStore,
