@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useFirestore } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { useGetActualPricesQuery } from 'features/WishListApi/WishListApi'
+import { useFirestoreConnect } from 'react-redux-firebase'
 
 export const useWishList = () => {
   const firestore = useFirestore()
@@ -10,6 +11,7 @@ export const useWishList = () => {
   const [error, setError] = useState(false)
   const wishList = useSelector((state) => state.firestore.ordered.wishList)
   const { data, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader })
+  useFirestoreConnect('wishList')
   useEffect(() => {
     if (isLoading || !wishList) return
     setLoader(false)
@@ -35,14 +37,28 @@ export const useWishList = () => {
   const removeFromStore = async (id) => {
     setIsItemSwitching(true)
     try {
-      firestore.collection('wishList').doc(id).delete()
+      await firestore.collection('wishList').doc(id).delete()
       return setIsItemSwitching(false)
     } catch (err) {
       setIsItemSwitching(false)
       setError(true)
     }
   }
+  const removeAllFromStore = async () => {
+    setIsItemSwitching(true)
 
+    const batch = firestore.batch()
+
+    try {
+      const items = (await firestore.collection('wishList').get()).docs
+      items.map((item) => batch.delete(item.ref))
+      batch.commit()
+      return setIsItemSwitching(false)
+    } catch (err) {
+      setIsItemSwitching(false)
+      setError(true)
+    }
+  }
   const addToStore = async (payload) => {
     setIsItemSwitching(true)
     try {
@@ -66,6 +82,7 @@ export const useWishList = () => {
     comparePrice,
     handleOnClick,
     toggleItemInStore,
+    removeAllFromStore,
     findDuplicatedItemsByPlains,
     isItemSwitching,
     error,
