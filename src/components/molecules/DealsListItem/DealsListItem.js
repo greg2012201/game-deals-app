@@ -1,16 +1,16 @@
-import Title from 'components/atoms/Title/Title'
-import React from 'react'
-import { StyledDiscount, StyledListItem } from './DealsListItem.style'
-import SwitchButton from 'components/atoms/SwitchButton/SwitchButton'
-import { useWishList } from 'components/oraganisms/WishList/useWishList'
+import Title from 'components/atoms/Title/Title';
+import React from 'react';
+import { StyledDiscount, StyledListItem } from './DealsListItem.style';
+import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
+import { useWishList } from 'components/oraganisms/WishList/useWishList';
 const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency } }) => {
   const {
     handleOnClick,
-    comparePrice: updatedPrice,
+    compareItemsPriceByPlain: updatePrice,
     findDuplicatedItemsByPlains,
     isItemSwitching,
     data: { list },
-  } = useWishList()
+  } = useWishList();
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -21,12 +21,12 @@ const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, d
         </span>
       </p>
       <p>
-        Discount: <StyledDiscount value={isWishList ? updatedPrice(plain).discount : discount}>{discount}%</StyledDiscount>
+        Discount: <StyledDiscount value={isWishList ? updatePrice(plain).discount : discount}>{discount}%</StyledDiscount>
       </p>
       <p>
         New Price:{' '}
         <span>
-          {isWishList ? updatedPrice(plain).newPrice : newPrice} {currency}
+          {isWishList ? updatePrice(plain).newPrice : newPrice} {currency}
         </span>
       </p>
       <p>
@@ -41,6 +41,6 @@ const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, d
         isLoading={isItemSwitching}
       />
     </StyledListItem>
-  )
-}
-export default DealsListItem
+  );
+};
+export default DealsListItem;
