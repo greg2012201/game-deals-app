@@ -1,11 +1,14 @@
 import React from 'react';
 import { ReactComponent as DeleteBin } from 'assets/icons/delete-bin.svg';
-import { StyledButton } from './DeleteBinButton.style';
+import { StyledButton, StyledTooltip } from './DeleteBinButton.style';
 const DeleteBinButton = (props) => {
   return (
-    <StyledButton {...props}>
-      <DeleteBin />
-    </StyledButton>
+    <>
+      <StyledButton {...props} data-tip="Remove all items from the WishList">
+        <DeleteBin />
+      </StyledButton>
+      <StyledTooltip data-testid="tooltip" />
+    </>
   );
 };
 
