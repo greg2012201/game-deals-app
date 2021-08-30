@@ -1,16 +1,16 @@
-import { useReducer } from 'react'
+import { useReducer } from 'react';
 
 const actionTypes = {
   hasListLoaded: 'HAS_LIST_LOADED',
-  switchItem: 'SWITCH_ITEM',
+  checkHasItems: 'CHECK_HAS_ITEMS',
   success: 'SUCCESS',
   rejected: 'REJECTED',
-}
+};
 const initialState = {
   hasLoader: true,
-  isItemSwitching: false,
   error: false,
-}
+  isEmpty: true,
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.hasListLoaded: {
@@ -18,37 +18,37 @@ export const reducer = (state, action) => {
         ...state,
         hasLoader: false,
         isItemSwitching: false,
-      }
+      };
     }
-    case actionTypes.switchItem: {
+    case actionTypes.checkHasItems: {
       return {
         ...state,
-        hasLoader: false,
-        isItemSwitching: true,
-      }
+        isEmpty: action.payload.length === 0,
+      };
     }
+
     case actionTypes.success: {
       return {
         ...state,
-        isItemSwitching: false,
-      }
+        hasLoader: false,
+        error: false,
+      };
     }
     case actionTypes.rejected: {
       return {
         ...state,
         hasLoader: false,
-        isItemSwitching: false,
         error: true,
-      }
+      };
     }
 
     default: {
-      return state
+      return state;
     }
   }
-}
+};
 export const useWishListStateMachine = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  return { dispatch, actionTypes, state }
-}
+  return { dispatch, actionTypes, state };
+};
