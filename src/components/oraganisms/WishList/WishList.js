@@ -3,6 +3,7 @@ import { useDeleteBinButtonAnimation } from 'components/atoms/DeleteBinButton/us
 import Title from 'components/atoms/Title/Title';
 import DialogModal from 'components/molecules/DialogModal/DialogModal';
 import { useDialogModal } from 'components/molecules/DialogModal/useDialogModal';
+import WishListEmptyPage from 'components/molecules/WishListEmptyPage/WishListEmptyPage';
 import debounce from 'lodash.debounce';
 import React, { useMemo } from 'react';
 import DealsList from '../DealsList.js/DealsList';
@@ -30,7 +31,9 @@ const WishList = () => {
             Are you sure you want to remove all items from WishList ?
           </DialogModal>
         </>
-      ) : null}
+      ) : (
+        <WishListEmptyPage />
+      )}
 
       <DealsList isWishList data={data} />
     </>
