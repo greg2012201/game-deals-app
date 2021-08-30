@@ -8,7 +8,6 @@ const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, d
     handleOnClick,
     compareItemsPriceByPlain: updatePrice,
     findDuplicatedItemsByPlains,
-    isItemSwitching,
     data: { list },
   } = useWishList();
   return (
@@ -35,11 +34,7 @@ const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, d
           {shop.name}
         </a>
       </p>
-      <SwitchButton
-        isRemove={findDuplicatedItemsByPlains(data.plain, list) || isWishList}
-        onClick={() => handleOnClick({ isWishList, data, id })}
-        isLoading={isItemSwitching}
-      />
+      <SwitchButton isRemove={findDuplicatedItemsByPlains(data.plain, list) || isWishList} onClick={() => handleOnClick({ isWishList, data, id })} />
     </StyledListItem>
   );
 };

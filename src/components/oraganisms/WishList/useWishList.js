@@ -7,17 +7,18 @@ export const useWishList = () => {
   const {
     dispatch,
     actionTypes,
-    state: { hasLoader },
+    state: { hasLoader, isEmpty },
   } = useWishListStateMachine();
-  const { wishList, addToStore, removeFromStore, removeAllFromStore, isItemSwitching, error } = useWishListFirestore();
+  const { wishList, addToStore, removeFromStore, removeAllFromStore, error } = useWishListFirestore();
   const { data, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader });
   useEffect(() => {
     if (isLoading || !wishList) return;
+    dispatch({ type: actionTypes.checkHasItems, payload: wishList });
     dispatch({ type: actionTypes.hasListLoaded });
     return () => {
       return dispatch({ type: actionTypes.hasListLoaded });
     };
-  }, [isLoading, wishList, dispatch, actionTypes.hasListLoaded]);
+  }, [isLoading, wishList, dispatch, actionTypes.hasListLoaded, actionTypes.checkHasItems]);
 
   const handleOnClick = ({ isWishList, id, data }) => {
     if (isWishList) {
@@ -45,13 +46,12 @@ export const useWishList = () => {
     }
   };
   return {
-    data: { list: wishList, isLoading: hasLoader },
+    data: { list: wishList, isLoading: hasLoader, isEmpty },
     compareItemsPriceByPlain,
     handleOnClick,
     toggleItemInStore,
     removeAllFromStore,
     findDuplicatedItemsByPlains,
-    isItemSwitching,
     error,
   };
 };

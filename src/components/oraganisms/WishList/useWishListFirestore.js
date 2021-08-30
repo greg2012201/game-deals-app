@@ -5,15 +5,9 @@ export const useWishListFirestore = () => {
   const firestore = useFirestore();
   const collection = firestore.collection('wishList');
   const wishList = useSelector((state) => state.firestore.ordered.wishList);
-  const {
-    dispatch,
-    actionTypes,
-    state: { isItemSwitching },
-    error,
-  } = useWishListStateMachine();
+  const { dispatch, actionTypes, error } = useWishListStateMachine();
 
   const removeFromStore = async (id) => {
-    dispatch({ type: actionTypes.switchItem });
     try {
       await collection.doc(id).delete();
       return dispatch({ type: actionTypes.success });
@@ -22,7 +16,6 @@ export const useWishListFirestore = () => {
     }
   };
   const removeAllFromStore = async () => {
-    dispatch({ type: actionTypes.switchItem });
     const batch = firestore.batch();
 
     try {
@@ -35,7 +28,6 @@ export const useWishListFirestore = () => {
     }
   };
   const addToStore = async (payload) => {
-    dispatch({ type: actionTypes.switchItem });
     try {
       await collection.add(payload);
       return dispatch({ type: actionTypes.success });
@@ -44,5 +36,5 @@ export const useWishListFirestore = () => {
     }
   };
 
-  return { wishList, addToStore, removeFromStore, removeAllFromStore, isItemSwitching, error };
+  return { wishList, addToStore, removeFromStore, removeAllFromStore, error };
 };
