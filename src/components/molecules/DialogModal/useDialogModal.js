@@ -9,15 +9,15 @@ export const useDialogModal = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const afterUserAnswerAction = ({ consent, action }) => {
+  const afterUserAnswerAction = ({ consent, actions }) => {
     if (!consent) {
       return;
     } else {
-      action();
+      actions.forEach((action) => action());
     }
   };
-  const handleOnClick = ({ hasConsent, action }) => {
-    afterUserAnswerAction({ consent: hasConsent, action });
+  const handleOnClick = ({ hasConsent, actions }) => {
+    afterUserAnswerAction({ consent: hasConsent, actions });
     closeModal();
   };
   return { modalIsOpen, openModal, handleOnClick, closeModal };

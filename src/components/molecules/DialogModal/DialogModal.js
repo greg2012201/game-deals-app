@@ -25,7 +25,7 @@ const DialogModal = ({ children, title, handleOnConsent, closeModal, handleOnCli
       <Paragraph>{children}</Paragraph>
       <ButtonWrapper>
         {userChoices.map(({ string, consent }) => (
-          <StyledButton hasConsent={consent} onClick={() => handleOnClick({ hasConsent: consent, action: handleOnConsent })}>
+          <StyledButton key={string} hasConsent={consent} onClick={() => handleOnClick({ hasConsent: consent, actions: handleOnConsent })}>
             {string}
           </StyledButton>
         ))}
