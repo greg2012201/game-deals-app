@@ -18,7 +18,7 @@ const WishList = () => {
   return (
     <>
       <Title titleType="h1">WishList</Title>
-      {data.list && data.list.length !== 0 ? (
+      {!data.isEmpty ? (
         <>
           <DeleteBinButton onClick={openModal} hasAnimationStarted={hasAnimationStarted} />
           <DialogModal
@@ -31,9 +31,9 @@ const WishList = () => {
             Are you sure you want to remove all items from WishList ?
           </DialogModal>
         </>
-      ) : (
+      ) : !data.isLoading ? (
         <WishListEmptyPage />
-      )}
+      ) : null}
 
       <DealsList isWishList data={data} />
     </>
