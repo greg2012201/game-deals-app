@@ -1,25 +1,27 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Genres from 'components/molecules/Genres/Genres'
-import Menu from 'components/molecules/Menu/Menu'
-import TopPanel from 'components/atoms/TopPanel/TopPanel'
-import SearchBar from 'components/oraganisms/SearchBar/SearchBar'
-import { Link, Route, Switch } from 'react-router-dom'
-import { pathsList } from 'routes'
-import BottomPanel from 'components/molecules/BottomPanel/BottomPanel'
-import DealsSelect from 'components/molecules/DealsSelect/DealsSelect'
-import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu'
-import { StyledLinkButton } from './Navigation.style'
+import React, { useEffect, useState, useRef } from 'react';
+import Genres from 'components/molecules/Genres/Genres';
+import Menu from 'components/molecules/Menu/Menu';
+import TopPanel from 'components/atoms/TopPanel/TopPanel';
+import SearchBar from 'components/oraganisms/SearchBar/SearchBar';
+import { Route, Switch } from 'react-router-dom';
+import { pathsList } from 'routes';
+import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
+import DealsSelect from 'components/molecules/DealsSelect/DealsSelect';
+import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
+import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
+import { useWishList } from '../WishList/useWishList';
 
-const { library, deals, wishList } = pathsList
+const { library, deals, wishList } = pathsList;
 const Navigation = () => {
-  const categoriesRef = useRef()
-  const [refs, setRefs] = useState('')
+  const categoriesRef = useRef();
+  const [refs, setRefs] = useState('');
+  const { data: wishListData } = useWishList();
   const getCategoriesRef = (ref) => {
-    setRefs(ref)
-  }
+    setRefs(ref);
+  };
   useEffect(() => {
-    getCategoriesRef(categoriesRef)
-  }, [])
+    getCategoriesRef(categoriesRef);
+  }, []);
 
   return (
     <>
@@ -36,19 +38,13 @@ const Navigation = () => {
           </Route>
           <Route exact path={deals}>
             <DealsSelect />
-            <Link style={{ textDecoration: 'none' }} to={`${deals}${wishList}`}>
-              <StyledLinkButton>Go to whishlist </StyledLinkButton>
-            </Link>
+            <DealsLinkButton />
           </Route>
-          <Route path={`${deals}${wishList}`}>
-            <Link style={{ textDecoration: 'none' }} to={`${deals}`}>
-              <StyledLinkButton isWishList>Go to DealsList </StyledLinkButton>
-            </Link>
-          </Route>
+          <Route path={`${deals}${wishList}`}>{wishListData.isEmpty ? null : <DealsLinkButton isWishList />}</Route>
         </Switch>
       </BottomPanel>
     </>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;
