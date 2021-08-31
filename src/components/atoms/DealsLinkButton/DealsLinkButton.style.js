@@ -1,13 +1,19 @@
 import styled from 'styled-components';
-
+const buttonWidth = '170px';
+const buttonMarginLeft = '20px';
+export const Wrapper = styled.div`
+  margin-left: ${({ isOnTheWishList }) => (!isOnTheWishList ? `calc(100% - ${buttonWidth} - ${buttonMarginLeft})` : 0)};
+  a {
+    text-decoration: none;
+  }
+`;
 export const StyledButton = styled.button`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-self: flex-start;
-  justify-self: ${({ isWishList }) => (isWishList ? 'flex-start' : 'flex-end')};
   align-items: center;
-  width: 150px;
-  margin: 10px 20px 0;
+  width: ${buttonWidth};
   padding: 0 5px;
   font-family: Lato;
   font-style: normal;
@@ -24,14 +30,14 @@ export const StyledButton = styled.button`
   transition: 0.2s;
   cursor: pointer;
 
-  &::${({ isWishList }) => (isWishList ? 'before' : 'after')} {
+  &::${({ isOnTheWishList }) => (isOnTheWishList ? 'before' : 'after')} {
     display: block;
     content: '\\2192';
-    transform: ${({ isWishList }) => (isWishList ? 'rotate(180deg)' : 'rotate(0)')};
+    transform: ${({ isOnTheWishList }) => (isOnTheWishList ? 'rotate(180deg)' : 'rotate(0)')};
     font-size: 20px;
     line-height: 100%;
     margin: 0 5px;
-    margin-bottom: ${({ isWishList }) => (isWishList ? '-6px' : '6px')};
+    margin-bottom: ${({ isOnTheWishList }) => (isOnTheWishList ? '-6px' : '6px')};
   }
 
   @media (min-width: 509px) {

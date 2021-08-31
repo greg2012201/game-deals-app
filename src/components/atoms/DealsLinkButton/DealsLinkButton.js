@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { pathsList } from 'routes';
-import { StyledButton } from './DealsLinkButton.style';
+import { Link } from 'react-router-dom';
+import { StyledButton, Wrapper } from './DealsLinkButton.style';
 const { deals, wishList } = pathsList;
-const DealsLinkButton = ({ isWishList }) => {
+const DealsLinkButton = ({ isOnTheWishList }) => {
   return (
-    <Link style={{ textDecoration: 'none' }} to={isWishList ? deals : `${deals}${wishList}`}>
-      <StyledButton isWishList={isWishList}>{isWishList ? 'Go to the WishList' : 'Go to the Deals'} </StyledButton>
-    </Link>
+    <Wrapper isOnTheWishList={isOnTheWishList}>
+      <Link to={isOnTheWishList ? deals : `${deals}${wishList}`}>
+        <StyledButton isOnTheWishList={isOnTheWishList}>{isOnTheWishList ? 'Go to the Deals' : 'Go to the WishList'} </StyledButton>
+      </Link>
+    </Wrapper>
   );
 };
 
