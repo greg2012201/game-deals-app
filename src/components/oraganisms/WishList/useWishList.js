@@ -10,7 +10,7 @@ export const useWishList = () => {
     state: { hasLoader, isEmpty },
   } = useWishListStateMachine();
   const { wishList, addToStore, removeFromStore, removeAllFromStore, error } = useWishListFirestore();
-  const { data, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader });
+  const { data: pricesData, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader });
   useEffect(() => {
     if (isLoading || !wishList) return;
     dispatch({ type: actionTypes.checkHasItems, payload: wishList });
@@ -20,11 +20,11 @@ export const useWishList = () => {
     };
   }, [isLoading, wishList, dispatch, actionTypes.hasListLoaded, actionTypes.checkHasItems]);
 
-  const handleOnClick = ({ isWishList, id, data }) => {
+  const handleOnClick = ({ isWishList, id, payload }) => {
     if (isWishList) {
       return removeFromStore(id);
     } else {
-      return toggleItemInStore(data);
+      return toggleItemInStore(payload);
     }
   };
   const findDuplicatedItemsByPlains = (plain, items) => {
@@ -33,7 +33,7 @@ export const useWishList = () => {
     });
   };
   const compareItemsPriceByPlain = (plain) => {
-    const transformedData = data.actualPrices.find((e) => e.plain === plain);
+    const transformedData = pricesData.actualPrices.find((e) => e.plain === plain);
     return transformedData;
   };
 
