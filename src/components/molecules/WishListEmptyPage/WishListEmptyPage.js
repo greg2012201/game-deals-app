@@ -5,7 +5,7 @@ const WishListEmptyPage = () => {
   return (
     <>
       <Paragraph>There is nothing here yet. Go to the Deals page and add some discounted games that intrest you.</Paragraph>
-      <DealsLinkButton isWishList />
+      <DealsLinkButton isOnTheWishList />
     </>
   );
 };
