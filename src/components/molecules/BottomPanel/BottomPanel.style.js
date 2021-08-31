@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   position: relative;
@@ -8,4 +8,4 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.black};
-`
+`;
