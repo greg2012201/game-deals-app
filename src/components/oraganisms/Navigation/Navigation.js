@@ -6,7 +6,6 @@ import SearchBar from 'components/oraganisms/SearchBar/SearchBar';
 import { Route, Switch } from 'react-router-dom';
 import { pathsList } from 'routes';
 import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
-import DealsSelect from 'components/molecules/DealsSelect/DealsSelect';
 import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
 import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
 import { useWishList } from '../WishList/useWishList';
@@ -37,10 +36,9 @@ const Navigation = () => {
             </HorizontalMenu>
           </Route>
           <Route exact path={deals}>
-            <DealsSelect />
             <DealsLinkButton />
           </Route>
-          <Route path={`${deals}${wishList}`}>{wishListData.isEmpty ? null : <DealsLinkButton isWishList />}</Route>
+          <Route path={`${deals}${wishList}`}>{wishListData.isEmpty ? null : <DealsLinkButton isOnTheWishList />}</Route>
         </Switch>
       </BottomPanel>
     </>
