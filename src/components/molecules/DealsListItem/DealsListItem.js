@@ -2,14 +2,14 @@ import Title from 'components/atoms/Title/Title';
 import React from 'react';
 import { StyledDiscount, StyledListItem } from './DealsListItem.style';
 import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
-import { useWishList } from 'components/oraganisms/WishList/useWishList';
-const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency } }) => {
-  const {
-    handleOnClick,
-    compareItemsPriceByPlain: updatePrice,
-    findDuplicatedItemsByPlains,
-    data: { list },
-  } = useWishList();
+const DealsListItem = ({
+  handleOnClick,
+  updatePrice,
+  isOnWishList,
+  isWishList,
+  data: dealData,
+  data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency },
+}) => {
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -34,7 +34,7 @@ const DealsListItem = ({ isWishList, data, data: { id, title, plain, oldPrice, d
           {shop.name}
         </a>
       </p>
-      <SwitchButton isRemove={findDuplicatedItemsByPlains(data.plain, list) || isWishList} onClick={() => handleOnClick({ isWishList, data, id })} />
+      <SwitchButton isRemove={isOnWishList} onClick={() => handleOnClick({ isWishList, payload: dealData, id })} />
     </StyledListItem>
   );
 };
