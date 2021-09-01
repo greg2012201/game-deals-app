@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ITADOptions } from 'utils/fetchingOptions'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ITADOptions } from 'utils/fetchingOptions';
 
-const { url, key } = ITADOptions
+const { url, key } = ITADOptions;
 
 export const wishListApi = createApi({
   reducerPath: 'wishListApi',
@@ -10,29 +10,25 @@ export const wishListApi = createApi({
   endpoints: (builder) => ({
     getActualPrices: builder.query({
       query: ({ plains }) => {
-        let strings = []
-        let joinedPlains = ''
-        plains.map(({ plain }) => {
-          strings.push(plain)
-          return (joinedPlains = strings.join(','))
-        })
-        return `v01/game/overview/?key=${key}&plains=${joinedPlains}`
+        const joinedPlains = plains
+          .reduce((acc, curr) => {
+            const { plain } = curr;
+            return [...acc, plain];
+          }, [])
+          .join(',');
+
+        return `v01/game/overview/?key=${key}&plains=${joinedPlains}`;
       },
       transformResponse: (response) => {
-        const actualPrices = []
-        for (const key in response.data) {
-          actualPrices.push({
-            plain: key,
-            newPrice: response.data[key].price.price,
-            discount: response.data[key].price.cut,
-          })
-        }
+        const actualPrices = Object.values(response.data).reduce((acc, curr, index) => {
+          return [...acc, { plain: Object.keys(response.data)[index], newPrice: curr.price.price, discount: curr.price.cut }];
+        }, []);
 
-        return { actualPrices }
+        return { actualPrices };
       },
       invalidatesTags: ['wishList'],
     }),
   }),
-})
+});
 
-export const { useGetActualPricesQuery } = wishListApi
+export const { useGetActualPricesQuery } = wishListApi;
