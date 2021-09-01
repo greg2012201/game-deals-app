@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 const DealsList = ({ data, isWishList = false }) => {
   const {
     handleOnClick,
-    compareItemsPriceByPlain: updatePrice,
+    findItemsPriceByPlain: updatePrice,
     findDuplicatedItemsByPlains,
     data: { list: wishListData },
   } = useWishList();

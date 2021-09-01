@@ -32,7 +32,7 @@ export const useWishList = () => {
       return obj.plain === plain;
     });
   };
-  const compareItemsPriceByPlain = (plain) => {
+  const findItemsPriceByPlain = (plain) => {
     const transformedData = pricesData.actualPrices.find((e) => e.plain === plain);
     return transformedData;
   };
@@ -47,7 +47,7 @@ export const useWishList = () => {
   };
   return {
     data: { list: wishList, isLoading: hasLoader, isEmpty },
-    compareItemsPriceByPlain,
+    findItemsPriceByPlain,
     handleOnClick,
     toggleItemInStore,
     removeAllFromStore,
