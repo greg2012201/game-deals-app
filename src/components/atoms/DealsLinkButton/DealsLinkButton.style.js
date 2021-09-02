@@ -2,7 +2,8 @@ import styled from 'styled-components';
 const buttonWidth = '170px';
 const buttonMarginLeft = '20px';
 export const Wrapper = styled.div`
-  margin-left: ${({ isOnTheWishList }) => (!isOnTheWishList ? `calc(100% - ${buttonWidth} - ${buttonMarginLeft})` : 0)};
+  margin-left: ${({ isOnTheWishList }) => (!isOnTheWishList ? `calc(100% - ${buttonWidth} - ${buttonMarginLeft})` : '20px')};
+
   a {
     text-decoration: none;
   }
