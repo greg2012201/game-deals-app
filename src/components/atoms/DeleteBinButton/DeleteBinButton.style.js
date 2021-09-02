@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import ReactTooltip from 'react-tooltip';
 
 export const animationsDuration = { swingingAnimation: 800, delay: 200, disappearanceAnimation: 1700 };
 
@@ -34,7 +33,4 @@ export const StyledButton = styled.button`
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
   }
-`;
-export const StyledTooltip = styled(ReactTooltip)`
-  font-family: Lato;
 `;
