@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const Wrapper = styled.div`
-  margin: 5px 5px;
+  margin: 0;
   padding: 0;
   position: relative;
-`
+`;
 export const ToggleButton = styled.button`
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@ export const ToggleButton = styled.button`
   }
   transition: 0.2s;
   cursor: pointer;
-`
+`;
 export const SelectList = styled.ul`
   box-sizing: border-box;
   margin: 0;
@@ -54,7 +54,7 @@ export const SelectList = styled.ul`
   list-style: none;
 
   overflow-y: scroll;
-`
+`;
 export const SelectListItem = styled.li`
   padding: 10px;
   box-sizing: border-box;
@@ -72,4 +72,4 @@ export const SelectListItem = styled.li`
     background-color: ${({ theme }) => theme.colors.white};
     color: ${({ theme }) => theme.colors.violet};
   }
-`
+`;

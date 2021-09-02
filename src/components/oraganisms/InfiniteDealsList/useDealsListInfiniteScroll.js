@@ -3,7 +3,7 @@ import { useDealsListInfiniteScrollReducer } from './useDealsListInfiniteScrollR
 const initialState = {
   listSize: 0,
   hasInitialLoader: true,
-  data: { list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, currency: '', isError: false },
+  data: { list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, isError: false },
 }
 export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) => {
   const {
@@ -11,7 +11,7 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
     actionTypes: { incrementListSize, resetListSize, setInitialLoader, setData, setError },
     dispatch,
   } = useDealsListInfiniteScrollReducer({ initialState })
-  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= 20 })
+  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= pageSize })
   useEffect(() => {
     if (queryResult.isFetching) return
     return dispatch({ type: setInitialLoader, payload: true })
@@ -31,7 +31,6 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query }) =>
           list: queryResult.data.list,
           isLoading: queryResult.isFetching && hasInitialLoader,
           hasMoreItems: queryResult.data.list.length <= queryResult.data.count,
-          currency: queryResult.data.currency,
         },
       })
     }

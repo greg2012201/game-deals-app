@@ -1,25 +1,34 @@
-import RoundButton from 'components/atoms/RoundButton/RoundButton'
-import DealsList from 'components/oraganisms/DealsList/DealsList'
-import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo'
-import { useSelector } from 'react-redux'
+import RoundButton from 'components/atoms/RoundButton/RoundButton';
+import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo';
 
-import { useDealsListInfiniteScroll } from 'components/oraganisms/DealsList/useDealsListInfiniteScroll'
-import { useGetDealsListQuery } from 'features/DealsApi/DealsApi'
-import React from 'react'
-import { pathsList } from 'routes'
-import { StyledLinkButton, Wrapper } from './Deals.style'
-const { deals, whishList } = pathsList
+import React from 'react';
+import { pathsList } from 'routes';
+import WishList from 'components/oraganisms/WishList/WishList';
+import { Route } from 'react-router-dom';
+import InfiniteDealsList from 'components/oraganisms/InfiniteDealsList/InfiniteDealsList';
+import { Wrapper } from './Deals.style';
+import Title from 'components/atoms/Title/Title';
+import { useFirestoreConnect } from 'react-redux-firebase';
+import { DealsTemplate } from 'components/templates/DealsTemplate/DealsTemplate';
+const { deals, wishList } = pathsList;
 const Deals = () => {
-  const options = useSelector((state) => state.dealsListOptions)
-  const { handleFetchMoreData, data } = useDealsListInfiniteScroll({ options, query: useGetDealsListQuery })
-  const handleOnClick = () => customSmoothScrollTo()
+  const handleOnClick = () => customSmoothScrollTo();
+  useFirestoreConnect('wishList');
+
   return (
     <Wrapper>
-      <StyledLinkButton to={`${deals}${whishList}`}>Go to whishlist </StyledLinkButton>
-      <DealsList handleFetchMoreData={handleFetchMoreData} data={data} />
-      <RoundButton isReturn onClick={handleOnClick} />
+      <DealsTemplate>
+        <Route exact path={`${deals}`}>
+          <Title titleType="h1">Deals</Title>
+          <InfiniteDealsList />
+        </Route>
+        <Route exact path={`${deals}${wishList}`}>
+          <WishList />
+        </Route>
+        <RoundButton isReturn onClick={handleOnClick} />
+      </DealsTemplate>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Deals
+export default Deals;

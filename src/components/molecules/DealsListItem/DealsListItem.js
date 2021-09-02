@@ -1,35 +1,41 @@
-import Title from 'components/atoms/Title/Title'
-import React from 'react'
-import { StyledAddButton, StyledDiscount, StyledListItem } from './DealsListItem.style'
-
-const DealsListItem = ({ data: { title, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls, shop }, currency }) => {
+import Title from 'components/atoms/Title/Title';
+import React from 'react';
+import { StyledDiscount, StyledListItem } from './DealsListItem.style';
+import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
+const DealsListItem = ({
+  handleOnClick,
+  updatePrice,
+  isOnWishList,
+  isWishList,
+  data: dealData,
+  data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency },
+}) => {
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
       <p>
-        Price:{' '}
+        Old Price:{' '}
         <span>
           {oldPrice} {currency}
         </span>
       </p>
       <p>
-        Discount: <StyledDiscount value={discount}>{discount}%</StyledDiscount>
+        Discount: <StyledDiscount value={isWishList ? updatePrice(plain).discount : discount}>{discount}%</StyledDiscount>
       </p>
       <p>
         New Price:{' '}
         <span>
-          {newPrice} {currency}
+          {isWishList ? updatePrice(plain).newPrice : newPrice} {currency}
         </span>
       </p>
       <p>
         Shop:{' '}
-        <a target={'_blank'} rel={'noreferrer'} href={urls.buy}>
+        <a target={'_blank'} rel={'noreferrer'} href={buy}>
           {shop.name}
         </a>
       </p>
-      <StyledAddButton>add to whishlist</StyledAddButton>
+      <SwitchButton isRemove={isOnWishList} onClick={() => handleOnClick({ isWishList, payload: dealData, id })} />
     </StyledListItem>
-  )
-}
-
-export default DealsListItem
+  );
+};
+export default DealsListItem;

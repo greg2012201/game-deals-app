@@ -1,32 +1,32 @@
-import React, { useEffect } from 'react'
-import { useGetListCoveredRegionsQuery } from 'features/DealsApi/DealsApi'
-import Select from '../Select/Select'
-import { Wrapper } from './DealsSelect.style'
-import SelectSkeletonLoader from '../Select/SelectSkeletonLoader'
-import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
-import { Controller, useForm, useWatch } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { takeSelections } from 'features/DealsOptionsSlice/DealsListOptionsSlice'
-import { initialSelectsState } from 'utils/selectDataOptions'
+import React, { useEffect } from 'react';
+import { useGetListCoveredRegionsQuery } from 'features/DealsApi/DealsApi';
+import Select from '../Select/Select';
+import { Wrapper } from './DealsSelect.style';
+import SelectSkeletonLoader from '../Select/SelectSkeletonLoader';
+import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { takeSelections } from 'features/DealsOptionsSlice/DealsListOptionsSlice';
+import { initialSelectsState } from 'utils/selectDataOptions';
 
 const DealsSelect = () => {
   const { control } = useForm({
     defaultValues: initialSelectsState,
-  })
+  });
 
-  const dispatch = useDispatch()
-  const { data, isLoading, error } = useGetListCoveredRegionsQuery()
+  const dispatch = useDispatch();
+  const { data, isLoading, error } = useGetListCoveredRegionsQuery();
   const selectsWatch = useWatch({
     control,
-  })
+  });
   useEffect(() => {
-    dispatch(takeSelections(selectsWatch))
-  }, [selectsWatch, dispatch])
+    dispatch(takeSelections(selectsWatch));
+  }, [selectsWatch, dispatch]);
 
   return !error ? (
     <Wrapper>
       {isLoading
-        ? Array(6)
+        ? Array(3)
             .fill('')
             .map((e, i) => <SelectSkeletonLoader key={i} />)
         : data.map(({ name, options }) => (
@@ -40,6 +40,6 @@ const DealsSelect = () => {
     </Wrapper>
   ) : (
     <ErrorMessage>Something went wrong!</ErrorMessage>
-  )
-}
-export default DealsSelect
+  );
+};
+export default DealsSelect;

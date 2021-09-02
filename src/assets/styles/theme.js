@@ -1,7 +1,8 @@
 export const theme = {
   colors: {
     white: '#FFFFFF',
-    red: 'red',
+    red: '#ff0033',
+    semiTransparentRed: 'rgba(255, 0, 0, 0.5)',
     green: '#6dc849',
     darkerGreen: '#008000',
     orange: '#fdca52',

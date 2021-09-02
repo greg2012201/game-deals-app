@@ -12,6 +12,8 @@ import { pathsList } from 'routes'
 import { store } from 'store'
 import { Provider } from 'react-redux'
 import Deals from './Deals'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { rrfProps } from 'features/firebase/firebase'
 const { library, games, deals } = pathsList
 const Root = () => {
   return (
@@ -19,26 +21,28 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Provider store={store}>
-          <GenresDataProvider>
-            <MainTemplate>
-              <Switch>
-                <Route exact path="/">
-                  <Redirect to={library} />
-                </Route>
-                <Route exact path={`${library}${games}/:slug?`}>
-                  <GameDetailsProvider>
-                    <GameDetails />
-                  </GameDetailsProvider>
-                </Route>
-                <Route path={`${library}/:page?/:slug?`}>
-                  <Library />
-                </Route>
-                <Route path={`${deals}`}>
-                  <Deals />
-                </Route>
-              </Switch>
-            </MainTemplate>
-          </GenresDataProvider>
+          <ReactReduxFirebaseProvider {...rrfProps}>
+            <GenresDataProvider>
+              <MainTemplate>
+                <Switch>
+                  <Route exact path="/">
+                    <Redirect to={library} />
+                  </Route>
+                  <Route exact path={`${library}${games}/:slug?`}>
+                    <GameDetailsProvider>
+                      <GameDetails />
+                    </GameDetailsProvider>
+                  </Route>
+                  <Route path={`${library}/:page?/:slug?`}>
+                    <Library />
+                  </Route>
+                  <Route path={`${deals}`}>
+                    <Deals />
+                  </Route>
+                </Switch>
+              </MainTemplate>
+            </GenresDataProvider>
+          </ReactReduxFirebaseProvider>
         </Provider>
       </ThemeProvider>
     </Router>

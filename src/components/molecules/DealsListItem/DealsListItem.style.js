@@ -49,26 +49,7 @@ export const StyledListItem = styled.li`
     }
   }
 `
-export const StyledAddButton = styled.button`
-  box-sizing: border-box;
-  grid-column: 2;
-  grid-row: 5;
-  justify-self: end;
-  padding: 0;
-  margin: 0;
-  height: 40px;
-  width: 105px;
-  border: none;
-  border-radius: 7px;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  font-family: Krub;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.darkerGreen};
-  cursor: pointer;
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
-`
+
 export const StyledDiscount = styled.span`
   color: ${({ theme }) => theme.colors.red};
   ${({ value, theme }) => {
