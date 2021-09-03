@@ -1,15 +1,14 @@
-import styled from 'styled-components'
-import { Wrapper as GalleryWrapper } from 'components/molecules/Gallery/Gallery.style'
-import { StyledListWrapper } from 'components/oraganisms/GamesList/GamesList.style'
+import styled from 'styled-components';
+import { Wrapper as GalleryWrapper } from 'components/molecules/Gallery/Gallery.style';
+import { StyledListWrapper } from 'components/oraganisms/GamesList/GamesList.style';
 export const Background = styled.div`
   grid-row: 3;
   grid-column: 1/2;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.lightBlack};
-`
+`;
 export const Wrapper = styled.div`
   box-sizing: border-box;
-  position: relative;
   display: flex;
   flex-direction: column;
   grid-row: 3;
@@ -32,7 +31,7 @@ export const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 
 export const Mask = styled.div`
   display: flex;
@@ -60,4 +59,4 @@ export const Mask = styled.div`
     margin-left: 0;
     padding-left: 20px;
   }
-`
+`;
