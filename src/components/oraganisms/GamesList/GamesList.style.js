@@ -1,8 +1,7 @@
-import Loader from 'react-loader-spinner'
-import styled from 'styled-components'
+import Loader from 'react-loader-spinner';
+import styled from 'styled-components';
 
 export const StyledList = styled.ul`
-  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
 
@@ -12,11 +11,11 @@ export const StyledList = styled.ul`
   justify-content: center;
   overflow: hidden;
   min-height: 350px;
-`
+`;
 export const StyledLoader = styled(Loader)`
   display: flex;
   justify-content: center;
-`
+`;
 export const StyledEndMessage = styled.p`
   margin-top: 0;
   margin-bottom: 50px;
@@ -25,7 +24,7 @@ export const StyledEndMessage = styled.p`
   letter-spacing: 1px;
   line-height: 2em;
   font-family: Lato;
-`
+`;
 export const StyledListWrapper = styled.div`
   margin-top: 20px;
 
@@ -35,4 +34,4 @@ export const StyledListWrapper = styled.div`
       margin-left: 10%;
     }
   }
-`
+`;
