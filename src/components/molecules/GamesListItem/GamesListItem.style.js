@@ -1,6 +1,6 @@
-import { Score } from 'components/atoms/Score/Score'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Score } from 'components/atoms/Score/Score';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const StyledProductCard = styled.li`
   margin: 20px 0 50px;
@@ -8,17 +8,19 @@ export const StyledProductCard = styled.li`
   display: grid;
   max-width: 300px;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 2;
+  grid-template-rows: 4;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   background-color: ${({ theme }) => theme.colors.darkerGrey};
-
   font-family: Lato;
   font-style: normal;
   transition: 0.2s;
 
   ${Score} {
+    justify-self: end;
     margin: 10px 0 -15px;
+    grid-row: 2;
+    grid-column: 2/3;
   }
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
@@ -38,7 +40,7 @@ export const StyledProductCard = styled.li`
     max-height: 200px;
     min-height: 100px;
   }
-`
+`;
 export const GameLink = styled(Link)`
   margin: 15px 0;
   line-height: 1.6em;
@@ -52,7 +54,7 @@ export const GameLink = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.colors.darkWhite};
   }
-`
+`;
 export const GenresWrapper = styled.ul`
   padding: 0;
   grid-row: 4;
@@ -65,7 +67,7 @@ export const GenresWrapper = styled.ul`
     list-style: none;
     padding-left: 40px;
   }
-`
+`;
 export const GenresLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.white};
@@ -73,4 +75,4 @@ export const GenresLink = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.colors.darkWhite};
   }
-`
+`;
