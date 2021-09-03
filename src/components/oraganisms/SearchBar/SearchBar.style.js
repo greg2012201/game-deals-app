@@ -1,6 +1,6 @@
-import RoundButton from 'components/atoms/RoundButton/RoundButton'
-import Loader from 'react-loader-spinner'
-import styled from 'styled-components'
+import RoundButton from 'components/atoms/RoundButton/RoundButton';
+import Loader from 'react-loader-spinner';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -62,7 +62,7 @@ export const Wrapper = styled.div`
       width: 300px;
     }
   }
-`
+`;
 export const HintWrapper = styled.ul`
   box-sizing: border-box;
   display: flex;
@@ -73,7 +73,7 @@ export const HintWrapper = styled.ul`
   visibility: ${({ isVisible, isEmpty }) => (isVisible && !isEmpty ? 'visible' : 'hidden')};
   top: 100%;
   right: 0;
-  width: 330px;
+  min-width: 330px;
   max-height: 360px;
   background-color: ${({ theme }) => theme.colors.black};
   border-radius: 7px;
@@ -86,7 +86,7 @@ export const HintWrapper = styled.ul`
   a {
     text-decoration: none;
   }
-`
+`;
 export const Hint = styled.li`
   display: flex;
   align-items: center;
@@ -98,6 +98,7 @@ export const Hint = styled.li`
   list-style: none;
   border-radius: 7px;
   box-shadow: ${({ theme, isHighlited }) => (isHighlited ? `${theme.colors.violet} 0px 0px 0px 3px;` : '0px 4px 4px rgba(0, 0, 0, 0.25)')};
+  cursor: pointer;
   transition: 0.2s;
   h4 {
     margin-left: 10px;
@@ -106,13 +107,10 @@ export const Hint = styled.li`
     width: 74px;
     height: 44px;
   }
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-  }
-`
+`;
 export const StyledLoader = styled(Loader)`
   align-self: center;
-`
+`;
 export const StyledResetRoundButton = styled(RoundButton)`
   position: absolute;
   top: 50%;
@@ -120,4 +118,4 @@ export const StyledResetRoundButton = styled(RoundButton)`
   transform: translateY(-50%);
   height: 20px;
   width: 20px;
-`
+`;
