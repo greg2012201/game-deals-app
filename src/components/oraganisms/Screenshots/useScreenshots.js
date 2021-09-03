@@ -1,14 +1,14 @@
-import axios from 'axios'
-import { useCallback, useState } from 'react'
-import { actions } from 'utils/state/transitions'
-const fetchingCancelMessage = 'cancel'
-const initialState = []
+import axios from 'axios';
+import { useCallback, useState } from 'react';
+import { actions } from 'utils/state/transitions';
+const fetchingCancelMessage = 'cancel';
+const initialState = [];
 export const useScreenshots = () => {
-  const [data, setData] = useState(initialState)
-  const [error, setError] = useState('')
+  const [data, setData] = useState(initialState);
+  const [error, setError] = useState('');
 
   const fetchData = useCallback(async ({ url, source = null, updateState }) => {
-    updateState(actions.fetch)
+    updateState(actions.initialize);
     try {
       const { data } = await axios.get(
         url,
@@ -17,23 +17,23 @@ export const useScreenshots = () => {
               cancelToken: source.token,
             }
           : null
-      )
-      setData(data.results)
-      updateState(actions.success)
+      );
+      setData(data.results);
+      updateState(actions.success);
     } catch (e) {
-      if (e.message === fetchingCancelMessage) return
-      setError('Something went wrong')
-      updateState(actions.error)
-      throw Error(e)
+      if (e.message === fetchingCancelMessage) return;
+      setError('Something went wrong');
+      updateState(actions.error);
+      throw Error(e);
     }
-  }, [])
+  }, []);
   const getCancelToken = useCallback(() => {
-    return axios.CancelToken.source()
-  }, [])
+    return axios.CancelToken.source();
+  }, []);
   const resetData = useCallback((source) => {
-    source.cancel(fetchingCancelMessage)
-    setData(initialState)
-  }, [])
+    source.cancel(fetchingCancelMessage);
+    setData(initialState);
+  }, []);
 
-  return { error, data, fetchData, getCancelToken, resetData }
-}
+  return { error, data, fetchData, getCancelToken, resetData };
+};
