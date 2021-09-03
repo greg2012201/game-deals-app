@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GameLink, GenresLink, GenresWrapper, StyledProductCard } from './GamesListItem.style';
+import { GameLink, GenresLink, GenresWrapper, Wrapper } from './GamesListItem.style';
 import { useLocation } from 'react-router';
 import { useScrollToTopWhenClickedLinkIsSameAsCurrentURL } from 'hooks/useScrollToTopWhenClickedLinkIsSameAsCurrentURL';
 import { Score } from 'components/atoms/Score/Score';
@@ -13,7 +13,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
   const { handleOnClick } = useScrollToTopWhenClickedLinkIsSameAsCurrentURL(pathname);
   const { getArrowProps, getTooltipProps, setTriggerRef, setTooltipRef, visible } = usePopperTooltip({ placement: 'top', offset: [0, 10] });
   return (
-    <StyledProductCard>
+    <Wrapper>
       {background_image ? <img data-testid="image" src={background_image} alt={name} /> : <img data-testid="image" src="" alt={name} />}
 
       <GameLink data-testid="game-link" to={`${library}${games}/${slug}`}>
@@ -37,7 +37,7 @@ const GamesListItem = ({ gamesData: { name, background_image, genres, slug, meta
           ))}
         </li>
       </GenresWrapper>
-    </StyledProductCard>
+    </Wrapper>
   );
 };
 GamesListItem.propTypes = {

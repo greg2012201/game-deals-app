@@ -2,7 +2,7 @@ import { Score } from 'components/atoms/Score/Score';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const StyledProductCard = styled.li`
+export const Wrapper = styled.li`
   margin: 20px 0 50px;
   padding: 20px;
   display: grid;
