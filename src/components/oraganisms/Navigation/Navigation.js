@@ -13,7 +13,7 @@ import { useWishList } from '../WishList/useWishList';
 const { library, deals, wishList } = pathsList;
 const Navigation = () => {
   const categoriesRef = useRef();
-  const [refs, setRefs] = useState('');
+  const [refs, setRefs] = useState(null);
   const { data: wishListData } = useWishList();
   const getCategoriesRef = (ref) => {
     setRefs(ref);
