@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledAchivementsList = styled.ul`
   margin-top: 20px;
@@ -7,7 +7,7 @@ export const StyledAchivementsList = styled.ul`
   grid-gap: 20px;
   display: grid;
   grid-template-columns: repeat(50%);
-  grid-template-rows: 30px 170px 150px;
+  grid-template-rows: atuo auto 150px;
   min-height: 400px;
   min-width: 340px;
 
@@ -71,4 +71,4 @@ export const StyledAchivementsList = styled.ul`
     height: 25px;
     cursor: pointer;
   }
-`
+`;

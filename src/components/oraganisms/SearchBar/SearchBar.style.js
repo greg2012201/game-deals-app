@@ -91,7 +91,7 @@ export const Hint = styled.li`
   display: flex;
   align-items: center;
   width: 287px;
-  height: 66px;
+  min-height: 80px;
   margin-bottom: 20px;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.darkerGrey};
