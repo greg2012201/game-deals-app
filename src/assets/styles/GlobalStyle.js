@@ -1,7 +1,10 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
 body{
+
+  background-color: ${theme.colors.black};
     html {
     box-sizing: border-box;
  
@@ -23,4 +26,4 @@ body{
     font-family:'Lato' sans-serif;
   }
  
-}` //tutaj reset
+}`; //tutaj reset
