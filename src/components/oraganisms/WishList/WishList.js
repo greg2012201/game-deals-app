@@ -11,7 +11,7 @@ import DealsList from '../DealsList.js/DealsList';
 import { useWishList } from './useWishList';
 import { ItemsManagementWrapper } from './WishList.style';
 const WishList = () => {
-  const { data, removeAllFromStore } = useWishList();
+  const { data, removeAllFromStore, findItemsInWishListFirestore, handleOnClick: handleOnWishListClick } = useWishList();
   const { openModal, modalIsOpen, closeModal, handleOnClick } = useDialogModal();
   const { hasAnimationStarted, startAnimation, delay } = useDeleteBinButtonAnimation();
   const debouncedRemove = useMemo(() => {
@@ -41,7 +41,7 @@ const WishList = () => {
         <WishListEmptyPage />
       ) : null}
 
-      <DealsList isWishList data={data} />
+      <DealsList isWishList data={data} findItemsInWishListFirestore={findItemsInWishListFirestore} handleOnClick={handleOnWishListClick} />
     </>
   );
 };

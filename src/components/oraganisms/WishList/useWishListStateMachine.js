@@ -2,14 +2,14 @@ import { useReducer } from 'react';
 
 const actionTypes = {
   hasListLoaded: 'HAS_LIST_LOADED',
-  checkHasItems: 'CHECK_HAS_ITEMS',
   success: 'SUCCESS',
   rejected: 'REJECTED',
+  updatePrices: 'UPDATE_PRICES',
 };
 const initialState = {
   hasLoader: true,
   error: false,
-  isEmpty: true,
+  data: [],
 };
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -20,10 +20,20 @@ export const reducer = (state, action) => {
         isItemSwitching: false,
       };
     }
-    case actionTypes.checkHasItems: {
+    case actionTypes.updatePrices: {
+      const transformedData = action.payload.wishList.reduce((acc, curr, index) => {
+        return [
+          ...acc,
+          {
+            ...curr,
+            newPrice: action.payload.pricesData.actualPrices[index].newPrice,
+            discount: action.payload.pricesData.actualPrices[index].discount,
+          },
+        ];
+      }, []);
       return {
         ...state,
-        isEmpty: action.payload.length === 0,
+        data: transformedData,
       };
     }
 
@@ -49,6 +59,5 @@ export const reducer = (state, action) => {
 };
 export const useWishListStateMachine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   return { dispatch, actionTypes, state };
 };

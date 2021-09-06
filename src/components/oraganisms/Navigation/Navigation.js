@@ -8,13 +8,13 @@ import { pathsList } from 'routes';
 import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
 import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
 import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
-import { useWishList } from '../WishList/useWishList';
+import { useWishListFirestore } from '../WishList/useWishListFirestore';
 
 const { library, deals, wishList } = pathsList;
 const Navigation = () => {
   const categoriesRef = useRef();
   const [refs, setRefs] = useState(null);
-  const { data: wishListData } = useWishList();
+  const { isEmpty } = useWishListFirestore();
   const getCategoriesRef = (ref) => {
     setRefs(ref);
   };
@@ -38,7 +38,7 @@ const Navigation = () => {
           <Route exact path={deals}>
             <DealsLinkButton />
           </Route>
-          <Route path={`${deals}${wishList}`}>{wishListData.isEmpty ? null : <DealsLinkButton isOnTheWishList />}</Route>
+          <Route path={`${deals}${wishList}`}>{isEmpty ? null : <DealsLinkButton isOnTheWishList />}</Route>
         </Switch>
       </BottomPanel>
     </>
