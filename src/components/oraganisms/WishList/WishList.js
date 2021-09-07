@@ -11,8 +11,8 @@ import DealsList from '../DealsList.js/DealsList';
 import { useWishList } from './useWishList';
 import { ItemsManagementWrapper } from './WishList.style';
 const WishList = () => {
-  const { data, removeAllFromStore, findItemsInWishListFirestore, handleOnClick: handleOnWishListClick } = useWishList();
-  const { openModal, modalIsOpen, closeModal, handleOnClick } = useDialogModal();
+  const { data, removeAllFromStore, handleOnClick, isEmpty } = useWishList();
+  const { openModal, modalIsOpen, closeModal, handleOnClick: handleOnModalClick } = useDialogModal();
   const { hasAnimationStarted, startAnimation, delay } = useDeleteBinButtonAnimation();
   const debouncedRemove = useMemo(() => {
     return debounce(removeAllFromStore, delay);
@@ -20,7 +20,7 @@ const WishList = () => {
   return (
     <>
       <Title titleType="h1">WishList</Title>
-      {!data.isEmpty ? (
+      {!isEmpty && !data.isLoading ? (
         <>
           <ItemsManagementWrapper>
             <ItemsCounter numberOfItems={data.list.length} />
@@ -29,7 +29,7 @@ const WishList = () => {
 
           <DialogModal
             title={'Delete items'}
-            handleOnClick={handleOnClick}
+            handleOnClick={handleOnModalClick}
             closeModal={closeModal}
             isOpen={modalIsOpen}
             handleOnConsent={[debouncedRemove, startAnimation]}
@@ -41,7 +41,7 @@ const WishList = () => {
         <WishListEmptyPage />
       ) : null}
 
-      <DealsList isWishList data={data} findItemsInWishListFirestore={findItemsInWishListFirestore} handleOnClick={handleOnWishListClick} />
+      <DealsList isWishList data={data} handleOnClick={handleOnClick} />
     </>
   );
 };
