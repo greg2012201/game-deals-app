@@ -10,7 +10,7 @@ export const useWishList = () => {
     state,
     state: { hasLoader },
   } = useWishListStateMachine();
-  const { wishList, removeAllFromStore, error, findItemsInWishListFirestore, handleOnClick } = useWishListFirestore();
+  const { wishList, removeAllFromStore, error, findItemsInWishListFirestore, handleOnClick, isEmpty } = useWishListFirestore();
 
   const { data: pricesData, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader });
 
@@ -31,5 +31,6 @@ export const useWishList = () => {
     error,
     hasLoader,
     findItemsInWishListFirestore,
+    isEmpty,
   };
 };
