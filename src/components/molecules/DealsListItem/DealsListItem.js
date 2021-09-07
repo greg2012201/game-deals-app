@@ -2,14 +2,7 @@ import Title from 'components/atoms/Title/Title';
 import React from 'react';
 import { StyledDiscount, StyledListItem } from './DealsListItem.style';
 import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
-const DealsListItem = ({
-  handleOnClick,
-  updatePrice,
-  isOnWishList,
-  isWishList,
-  data: dealData,
-  data: { id, title, plain, oldPrice, discount, newPrice, buy, shop, currency },
-}) => {
+const DealsListItem = ({ handleOnClick, isOnWishList, data: dealData, data: { title, oldPrice, discount, newPrice, buy, shop, currency } }) => {
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>
@@ -20,12 +13,12 @@ const DealsListItem = ({
         </span>
       </p>
       <p>
-        Discount: <StyledDiscount value={isWishList ? updatePrice(plain).discount : discount}>{discount}%</StyledDiscount>
+        Discount: <StyledDiscount value={discount}>{discount}%</StyledDiscount>
       </p>
       <p>
         New Price:{' '}
         <span>
-          {isWishList ? updatePrice(plain).newPrice : newPrice} {currency}
+          {newPrice} {currency}
         </span>
       </p>
       <p>
@@ -34,7 +27,7 @@ const DealsListItem = ({
           {shop.name}
         </a>
       </p>
-      <SwitchButton isRemove={isOnWishList} onClick={() => handleOnClick({ isWishList, payload: dealData, id })} />
+      <SwitchButton isRemove={isOnWishList} onClick={() => handleOnClick(dealData)} />
     </StyledListItem>
   );
 };
