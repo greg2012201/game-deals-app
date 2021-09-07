@@ -33,5 +33,4 @@ const DealsList = ({ data, handleOnClick, checkIsOnWishList, firestoreConnecting
     </Wrapper>
   );
 };
-// CHECK IS ON WISHLIST
 export default DealsList;
