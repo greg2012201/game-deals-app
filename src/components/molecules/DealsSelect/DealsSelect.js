@@ -28,7 +28,7 @@ const DealsSelect = () => {
       {isLoading
         ? Array(3)
             .fill('')
-            .map((e, i) => <SelectSkeletonLoader key={i} />)
+            .map((_blank, i) => <SelectSkeletonLoader key={i} />)
         : data.map(({ name, options }) => (
             <Controller
               key={name}

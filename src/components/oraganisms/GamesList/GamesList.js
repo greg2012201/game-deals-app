@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import ProductCard from 'components/molecules/GamesListItem/GamesListItem'
-import { StyledEndMessage, StyledListWrapper, StyledList, StyledLoader } from './GamesList.style'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { useTheme } from 'styled-components'
-import ErrorPage from 'components/molecules/ErrorPage/ErrorPage'
-import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader'
-import { useGamesList } from 'hooks/useGamesList'
-import { RAWGOptions } from 'utils/fetchingOptions'
-import Title from 'components/atoms/Title/Title'
-import { states } from 'utils/state/states'
-const { url, key } = RAWGOptions
+import React, { useEffect } from 'react';
+import ProductCard from 'components/molecules/GamesListItem/GamesListItem';
+import { StyledEndMessage, StyledListWrapper, StyledList, StyledLoader } from './GamesList.style';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useTheme } from 'styled-components';
+import ErrorPage from 'components/molecules/ErrorPage/ErrorPage';
+import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader';
+import { useGamesList } from 'hooks/useGamesList';
+import { RAWGOptions } from 'utils/fetchingOptions';
+import Title from 'components/atoms/Title/Title';
+import { states } from 'utils/state/states';
+const { url, key } = RAWGOptions;
 const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fecthingRoute }) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
   const {
     results: { data, error, nextPage, limit, hasInitialFetch },
@@ -19,22 +19,22 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
     fetchData,
     getCancelToken,
     compareState,
-  } = useGamesList()
+  } = useGamesList();
 
   useEffect(() => {
-    const cancelToken = getCancelToken()
-    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken })
+    const cancelToken = getCancelToken();
+    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken });
 
     return () => {
-      resetData(cancelToken)
-    }
-  }, [fetchData, fecthingRoute, resetData, getCancelToken])
+      resetData(cancelToken);
+    };
+  }, [fetchData, fecthingRoute, resetData, getCancelToken]);
   const handleFetchMoreData = () => {
-    if (!nextPage) return
-    return fetchData({ url: nextPage, initial: false })
-  }
+    if (!nextPage) return;
+    return fetchData({ url: nextPage, initial: false });
+  };
   if (data.length === 0 && compareState(states.hasLoaded)) {
-    return null
+    return null;
   }
   return (
     <StyledListWrapper>
@@ -47,7 +47,7 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
         <StyledList>
           {Array(20)
             .fill('')
-            .map((e, i) => (
+            .map((_blank, i) => (
               <GamesListSkeletonLoader key={i} />
             ))}
         </StyledList>
@@ -57,8 +57,16 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
           dataLength={data.length}
           next={handleFetchMoreData}
           hasMore={data.length <= limit && nextPage !== null}
-          endMessage={endMessage ? <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage> : null}
-          loader={!error && data.length > 0 ? <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} /> : null}
+          endMessage={
+            endMessage ? (
+              <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage>
+            ) : null
+          }
+          loader={
+            !error && data.length > 0 ? (
+              <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} />
+            ) : null
+          }
         >
           {title && <Title titleType="h2">{title}</Title>}
           <StyledList>
@@ -69,7 +77,7 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
         </InfiniteScroll>
       )}
     </StyledListWrapper>
-  )
-}
+  );
+};
 
-export default GamesList
+export default GamesList;

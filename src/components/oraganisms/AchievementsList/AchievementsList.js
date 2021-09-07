@@ -1,27 +1,27 @@
-import AchievementsListItem from 'components/molecules/AchievementsListItem/AchievementsListItem'
-import React, { useRef, useState, useEffect } from 'react'
-import Pagination from 'rc-pagination'
-import { StyledAchivementsList } from './Achievements.style'
-import { usePagination } from './usePagination'
-import Title from 'components/atoms/Title/Title'
-import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader'
-import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage'
-import { states } from 'utils/state/states'
-import { useParams } from 'react-router'
-import { useFetchData } from 'hooks/useFetchData'
-const pageSize = 4
+import AchievementsListItem from 'components/molecules/AchievementsListItem/AchievementsListItem';
+import React, { useRef, useState, useEffect } from 'react';
+import Pagination from 'rc-pagination';
+import { StyledAchivementsList } from './Achievements.style';
+import { usePagination } from './usePagination';
+import Title from 'components/atoms/Title/Title';
+import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader';
+import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage';
+import { states } from 'utils/state/states';
+import { useParams } from 'react-router';
+import { useFetchData } from 'hooks/useFetchData';
+const pageSize = 4;
 const AchievementsList = () => {
-  const [data, setData] = useState({})
-  const [count, setCount] = useState(0)
-  const { fetchData, getCancelToken, compareState, resetData, error } = useFetchData(setData)
+  const [data, setData] = useState({});
+  const [count, setCount] = useState(0);
+  const { fetchData, getCancelToken, compareState, resetData, error } = useFetchData(setData);
   useEffect(() => {
     if (data) {
-      return setCount(data.count)
+      return setCount(data.count);
     }
-  }, [data, setCount])
+  }, [data, setCount]);
 
-  const listRef = useRef(null)
-  const { slug } = useParams()
+  const listRef = useRef(null);
+  const { slug } = useParams();
 
   const { handleOnPageChange, currentPage } = usePagination({
     pageSize,
@@ -31,7 +31,7 @@ const AchievementsList = () => {
     getCancelToken,
     listRef,
     compareState,
-  })
+  });
 
   return (
     <StyledAchivementsList ref={listRef}>
@@ -44,7 +44,7 @@ const AchievementsList = () => {
           .map((e, i) => <AchievementsListItemSkeletonLoader key={i} />)
       ) : (
         data.results.map((achievements, i) => {
-          return <AchievementsListItem key={i} achievementsData={achievements} />
+          return <AchievementsListItem key={achievements.id} achievementsData={achievements} />;
         })
       )}
       <Pagination
@@ -59,7 +59,7 @@ const AchievementsList = () => {
         jumpNextIcon={'...'}
       />
     </StyledAchivementsList>
-  )
-}
+  );
+};
 
-export default AchievementsList
+export default AchievementsList;

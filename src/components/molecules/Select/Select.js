@@ -1,15 +1,15 @@
-import React from 'react'
-import { useSelect } from 'downshift'
-import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
-import { Wrapper, ToggleButton, SelectList, SelectListItem } from './Select.style'
+import React from 'react';
+import { useSelect } from 'downshift';
+import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg';
+import { Wrapper, ToggleButton, SelectList, SelectListItem } from './Select.style';
 const Select = React.forwardRef(({ options, title, onChange }, ref) => {
   const handleSelectedItemChange = ({ selectedItem }) => {
-    onChange(selectedItem)
-  }
+    onChange(selectedItem);
+  };
   const { selectedItem, isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, getItemProps } = useSelect({
     items: options,
     onSelectedItemChange: handleSelectedItemChange,
-  })
+  });
 
   return (
     <Wrapper ref={ref}>
@@ -20,12 +20,12 @@ const Select = React.forwardRef(({ options, title, onChange }, ref) => {
       <SelectList isVisible={isOpen} {...getMenuProps()}>
         {isOpen &&
           options.map((item, index) => (
-            <SelectListItem value={item} isHighlited={highlightedIndex === index} key={`${item}${index}`} {...getItemProps({ item, index })}>
+            <SelectListItem value={item} isHighlited={highlightedIndex === index} key={item} {...getItemProps({ item, index })}>
               {item}
             </SelectListItem>
           ))}
       </SelectList>
     </Wrapper>
-  )
-})
-export default Select
+  );
+});
+export default Select;
