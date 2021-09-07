@@ -13,7 +13,6 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query, data
   } = useDealsListInfiniteScrollReducer({ initialState });
   const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= pageSize });
   useEffect(() => {
-    if (queryResult.isFetching) return;
     return dispatch({ type: setInitialLoader, payload: true });
   }, [queryResult.isFetching, dispatch, setInitialLoader, dataFromWishListLoaded]);
 
