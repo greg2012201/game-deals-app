@@ -29,12 +29,7 @@ const InfiniteDealsList = () => {
         endMessage={data.isLoadingMore && <StyledEndMessage style={{ textAlign: 'center' }}>this is the end</StyledEndMessage>}
         loader={!data.isError && <Loader type="ThreeDots" color={`${theme.colors.white}`} style={{ textAlign: 'center' }} />}
       >
-        <DealsList
-          data={data}
-          handleOnClick={handleOnClick}
-          firestoreConnecting={isLoading}
-          findItemsInWishListFirestore={findItemsInWishListFirestore}
-        />
+        <DealsList data={data} handleOnClick={handleOnClick} firestoreConnecting={isLoading} checkIsOnWishList={findItemsInWishListFirestore} />
       </InfiniteScroll>
     </>
   );

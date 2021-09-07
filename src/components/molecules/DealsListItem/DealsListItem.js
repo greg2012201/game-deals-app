@@ -2,13 +2,7 @@ import Title from 'components/atoms/Title/Title';
 import React from 'react';
 import { StyledDiscount, StyledListItem } from './DealsListItem.style';
 import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
-const DealsListItem = ({
-  handleOnClick,
-  isOnWishList,
-  isWishList,
-  data: dealData,
-  data: { title, oldPrice, discount, newPrice, buy, shop, currency },
-}) => {
+const DealsListItem = ({ handleOnClick, isOnWishList, data: dealData, data: { title, oldPrice, discount, newPrice, buy, shop, currency } }) => {
   return (
     <StyledListItem>
       <Title titleType="h3">{title}</Title>

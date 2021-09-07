@@ -5,7 +5,7 @@ import React from 'react';
 import { Wrapper } from './DealsList.style';
 import { v4 as uuidv4 } from 'uuid';
 
-const DealsList = ({ data, handleOnClick, findItemsInWishListFirestore, firestoreConnecting, isWishList = false }) => {
+const DealsList = ({ data, handleOnClick, checkIsOnWishList, firestoreConnecting, isWishList = false }) => {
   return data.isLoading || firestoreConnecting ? (
     data.isError ? (
       <ErrorPage>Something went wrong, we couldn't load your content</ErrorPage>
@@ -23,8 +23,7 @@ const DealsList = ({ data, handleOnClick, findItemsInWishListFirestore, firestor
       {data.list.map((item) => {
         return (
           <DealsListItem
-            isOnWishList={findItemsInWishListFirestore(item.plain)}
-            isWishList={isWishList}
+            isOnWishList={!isWishList ? checkIsOnWishList(item.plain) : isWishList}
             data={item}
             handleOnClick={handleOnClick}
             key={uuidv4()}
@@ -34,5 +33,5 @@ const DealsList = ({ data, handleOnClick, findItemsInWishListFirestore, firestor
     </Wrapper>
   );
 };
-
+// CHECK IS ON WISHLIST
 export default DealsList;
