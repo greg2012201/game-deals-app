@@ -39,4 +39,7 @@ export const theme = {
     style: { margin: '0 auto' },
     speed: 2,
   },
-}
+  boxShadows: {
+    onButtonHover: ' rgba(0, 0, 0, 0.24) 0px 3px 8px;',
+  },
+};

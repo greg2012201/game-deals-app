@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledAddButton = styled.button`
   box-sizing: border-box;
@@ -17,6 +17,6 @@ export const StyledAddButton = styled.button`
   color: ${({ theme, isRemove }) => (isRemove ? theme.colors.red : theme.colors.darkerGreen)};
   cursor: pointer;
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: ${({ theme }) => theme.boxShadows.onButtonHover};
   }
-`
+`;

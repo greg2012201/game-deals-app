@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Button = styled.button`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
@@ -10,15 +10,16 @@ export const Button = styled.button`
   height: 32px;
   border-radius: 7px;
   border: none;
-  background-color: ${({ theme, isLight }) => (isLight ? theme.colors.white : theme.colors.lightGrey)};
+  background-color: ${({ theme, isLight }) =>
+    isLight ? theme.colors.white : theme.colors.lightGrey};
   color: ${({ theme, isLight }) => (isLight ? theme.colors.black : theme.colors.white)};
   @media (min-width: 980px) {
     & {
       cursor: pointer;
       &:hover {
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        box-shadow: ${({ theme }) => theme.boxShadows.onButtonHover};
         transition: 0.2s;
       }
     }
   }
-`
+`;

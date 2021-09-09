@@ -1,6 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 
-export const animationsDuration = { swingingAnimation: 800, delay: 200, disappearanceAnimation: 1700 };
+export const animationsDuration = {
+  swingingAnimation: 800,
+  delay: 200,
+  disappearanceAnimation: 1700,
+};
 
 const swingAnimation = keyframes`
 25% { transform:rotate(25deg)}
@@ -25,12 +29,13 @@ export const StyledButton = styled.button`
   border-radius: 7px;
   cursor: pointer;
   animation: ${swingAnimation} ${animationsDuration.swingingAnimation}ms 2,
-    ${disappearanceAnimation} ${animationsDuration.delay}ms ${animationsDuration.disappearanceAnimation}ms 1 forwards;
-  animation-play-state: ${({ hasAnimationStarted }) => (hasAnimationStarted ? 'running' : 'paused')};
+    ${disappearanceAnimation} ${animationsDuration.delay}ms
+      ${animationsDuration.disappearanceAnimation}ms 1 forwards;
+  animation-play-state: ${({ hasAnimationStarted }) =>
+    hasAnimationStarted ? 'running' : 'paused'};
   transform-origin: top;
+
   &:hover {
-    &:hover {
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    }
+    box-shadow: ${({ theme }) => theme.boxShadows.onButtonHover};
   }
 `;

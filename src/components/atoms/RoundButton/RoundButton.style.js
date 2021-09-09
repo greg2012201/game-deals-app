@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Wrapper = styled.button`
   padding: 0;
@@ -19,6 +19,6 @@ export const Wrapper = styled.button`
   cursor: pointer;
   transition: 0.2;
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    box-shadow: ${({ theme }) => theme.boxShadows.onButtonHover};
   }
-`
+`;

@@ -2,7 +2,8 @@ import styled from 'styled-components';
 const buttonWidth = '170px';
 const buttonMarginLeft = '20px';
 export const Wrapper = styled.div`
-  margin-left: ${({ isOnTheWishList }) => (!isOnTheWishList ? `calc(100% - ${buttonWidth} - ${buttonMarginLeft})` : '20px')};
+  margin-left: ${({ isOnTheWishList }) =>
+    !isOnTheWishList ? `calc(100% - ${buttonWidth} - ${buttonMarginLeft})` : '20px'};
 
   a {
     text-decoration: none;
@@ -31,6 +32,9 @@ export const StyledButton = styled.button`
   transition: 0.2s;
   cursor: pointer;
 
+  &:hover {
+    box-shadow: ${({ theme }) => theme.boxShadows.onButtonHover};
+  }
   &::${({ isOnTheWishList }) => (isOnTheWishList ? 'before' : 'after')} {
     display: block;
     content: '\\2192';
