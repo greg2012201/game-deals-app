@@ -1,24 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDealsListInfiniteScrollReducer } from './useDealsListInfiniteScrollReducer';
-const initialState = {
-  listSize: 0,
-  hasInitialLoader: true,
-  data: { list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, isError: false },
-};
-export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query, dataFromWishListLoaded }) => {
+
+export const useDealsListInfiniteScroll = ({
+  options: nextSortOptions,
+  itemsPerLoad = 20,
+  query,
+}) => {
+  const [currSortOptions, setCurrSortOptions] = useState(nextSortOptions);
   const {
     state: { listSize, hasInitialLoader, data },
-    actionTypes: { incrementListSize, resetListSize, setInitialLoader, setData, setError },
+    actionTypes: { loadMore, reset, setInitialLoader, setData, setError },
     dispatch,
-  } = useDealsListInfiniteScrollReducer({ initialState });
-  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= pageSize });
-  useEffect(() => {
-    return dispatch({ type: setInitialLoader, payload: true });
-  }, [queryResult.isFetching, dispatch, setInitialLoader, dataFromWishListLoaded]);
+  } = useDealsListInfiniteScrollReducer();
+  const queryResult = query({
+    listSize: listSize + itemsPerLoad,
+    options: currSortOptions,
+  });
 
   useEffect(() => {
-    return dispatch({ type: resetListSize });
-  }, [options, dispatch, resetListSize]);
+    dispatch({ type: reset });
+    setCurrSortOptions(nextSortOptions);
+  }, [nextSortOptions, dispatch, reset, currSortOptions]);
+  useEffect(() => {
+    if (queryResult.isFetching) return;
+    if (queryResult.data && queryResult.data.list.length > 0 && !queryResult.isFetching) {
+      return dispatch({ type: setInitialLoader, payload: false });
+    }
+    return dispatch({ type: setInitialLoader, payload: true });
+  }, [queryResult.isFetching, dispatch, setInitialLoader, queryResult.data]);
+
   useEffect(() => {
     if (queryResult.isError) {
       dispatch({ type: setError, payload: queryResult.isError });
@@ -33,13 +43,21 @@ export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query, data
         },
       });
     }
-  }, [queryResult.data, hasInitialLoader, queryResult.isFetching, queryResult.isLoading, queryResult.isError, dispatch, setData, setError]);
+  }, [
+    queryResult.data,
+    hasInitialLoader,
+    queryResult.isFetching,
+    queryResult.isLoading,
+    queryResult.isError,
+    dispatch,
+    setData,
+    setError,
+  ]);
 
   const handleFetchMoreData = () => {
     if (queryResult.isLoading || queryResult.isFetching) return;
-    dispatch({ type: incrementListSize, payload: pageSize });
     dispatch({ type: setInitialLoader, payload: false });
+    dispatch({ type: loadMore, incrementValue: itemsPerLoad });
   };
-
   return { handleFetchMoreData, data };
 };
