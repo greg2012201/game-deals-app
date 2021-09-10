@@ -26,7 +26,7 @@ export const Genres = () => {
               </StyledLinkButton>
             );
           })
-        : Array(8)
+        : Array(20)
             .fill('')
             .map((_blank, i) => <LinkButtonSkeletonLoader key={i} />)}
     </>
