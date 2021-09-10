@@ -6,8 +6,11 @@ import SelectSkeletonLoader from '../Select/SelectSkeletonLoader';
 import ErrorMessage from 'components/atoms/ErrorMessage/ErrorMessage';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { takeSelections } from 'features/DealsOptionsSlice/DealsListOptionsSlice';
 import { initialSelectsState } from 'utils/selectDataOptions';
+import {
+  setNextSortOptions,
+  setIsSortOptionLoading,
+} from 'features/DealsInfiniteScrollSlice/DealsInfiniteScrollSlice';
 
 const DealsSelect = () => {
   const { control } = useForm({
@@ -15,13 +18,16 @@ const DealsSelect = () => {
   });
 
   const dispatch = useDispatch();
-  const { data, isLoading, error } = useGetListCoveredRegionsQuery();
+  const { data, isLoading, error, isSuccess } = useGetListCoveredRegionsQuery();
   const selectsWatch = useWatch({
     control,
   });
   useEffect(() => {
-    dispatch(takeSelections(selectsWatch));
-  }, [selectsWatch, dispatch]);
+    if (isSuccess) {
+      dispatch(setIsSortOptionLoading(false));
+      dispatch(setNextSortOptions(selectsWatch));
+    }
+  }, [selectsWatch, dispatch, isSuccess]);
 
   return !error ? (
     <Wrapper>

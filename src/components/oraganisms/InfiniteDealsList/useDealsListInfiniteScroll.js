@@ -1,45 +1,74 @@
+import {
+  resetOnSortOptionChange,
+  setCurrSortOptions,
+  setInitialLoader,
+  setData,
+  loadMore,
+  resetOnUnmount,
+  setError,
+} from 'features/DealsInfiniteScrollSlice/DealsInfiniteScrollSlice';
 import { useEffect } from 'react';
-import { useDealsListInfiniteScrollReducer } from './useDealsListInfiniteScrollReducer';
-const initialState = {
-  listSize: 0,
-  hasInitialLoader: true,
-  data: { list: [], isLoading: true, isLoadingMore: false, hasMoreItems: true, isError: false },
-};
-export const useDealsListInfiniteScroll = ({ options, pageSize = 20, query, dataFromWishListLoaded }) => {
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+export const useDealsListInfiniteScroll = ({ itemsPerLoad = 20, query }) => {
+  const dispatch = useDispatch();
   const {
-    state: { listSize, hasInitialLoader, data },
-    actionTypes: { incrementListSize, resetListSize, setInitialLoader, setData, setError },
-    dispatch,
-  } = useDealsListInfiniteScrollReducer({ initialState });
-  const queryResult = query({ listSize: listSize + pageSize, options }, { skip: hasInitialLoader && listSize >= pageSize });
+    listSize,
+    currSortOptions,
+    nextSortOptions,
+    hasInitialLoader,
+    data,
+    isSortOptionLoading,
+  } = useSelector((state) => state.dealsInfiniteScroll);
+
+  const queryResult = query(
+    {
+      listSize: listSize + itemsPerLoad,
+      options: currSortOptions,
+    },
+    { skip: isSortOptionLoading }
+  );
   useEffect(() => {
-    return dispatch({ type: setInitialLoader, payload: true });
-  }, [queryResult.isFetching, dispatch, setInitialLoader, dataFromWishListLoaded]);
+    return () => dispatch(resetOnUnmount());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(setCurrSortOptions(nextSortOptions));
+    dispatch(resetOnSortOptionChange());
+  }, [nextSortOptions, dispatch, currSortOptions]);
+  useEffect(() => {
+    if (queryResult.data && queryResult.data.list.length > 0 && !queryResult.isFetching) {
+      return dispatch(setInitialLoader(false));
+    }
+  }, [queryResult.isFetching, dispatch, queryResult.data]);
 
   useEffect(() => {
-    return dispatch({ type: resetListSize });
-  }, [options, dispatch, resetListSize]);
-  useEffect(() => {
     if (queryResult.isError) {
-      dispatch({ type: setError, payload: queryResult.isError });
+      dispatch(setError(queryResult.error));
     }
     if (queryResult.data) {
-      dispatch({
-        type: setData,
-        payload: {
+      dispatch(
+        setData({
           list: queryResult.data.list,
           isLoading: queryResult.isFetching && hasInitialLoader,
           hasMoreItems: queryResult.data.list.length <= queryResult.data.count,
-        },
-      });
+        })
+      );
     }
-  }, [queryResult.data, hasInitialLoader, queryResult.isFetching, queryResult.isLoading, queryResult.isError, dispatch, setData, setError]);
+  }, [
+    queryResult.error,
+    queryResult.data,
+    hasInitialLoader,
+    queryResult.isFetching,
+    queryResult.isLoading,
+    queryResult.isError,
+    dispatch,
+  ]);
 
   const handleFetchMoreData = () => {
     if (queryResult.isLoading || queryResult.isFetching) return;
-    dispatch({ type: incrementListSize, payload: pageSize });
-    dispatch({ type: setInitialLoader, payload: false });
+    dispatch(setInitialLoader(false));
+    dispatch(loadMore(itemsPerLoad));
   };
-
   return { handleFetchMoreData, data };
 };
