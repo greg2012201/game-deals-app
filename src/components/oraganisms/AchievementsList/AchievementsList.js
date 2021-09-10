@@ -1,7 +1,7 @@
 import AchievementsListItem from 'components/molecules/AchievementsListItem/AchievementsListItem';
 import React, { useRef, useState, useEffect } from 'react';
 import Pagination from 'rc-pagination';
-import { StyledAchivementsList } from './Achievements.style';
+import { StyledAchivementsList } from './AchievementsList.style';
 import { usePagination } from './usePagination';
 import Title from 'components/atoms/Title/Title';
 import AchievementsListItemSkeletonLoader from 'components/molecules/AchievementsListItem/AchievementsListItemSkeletonLoader';
