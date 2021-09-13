@@ -21,9 +21,16 @@ export const wishListApi = createApi({
       },
       transformResponse: (response) => {
         const actualPrices = Object.values(response.data).reduce((acc, curr, index) => {
-          return [...acc, { plain: Object.keys(response.data)[index], newPrice: curr.price.price, discount: curr.price.cut }];
-        }, []);
+          return [
+            ...acc,
 
+            {
+              plain: Object.keys(response.data)[index],
+              isExpired: !curr.price,
+              ...(curr.price && { discount: curr.price.cut, newPrice: curr.price.price }),
+            },
+          ];
+        }, []);
         return { actualPrices };
       },
       invalidatesTags: ['wishList'],
