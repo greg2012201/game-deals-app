@@ -1,26 +1,23 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledListItem = styled.li`
   display: grid;
   grid-template-rows: 30% 30px 23px 23px 23px auto;
   grid-template-columns: 65% 35%;
-  padding: 10px;
+  padding: 15px;
   background-color: ${({ theme }) => theme.colors.darkerGrey};
   border-radius: 7px;
   color: ${({ theme }) => theme.colors.white};
   font-family: Lato;
   min-height: 170px;
-  p,
+
   a {
     margin: 0;
     padding: 0;
     font-size: ${({ theme }) => theme.fontSize.m};
     color: ${({ theme }) => theme.colors.lighterGrey};
   }
-  p {
-    margin-left: 4px;
-    grid-column: 1;
-  }
+
   a {
     grid-column: 1;
     grid-row: 6;
@@ -31,7 +28,7 @@ export const StyledListItem = styled.li`
     grid-row: 1/3;
   }
 
-  @media (min-width: 660px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.s}) {
     & {
       display: flex;
       flex-wrap: wrap;
@@ -43,20 +40,34 @@ export const StyledListItem = styled.li`
       width: 100%;
       font-size: ${({ theme }) => theme.fontSize.x};
     }
-    p,
+
     a {
       grid-row: 2;
     }
   }
-`
+`;
 
 export const StyledDiscount = styled.span`
   color: ${({ theme }) => theme.colors.red};
   ${({ value, theme }) => {
     if (value >= 80) {
-      return `border-color : ${theme.colors.green}; color:${theme.colors.green};`
+      return `border-color : ${theme.colors.green}; color:${theme.colors.green};`;
     } else if (value >= 50) {
-      return `border-color : ${theme.colors.orange}; color:${theme.colors.orange};`
+      return `border-color : ${theme.colors.orange}; color:${theme.colors.orange};`;
     }
   }};
-`
+`;
+export const StyledP = styled.p`
+  margin: 0;
+  padding: 0;
+  font-size: ${({ theme }) => theme.fontSize.m};
+  color: ${({ theme, isExpired }) => (isExpired ? theme.colors.white : theme.colors.lighterGrey)};
+
+  grid-column: 1;
+
+  @media (min-width: ${({ theme }) => theme.resolutions.s}) {
+    & {
+      grid-row: 2;
+    }
+  }
+`;
