@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     display: none;
   }
 
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       display: grid;
       grid-template-columns: 50% 50%;
@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 export const ImgItem = styled.img`
   margin: 0;
   padding: 0;
@@ -38,7 +38,7 @@ export const ImgItem = styled.img`
   min-height: 168px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     display: ${(props) => (props['data-index'] >= 5 ? 'none' : 'block')};
 
     &,
@@ -58,4 +58,4 @@ export const ImgItem = styled.img`
       }
     }
   }
-`
+`;

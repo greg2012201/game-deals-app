@@ -16,8 +16,9 @@ export const Wrapper = styled.div`
   z-index: 100;
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
   }
   input {
     height: 33px;
@@ -46,8 +47,9 @@ export const Wrapper = styled.div`
   select:-webkit-autofill:focus {
     -webkit-text-fill-color: ${({ theme }) => theme.colors.white};
     -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.colors.black} inset;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
   }
   label {
     padding: 0;
@@ -57,7 +59,7 @@ export const Wrapper = styled.div`
     width: 15%;
   }
 
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       width: 300px;
     }
@@ -77,8 +79,9 @@ export const HintWrapper = styled.ul`
   max-height: 360px;
   background-color: ${({ theme }) => theme.colors.black};
   border-radius: 7px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
   overflow-y: scroll;
   z-index: 99;
   border-radius: 7px;
@@ -97,7 +100,8 @@ export const Hint = styled.li`
   background-color: ${({ theme }) => theme.colors.darkerGrey};
   list-style: none;
   border-radius: 7px;
-  box-shadow: ${({ theme, isHighlited }) => (isHighlited ? `${theme.colors.violet} 0px 0px 0px 3px;` : '0px 4px 4px rgba(0, 0, 0, 0.25)')};
+  box-shadow: ${({ theme, isHighlited }) =>
+    isHighlited ? `${theme.colors.violet} 0px 0px 0px 3px;` : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
   cursor: pointer;
   transition: 0.2s;
   h4 {

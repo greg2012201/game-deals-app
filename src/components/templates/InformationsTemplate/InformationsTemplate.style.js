@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledInformationsTemplate = styled.div`
   position: relative;
@@ -19,7 +19,7 @@ export const StyledInformationsTemplate = styled.div`
   .loader {
     margin: 0 auto;
   }
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       display: grid;
       grid-template-columns: 50% 50%;
@@ -30,4 +30,4 @@ export const StyledInformationsTemplate = styled.div`
       }
     }
   }
-`
+`;

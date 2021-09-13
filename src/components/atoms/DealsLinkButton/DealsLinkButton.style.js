@@ -45,7 +45,7 @@ export const StyledButton = styled.button`
     margin-bottom: ${({ isOnTheWishList }) => (isOnTheWishList ? '-6px' : '6px')};
   }
 
-  @media (min-width: 509px) {
+  @media (${({ theme }) => theme.resolutions.xxs}) {
     margin-top: 0;
     align-self: center;
   }

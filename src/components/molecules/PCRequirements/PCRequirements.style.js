@@ -1,5 +1,5 @@
-import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
-import styled from 'styled-components'
+import { Paragraph } from 'components/atoms/Paragraph/Paragraph';
+import styled from 'styled-components';
 
 export const RequirementsWrapper = styled.div`
   margin-top: 20px;
@@ -7,7 +7,7 @@ export const RequirementsWrapper = styled.div`
   align-self: flex-start;
   ${Paragraph} {
     font-size: ${({ theme }) => theme.fontSize.s};
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       font-size: ${({ theme }) => theme.fontSize.m};
     }
   }
@@ -19,8 +19,4 @@ export const RequirementsWrapper = styled.div`
 
     height: 22px;
   }
-
-  /* @media (max-width: 980px) {
-    align-self: center;
-  } */
-`
+`;

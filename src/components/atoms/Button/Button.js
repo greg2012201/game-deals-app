@@ -13,7 +13,7 @@ export const Button = styled.button`
   background-color: ${({ theme, isLight }) =>
     isLight ? theme.colors.white : theme.colors.lightGrey};
   color: ${({ theme, isLight }) => (isLight ? theme.colors.black : theme.colors.white)};
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       cursor: pointer;
       &:hover {

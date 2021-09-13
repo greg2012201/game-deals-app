@@ -11,7 +11,7 @@ export const StyledAchivementsList = styled.ul`
   min-height: 400px;
   min-width: 340px;
 
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       min-height: 600px;
     }
@@ -35,7 +35,7 @@ export const StyledAchivementsList = styled.ul`
     font-size: ${({ theme }) => theme.fontSize.s};
     font-family: Lato;
 
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       & {
         font-size: ${({ theme }) => theme.fontSize.m};
       }

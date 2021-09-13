@@ -1,15 +1,21 @@
-import React from 'react'
-import ContentLoader from 'react-content-loader'
-import { useWindowSize } from 'react-use'
-import { useTheme } from 'styled-components'
-const skeletonLoaderHeight = '100vh'
+import React from 'react';
+import ContentLoader from 'react-content-loader';
+import { useWindowSize } from 'react-use';
+import { useTheme } from 'styled-components';
+const skeletonLoaderHeight = '100vh';
 const GameDetailsSkeletonLoader = (props) => {
-  const theme = useTheme()
-  const { width } = useWindowSize()
+  const theme = useTheme();
+  const { width } = useWindowSize();
 
-  if (width >= 980) {
+  if (width >= parseInt(theme.resolutions.l, 10)) {
     return (
-      <ContentLoader width={'90%'} height={'100vh'} viewBox="0 0 980 700" {...theme.skeletonLoaderTheme} {...props}>
+      <ContentLoader
+        width={'90%'}
+        height={'100vh'}
+        viewBox="0 0 980 700"
+        {...theme.skeletonLoaderTheme}
+        {...props}
+      >
         <rect x="10" y="20" rx="10" ry="10" width="279" height="36" />
         <rect x="29" y="73" rx="13" ry="13" width="456" height="285" />
         <rect x="520" y="115" rx="6" ry="6" width="320" height="15" />
@@ -24,10 +30,16 @@ const GameDetailsSkeletonLoader = (props) => {
         <rect x="29" y="515" rx="13" ry="13" width="216" height="119" />
         <rect x="268" y="515" rx="13" ry="13" width="216" height="119" />
       </ContentLoader>
-    )
-  } else if (width >= 600) {
+    );
+  } else if (width >= parseInt(theme.resolutions.xs, 10)) {
     return (
-      <ContentLoader width={'90%'} height={skeletonLoaderHeight} viewBox="0 0 600 600" {...theme.skeletonLoaderTheme} {...props}>
+      <ContentLoader
+        width={'90%'}
+        height={skeletonLoaderHeight}
+        viewBox="0 0 600 600"
+        {...theme.skeletonLoaderTheme}
+        {...props}
+      >
         <rect x="20" y="20" rx="10" ry="10" width="348" height="36" />
         <rect x="23" y="83" rx="13" ry="13" width="264" height="168" />
         <rect x="20" y="282" rx="5" ry="5" width="100" height="23" />
@@ -40,10 +52,16 @@ const GameDetailsSkeletonLoader = (props) => {
         <rect x="20" y="510" rx="8" ry="8" width="69" height="39" />
         <rect x="311" y="82" rx="13" ry="13" width="264" height="168" />
       </ContentLoader>
-    )
+    );
   } else {
     return (
-      <ContentLoader width={360} height={skeletonLoaderHeight} viewBox="0 0 360 600" {...theme.skeletonLoaderTheme} {...props}>
+      <ContentLoader
+        width={360}
+        height={skeletonLoaderHeight}
+        viewBox="0 0 360 600"
+        {...theme.skeletonLoaderTheme}
+        {...props}
+      >
         <rect x="20" y="20" rx="10" ry="10" width="288" height="36" />
         <rect x="23" y="83" rx="13" ry="13" width="264" height="168" />
         <rect x="20" y="282" rx="5" ry="5" width="100" height="23" />
@@ -55,8 +73,8 @@ const GameDetailsSkeletonLoader = (props) => {
         <rect x="20" y="466" rx="6" ry="6" width="215" height="15" />
         <rect x="20" y="510" rx="8" ry="8" width="69" height="39" />
       </ContentLoader>
-    )
+    );
   }
-}
+};
 
-export default GameDetailsSkeletonLoader
+export default GameDetailsSkeletonLoader;

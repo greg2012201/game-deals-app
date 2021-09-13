@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import ReactModal from 'react-modal'
-import RoundButton from 'components/atoms/RoundButton/RoundButton'
+import styled from 'styled-components';
+import ReactModal from 'react-modal';
+import RoundButton from 'components/atoms/RoundButton/RoundButton';
 export const Wrapper = styled(ReactModal)`
   .swiper-button {
     visibility: hidden;
@@ -45,15 +45,15 @@ export const Wrapper = styled(ReactModal)`
   &:focus {
     outline: none;
   }
-`
+`;
 export const Button = styled(RoundButton)`
   bottom: 10%;
   right: 50%;
   transform: translateX(50%);
-  @media (min-width: 600px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.xs}) {
     & {
       bottom: 90vh;
       right: 50px;
     }
   }
-`
+`;

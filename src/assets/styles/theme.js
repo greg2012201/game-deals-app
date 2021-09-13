@@ -30,7 +30,12 @@ export const theme = {
     xxxl: '42px',
   },
   resolutions: {
-    xl: 1200,
+    xxs: '509px',
+    xs: '600px',
+    s: '660px',
+    m: '800px',
+    l: '980px',
+    xl: '1200px',
   },
   skeletonLoaderTheme: {
     backgroundColor: '#434343',

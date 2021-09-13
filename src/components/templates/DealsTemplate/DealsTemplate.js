@@ -10,7 +10,7 @@ export const DealsTemplate = styled.div`
   @media (min-width: 580px) {
     min-width: 560px;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.xl}) {
     min-width: 880px;
   }
 `;

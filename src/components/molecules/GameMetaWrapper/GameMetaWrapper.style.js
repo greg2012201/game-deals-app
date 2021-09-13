@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const MetaContentWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -19,9 +19,9 @@ export const MetaContentWrapper = styled.div`
     margin-bottom: 20px;
   }
   color: ${({ theme }) => theme.colors.white};
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       margin-top: 20px;
     }
   }
-`
+`;

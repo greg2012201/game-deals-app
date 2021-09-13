@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledAchievementsListItem = styled.li`
   list-style: none;
@@ -13,7 +13,7 @@ export const StyledAchievementsListItem = styled.li`
     margin: 0;
     line-height: 1.3em;
 
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       & {
         font-size: ${({ theme }) => theme.fontSize.m};
         h4 {
@@ -25,4 +25,4 @@ export const StyledAchievementsListItem = styled.li`
   img {
     max-width: 50px;
   }
-`
+`;

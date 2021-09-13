@@ -18,14 +18,15 @@ export const Wrapper = styled.div`
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  background-image: ${({ hasLoaded, backgroundURL }) => (hasLoaded ? `url(${backgroundURL})` : 'none')};
+  background-image: ${({ hasLoaded, backgroundURL }) =>
+    hasLoaded ? `url(${backgroundURL})` : 'none'};
 
   ${StyledListWrapper} {
     grid-column: 1/3;
   }
 
   h1 {
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       & {
         font-size: ${({ theme }) => theme.fontSize.xxxl};
       }
@@ -41,9 +42,10 @@ export const Mask = styled.div`
   min-height: 100vh;
 
   width: 100%;
-  background-color: ${({ theme, isLoading }) => (isLoading ? theme.colors.black : theme.colors.lowTransparentBlack)};
+  background-color: ${({ theme, isLoading }) =>
+    isLoading ? theme.colors.black : theme.colors.lowTransparentBlack};
 
-  @media (min-width: 980px) {
+  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
     & {
       display: grid;
       grid-template-columns: 50% 50%;

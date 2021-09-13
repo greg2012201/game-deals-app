@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ItemWrapper = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const ItemWrapper = styled.div`
     color: ${({ theme }) => theme.colors.white};
     line-height: 1.8em;
 
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       & {
         font-size: ${({ theme }) => theme.fontSize.m};
       }
@@ -26,4 +26,4 @@ export const ItemWrapper = styled.div`
   h4 {
     margin-bottom: 10px;
   }
-`
+`;

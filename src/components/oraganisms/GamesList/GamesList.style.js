@@ -30,7 +30,7 @@ export const StyledListWrapper = styled.div`
 
   h2 {
     margin-left: 20px;
-    @media (min-width: 980px) {
+    @media (min-width: ${({ theme }) => theme.resolutions.l}) {
       margin-left: 10%;
     }
   }
