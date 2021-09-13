@@ -8,7 +8,7 @@ export const StyledAddButton = styled.button`
   padding: 0;
   margin: 0;
   height: 40px;
-  width: 105px;
+  width: 95px;
   border: none;
   border-radius: 7px;
   font-size: ${({ theme }) => theme.fontSize.xs};
