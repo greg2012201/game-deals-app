@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PaginationButton = styled.button`
   position: absolute;
@@ -22,7 +22,7 @@ export const PaginationButton = styled.button`
   svg {
     transform: ${({ right }) => (right ? ' rotate(-90deg)' : 'rotate(90deg)')};
   }
-`
+`;
 export const ButtonsWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
@@ -39,10 +39,6 @@ export const ButtonsWrapper = styled.div`
   justify-content: space-between;
   transition: 0.3s;
 
-  @media (min-width: ${({ theme }) => theme.resolutions.x}) {
-    width: 94%;
-  }
-
   button {
     margin: 0 2.5px;
     &:nth-of-type(1) {
@@ -53,4 +49,4 @@ export const ButtonsWrapper = styled.div`
     }
   }
   overflow-x: scroll;
-`
+`;
