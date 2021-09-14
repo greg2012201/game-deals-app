@@ -4,9 +4,10 @@ export const pathsList = {
   genres: '/genres',
   games: '/games',
   wishList: '/wish-list',
-}
+  errorPage: '/error-page',
+};
 export const menuPaths = [
   { name: 'Home', path: pathsList.library },
   { name: 'Deals', path: pathsList.deals },
   { name: 'WishList', path: `${pathsList.deals}${pathsList.wishList}` },
-]
+];
