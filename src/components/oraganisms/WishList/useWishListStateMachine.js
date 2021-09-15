@@ -26,7 +26,9 @@ export const reducer = (state, action) => {
           ...acc,
           {
             ...curr,
-            ...action.payload.pricesData.actualPrices[index],
+            newPrice: action.payload.pricesData.actualPrices[index].newPrice,
+            discount: action.payload.pricesData.actualPrices[index].discount,
+            isExpired: action.payload.pricesData.actualPrices[index].isExpired,
           },
         ];
       }, []);
