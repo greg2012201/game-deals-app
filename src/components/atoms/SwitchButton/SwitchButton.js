@@ -10,7 +10,7 @@ const SwitchButton = (props) => {
     setTriggerRef,
     setTooltipRef,
     visible,
-  } = usePopperTooltip({ placement: 'top', offset: [0, 10] });
+  } = usePopperTooltip({ placement: 'top', offset: [0, 10], delayShow: 500 });
   return (
     <StyledAddButton ref={setTriggerRef} {...props}>
       <Tooltip popperProps={{ getTooltipProps, getArrowProps, setTooltipRef, visible }}>
