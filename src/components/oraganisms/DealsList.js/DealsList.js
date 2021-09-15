@@ -1,8 +1,8 @@
 import DealsListItem from 'components/molecules/DealsListItem/DealsListItem';
 import DealsListItemSkeletonLoader from 'components/molecules/DealsListItem/DealsListItemSkeletonLoader';
-import ErrorPage from 'components/molecules/ErrorPage/ErrorPage';
 import React from 'react';
 import { Wrapper } from './DealsList.style';
+import { useErrorPage } from 'hooks/useErrorPage';
 
 const DealsList = ({
   data,
@@ -11,26 +11,24 @@ const DealsList = ({
   firestoreConnecting,
   isWishList = false,
 }) => {
+  useErrorPage(data.isError);
+
   return (
     <Wrapper>
-      {data.isError ? (
-        <ErrorPage>Something went wrong, we couldn't load your content</ErrorPage>
-      ) : data.isLoading || firestoreConnecting ? (
-        Array(20)
-          .fill('')
-          .map((_blank, i) => <DealsListItemSkeletonLoader key={i} />)
-      ) : (
-        data.list.map((item, i) => {
-          return (
-            <DealsListItem
-              isOnWishList={!isWishList ? checkIsOnWishList(item.plain) : isWishList}
-              data={item}
-              handleOnClick={handleOnClick}
-              key={i}
-            />
-          );
-        })
-      )}
+      {data.isLoading || firestoreConnecting
+        ? Array(20)
+            .fill('')
+            .map((_blank, i) => <DealsListItemSkeletonLoader key={i} />)
+        : data.list.map((item, i) => {
+            return (
+              <DealsListItem
+                isOnWishList={!isWishList ? checkIsOnWishList(item.plain) : isWishList}
+                data={item}
+                handleOnClick={handleOnClick}
+                key={i}
+              />
+            );
+          })}
       ;
     </Wrapper>
   );
