@@ -1,20 +1,17 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  grid-row: 3/4;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 340px;
+  width: 100%;
+  height: 70vh;
   color: ${({ theme }) => theme.colors.white};
   font-family: Lato;
-
-  transform: translate(-50%, -50%);
-`
+`;
 export const Circle = styled.div`
   display: flex;
   justify-content: center;
@@ -26,7 +23,7 @@ export const Circle = styled.div`
   font-family: Krub;
   font-size: 80px;
   letter-spacing: 5px;
-`
+`;
 
 export const LinkButton = styled(Link)`
   margin-top: 30px;
@@ -45,4 +42,4 @@ export const LinkButton = styled(Link)`
     color: ${({ theme }) => theme.colors.violet};
     border-color: ${({ theme }) => theme.colors.violet};
   }
-`
+`;

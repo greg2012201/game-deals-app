@@ -3,7 +3,7 @@ import ProductCard from 'components/molecules/GamesListItem/GamesListItem';
 import { StyledEndMessage, StyledListWrapper, StyledList, StyledLoader } from './GamesList.style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from 'styled-components';
-import ErrorPage from 'components/molecules/ErrorPage/ErrorPage';
+import ErrorPage from 'views/ErrorPage';
 import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader';
 import { useGamesList } from 'hooks/useGamesList';
 import { RAWGOptions } from 'utils/fetchingOptions';
