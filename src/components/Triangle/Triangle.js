@@ -32,7 +32,6 @@ const setDirection = (direction = null) => {
 export const Triangle = styled.div.attrs({
   role: 'image',
   'aria-label': 'triangle ico',
-  class: 'triangle',
 })`
   &::after {
     display: block;
