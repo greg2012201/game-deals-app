@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const Wrapper = styled.button`
   display: flex;
   justify-content: space-around;
@@ -6,7 +6,8 @@ export const Wrapper = styled.button`
   width: 135px;
   height: 54px;
   border: none;
-  background-color: ${({ theme, toggle }) => (toggle ? theme.colors.white : theme.colors.semiTransparentBlack)};
+  background-color: ${({ theme, toggle }) =>
+    toggle ? theme.colors.white : theme.colors.semiTransparentBlack};
   transition: 0.2s;
   cursor: pointer;
 
@@ -23,4 +24,4 @@ export const Wrapper = styled.button`
     }
     transition: transform 0.3s;
   }
-`
+`;

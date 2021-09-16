@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import { Triangle } from 'components/Triangle/Triangle';
 
 export const PaginationButton = styled.button`
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 32px;
   width: 26px;
   top: 50%;
@@ -11,16 +15,12 @@ export const PaginationButton = styled.button`
   transform: translateY(-50%);
   ${({ right }) => (right ? ' right:5px; border-radius:  0 5px 5px 0 ;' : ' left:5px; ')};
   cursor: pointer;
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.white};
-    svg {
-      & > #background {
-        fill: ${({ theme }) => theme.colors.violet};
-      }
+    ${Triangle}::after {
+      border-top-color: ${({ theme }) => theme.colors.violet};
     }
-  }
-  svg {
-    transform: ${({ right }) => (right ? ' rotate(-90deg)' : 'rotate(90deg)')};
   }
 `;
 export const ButtonsWrapper = styled.div`
