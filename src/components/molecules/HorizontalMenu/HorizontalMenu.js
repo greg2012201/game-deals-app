@@ -1,26 +1,26 @@
-import { ButtonsWrapper, PaginationButton } from './HorizontalMenu.style'
-import { usePaginationButtons } from 'hooks/usePaginationButtons'
-import React, { useRef } from 'react'
-import { ReactComponent as Icon } from 'assets/icons/triangle-icon.svg'
-import { horizontalMenuScroll } from 'helpers/horizontalMenuScroll'
+import { ButtonsWrapper, PaginationButton } from './HorizontalMenu.style';
+import { usePaginationButtons } from 'hooks/usePaginationButtons';
+import React, { useRef } from 'react';
+import { horizontalMenuScroll } from 'helpers/horizontalMenuScroll';
+import { Triangle } from 'components/Triangle/Triangle';
 
-const scrollDistance = 200
+const scrollDistance = 200;
 
 const HorizontalMenu = ({ children }) => {
-  const buttonsWrapper = useRef(null)
+  const buttonsWrapper = useRef(null);
   const handleOnClick = (direction) => {
-    horizontalMenuScroll(direction, buttonsWrapper, scrollDistance)
-  }
-  const isPagination = usePaginationButtons(buttonsWrapper)
+    horizontalMenuScroll(direction, buttonsWrapper, scrollDistance);
+  };
+  const isPagination = usePaginationButtons(buttonsWrapper);
   return (
     <>
       {isPagination && (
         <>
           <PaginationButton left="true" className="left" onClick={() => handleOnClick()}>
-            <Icon left="true" />
+            <Triangle direction="left" size="s" />
           </PaginationButton>
           <PaginationButton right="true" className="right" onClick={() => handleOnClick('right')}>
-            <Icon right="true" />
+            <Triangle direction="right" size="s" />
           </PaginationButton>
         </>
       )}
@@ -29,7 +29,7 @@ const HorizontalMenu = ({ children }) => {
         {children}
       </ButtonsWrapper>
     </>
-  )
-}
+  );
+};
 
-export default HorizontalMenu
+export default HorizontalMenu;
