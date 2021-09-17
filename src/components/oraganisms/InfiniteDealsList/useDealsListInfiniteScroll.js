@@ -27,7 +27,7 @@ export const useDealsListInfiniteScroll = ({ itemsPerLoad = 20, query }) => {
       listSize: listSize + itemsPerLoad,
       options: currSortOptions,
     },
-    { skip: isSortOptionLoading }
+    { skip: isSortOptionLoading || data.isError }
   );
   useEffect(() => {
     return () => dispatch(resetOnUnmount());

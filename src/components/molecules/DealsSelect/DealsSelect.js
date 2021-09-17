@@ -10,6 +10,7 @@ import { initialSelectsState } from 'utils/selectDataOptions';
 import {
   setNextSortOptions,
   setIsSortOptionLoading,
+  setError,
 } from 'features/DealsInfiniteScrollSlice/DealsInfiniteScrollSlice';
 
 const DealsSelect = () => {
@@ -27,7 +28,11 @@ const DealsSelect = () => {
       dispatch(setIsSortOptionLoading(false));
       dispatch(setNextSortOptions(selectsWatch));
     }
-  }, [selectsWatch, dispatch, isSuccess]);
+    if (error) {
+      dispatch(setIsSortOptionLoading(false));
+      dispatch(setError());
+    }
+  }, [selectsWatch, dispatch, isSuccess, error]);
 
   return !error ? (
     <Wrapper>

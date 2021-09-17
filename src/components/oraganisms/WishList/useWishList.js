@@ -10,25 +10,43 @@ export const useWishList = () => {
     state,
     state: { hasLoader },
   } = useWishListStateMachine();
-  const { wishList, removeAllFromStore, error, findItemsInWishListFirestore, handleOnClick, isEmpty } = useWishListFirestore();
+  const {
+    wishList,
+    removeAllFromStore,
+    error,
+    findItemsInWishListFirestore,
+    handleOnClick,
+    isEmpty,
+  } = useWishListFirestore();
 
-  const { data: pricesData, isLoading } = useGetActualPricesQuery({ plains: wishList }, { skip: !wishList || wishList.length === 0 || !hasLoader });
+  const { data: pricesData, isLoading, isError } = useGetActualPricesQuery(
+    { plains: wishList },
+    { skip: !wishList || wishList.length === 0 || !hasLoader }
+  );
 
   useEffect(() => {
-    if (isLoading || !wishList) return;
+    if (isLoading || !wishList || isError) return;
     dispatch({ type: actionTypes.hasListLoaded });
     dispatch({ type: actionTypes.updatePrices, payload: { pricesData, wishList } });
 
     return () => {
       return dispatch({ type: actionTypes.hasListLoaded });
     };
-  }, [isLoading, wishList, dispatch, actionTypes.hasListLoaded, actionTypes.checkHasItems, actionTypes.updatePrices, pricesData]);
+  }, [
+    isLoading,
+    isError,
+    wishList,
+    dispatch,
+    actionTypes.hasListLoaded,
+    actionTypes.checkHasItems,
+    actionTypes.updatePrices,
+    pricesData,
+  ]);
 
   return {
-    data: { list: state.data, isLoading: hasLoader },
+    data: { list: state.data, isLoading: hasLoader, isError: isError || error },
     handleOnClick,
     removeAllFromStore,
-    error,
     hasLoader,
     findItemsInWishListFirestore,
     isEmpty,
