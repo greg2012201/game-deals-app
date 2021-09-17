@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   margin: 0 20px 0;
-  width: 195px;
+  width: 130px;
   height: 25px;
   padding: 5px;
   align-items: center;
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   border-radius: 7px;
   background-color: ${({ theme }) => theme.colors.black};
   z-index: 100;
-
+  justify-self: flex-start;
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
       rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
@@ -59,7 +59,7 @@ export const Wrapper = styled.div`
     width: 15%;
   }
 
-  @media (min-width: ${({ theme }) => theme.resolutions.l}) {
+  @media (min-width: ${({ theme }) => theme.resolutions.xs}) {
     & {
       width: 300px;
     }
