@@ -5,6 +5,7 @@ export const pathsList = {
   games: '/games',
   wishList: '/wish-list',
   errorPage: '/error-page',
+  loginPage: '/login-page',
 };
 export const menuPaths = [
   { name: 'Home', path: pathsList.library },
