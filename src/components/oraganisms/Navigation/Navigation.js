@@ -9,12 +9,16 @@ import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
 import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
 import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
 import { useWishListFirestore } from '../WishList/useWishListFirestore';
+import AuthLink from 'components/atoms/AuthLink/AuthLink';
+import { useLocation } from 'react-use';
 
-const { library, deals, wishList } = pathsList;
+const { library, deals, wishList, loginPage } = pathsList;
 const Navigation = () => {
   const categoriesRef = useRef();
   const [refs, setRefs] = useState(null);
+  const { pathname } = useLocation();
   const { isEmpty } = useWishListFirestore();
+
   const getCategoriesRef = (ref) => {
     setRefs(ref);
   };
@@ -27,6 +31,7 @@ const Navigation = () => {
       <TopPanel receivedRefs={refs}>
         <Menu />
         <SearchBar />
+        {pathname !== loginPage && <AuthLink />}
       </TopPanel>
       <BottomPanel ref={categoriesRef}>
         <Switch>
@@ -38,7 +43,9 @@ const Navigation = () => {
           <Route exact path={deals}>
             <DealsLinkButton />
           </Route>
-          <Route path={`${deals}${wishList}`}>{isEmpty ? null : <DealsLinkButton isOnTheWishList />}</Route>
+          <Route path={`${deals}${wishList}`}>
+            {isEmpty ? null : <DealsLinkButton isOnTheWishList />}
+          </Route>
         </Switch>
       </BottomPanel>
     </>
