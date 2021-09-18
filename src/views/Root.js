@@ -15,7 +15,8 @@ import Deals from './Deals';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { rrfProps } from 'features/firebase/firebase';
 import ErrorPage from 'views/ErrorPage';
-const { library, games, deals, errorPage } = pathsList;
+import LoginPage from './LoginPage';
+const { library, games, deals, errorPage, loginPage } = pathsList;
 const Root = () => {
   return (
     <Router>
@@ -42,6 +43,9 @@ const Root = () => {
                   </Route>
                   <Route path={`${errorPage}`}>
                     <ErrorPage />
+                  </Route>
+                  <Route path={`${loginPage}`}>
+                    <LoginPage path={`${loginPage}`} />
                   </Route>
                 </Switch>
               </MainTemplate>
