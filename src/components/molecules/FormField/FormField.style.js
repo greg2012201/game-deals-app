@@ -9,6 +9,10 @@ export const StyledLabel = styled.label`
   transition: color 0.2s;
 `;
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
   ${Input}:focus {
     box-shadow: ${({ theme }) => `${theme.colors.violet} 0px 0px 0px 3px;`};
     outline: none;
