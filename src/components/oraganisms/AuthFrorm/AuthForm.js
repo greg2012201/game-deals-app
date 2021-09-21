@@ -32,7 +32,9 @@ const AuthForm = () => {
         <FormField register={register} name="password" type="password">
           Password:
         </FormField>
-        <StyledButton role="submit">{isLoading ? 'Loading' : 'Submit'}</StyledButton>
+        <StyledButton role="submit">
+          {isLoading ? 'Loading' : isError ? 'Retry...' : 'Submit'}
+        </StyledButton>
         {isError && !isLoading && <p>it will be an error popup here</p>}
       </StyledForm>
       )
