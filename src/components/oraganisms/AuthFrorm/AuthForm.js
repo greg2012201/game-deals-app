@@ -36,7 +36,7 @@ const AuthForm = () => {
       </FormField>
       {hasError && !isLoading && <ErrorMessage>{authError.message}</ErrorMessage>}
       <StyledButton role="submit">
-        {isLoading ? 'Loading' : hasError ? 'Retry...' : 'Submit'}
+        {isLoading ? 'Loading...' : hasError ? 'Retry...' : 'Submit'}
       </StyledButton>
     </StyledForm>
   );
