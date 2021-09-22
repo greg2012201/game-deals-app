@@ -2,7 +2,7 @@ import Title from 'components/atoms/Title/Title';
 import FormField from 'components/molecules/FormField/FormField';
 import React from 'react';
 import { useFirebaseConnect, useFirebase } from 'react-redux-firebase';
-import { StyledButton, StyledForm } from './AuthForm.style';
+import { StyledButton, StyledForm, ErrorMessage } from './AuthForm.style';
 import { useForm } from 'react-hook-form';
 import { useAuthFormStateMachine } from './useAuthFormStateMachine';
 import { useSelector } from 'react-redux';
@@ -34,10 +34,10 @@ const AuthForm = () => {
       <FormField register={register} name="password" type="password">
         Password:
       </FormField>
+      {hasError && !isLoading && <ErrorMessage>{authError.message}</ErrorMessage>}
       <StyledButton role="submit">
         {isLoading ? 'Loading' : hasError ? 'Retry...' : 'Submit'}
       </StyledButton>
-      {hasError && !isLoading && <p>{authError.message}</p>}
     </StyledForm>
   );
 };
