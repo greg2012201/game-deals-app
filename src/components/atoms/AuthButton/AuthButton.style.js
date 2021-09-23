@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const StyledLink = styled(Link)`
+export const StyledButton = styled.button`
   margin: 0 10px 0 auto;
   justify-self: flex-end;
   font-family: Krub;
   color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   font-size: ${({ theme }) => theme.fontSize.l};
+  border: none;
+  background-color: transparent;
 
   &:hover {
     color: ${({ theme }) => theme.colors.darkWhite};

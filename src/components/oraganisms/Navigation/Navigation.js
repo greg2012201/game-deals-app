@@ -9,7 +9,7 @@ import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
 import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
 import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
 import { useWishListFirestore } from '../WishList/useWishListFirestore';
-import AuthLink from 'components/atoms/AuthLink/AuthLink';
+import AuthButton from 'components/atoms/AuthButton/AuthButton';
 import { useLocation } from 'react-use';
 
 const { library, deals, wishList, loginPage, errorPage } = pathsList;
@@ -33,7 +33,7 @@ const Navigation = () => {
         {!pathname.match(loginPage) && (
           <>
             <SearchBar />
-            <AuthLink />
+            <AuthButton />
           </>
         )}
       </TopPanel>
