@@ -10,10 +10,11 @@ const LoginPage = () => {
   const history = useHistory();
   const auth = useSelector((state) => state.firebase.auth);
   useEffect(() => {
+    if (auth.isLoaded && auth.isEmpty) return;
     if (auth.isLoaded && !auth.isEmpty) {
       history.push(`${deals}${wishList}`);
     }
-  }, [history, auth.isLoaded, auth.isEmpty]);
+  }, [history, auth.isLoaded, auth.isEmpty, auth]);
 
   return (
     <Wrapper>
