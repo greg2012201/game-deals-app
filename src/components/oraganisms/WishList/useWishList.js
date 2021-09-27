@@ -5,30 +5,31 @@ import { useWishListFirestore } from './useWishListFirestore';
 
 export const useWishList = () => {
   const {
-    dispatch,
-    actionTypes,
-    state,
-    state: { hasLoader },
-  } = useWishListStateMachine();
-  const {
     wishList,
     removeAllFromStore,
     error,
     findItemsInWishListFirestore,
     handleOnClick,
     isEmpty,
+    isUserDataReady,
   } = useWishListFirestore();
-
+  const {
+    dispatch,
+    actionTypes,
+    state,
+    state: { hasLoader },
+  } = useWishListStateMachine();
   const { data: pricesData, isLoading, isError } = useGetActualPricesQuery(
     { plains: wishList },
-    { skip: !wishList || wishList.length === 0 || !hasLoader }
+    {
+      skip: !isUserDataReady,
+    }
   );
 
   useEffect(() => {
     if (isLoading || !wishList || isError) return;
     dispatch({ type: actionTypes.hasListLoaded });
     dispatch({ type: actionTypes.updatePrices, payload: { pricesData, wishList } });
-
     return () => {
       return dispatch({ type: actionTypes.hasListLoaded });
     };
@@ -41,10 +42,14 @@ export const useWishList = () => {
     actionTypes.checkHasItems,
     actionTypes.updatePrices,
     pricesData,
+    hasLoader,
   ]);
-
   return {
-    data: { list: state.data, isLoading: hasLoader, isError: isError || error },
+    data: {
+      list: state.data,
+      isLoading: hasLoader,
+      isError: isError || error,
+    },
     handleOnClick,
     removeAllFromStore,
     hasLoader,
