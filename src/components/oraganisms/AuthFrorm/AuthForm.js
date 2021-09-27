@@ -1,26 +1,26 @@
 import Title from 'components/atoms/Title/Title';
 import FormField from 'components/molecules/FormField/FormField';
 import React from 'react';
-import { useFirebaseConnect, useFirebase } from 'react-redux-firebase';
 import { StyledButton, StyledForm, ErrorMessage } from './AuthForm.style';
 import { useForm } from 'react-hook-form';
 import { useAuthFormStateMachine } from './useAuthFormStateMachine';
-import { useSelector } from 'react-redux';
+import { useAuth } from 'hooks/useAuth';
 const AuthForm = () => {
   const {
     dispatch,
     actionTypes: { submit, success, rejected },
     state: { isLoading, hasError },
   } = useAuthFormStateMachine();
-  const authError = useSelector((state) => state.firebase.authError);
+  const {
+    login,
+    data: { authError },
+  } = useAuth();
   const { register, handleSubmit } = useForm();
-  useFirebaseConnect();
-  const firebase = useFirebase();
+
   const onSubmit = (credentials) => {
     dispatch({ type: submit });
 
-    return firebase
-      .login(credentials)
+    return login(credentials)
       .then(() => dispatch({ type: success }))
       .catch(() => dispatch({ type: rejected }));
   };

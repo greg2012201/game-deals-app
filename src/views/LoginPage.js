@@ -3,18 +3,20 @@ import { Wrapper } from './LoginPage.style';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { pathsList } from 'routes';
-import { useSelector } from 'react-redux';
+import { useAuth } from 'hooks/useAuth';
 
 const { deals, wishList } = pathsList;
 const LoginPage = () => {
   const history = useHistory();
-  const auth = useSelector((state) => state.firebase.auth);
+  const {
+    data: { isEmpty, isLoaded },
+  } = useAuth();
   useEffect(() => {
-    if (auth.isLoaded && auth.isEmpty) return;
-    if (auth.isLoaded && !auth.isEmpty) {
+    if (isEmpty && isLoaded) return;
+    if (isLoaded && !isEmpty) {
       history.push(`${deals}${wishList}`);
     }
-  }, [history, auth.isLoaded, auth.isEmpty, auth]);
+  }, [history, isEmpty, isLoaded]);
 
   return (
     <Wrapper>

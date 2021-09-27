@@ -1,17 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase';
 import { pathsList } from 'routes';
 import { StyledButton } from './AuthButton.style';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 const { loginPage } = pathsList;
 const AuthButton = () => {
-  const firebase = useFirebase();
-  const auth = useSelector((state) => state.firebase.auth);
+  const {
+    logout,
+    data: { isLoaded, isEmpty },
+  } = useAuth();
+
   const handleOnClick = () => {
-    firebase.logout();
+    return logout();
   };
-  return auth.isLoaded && !auth.isEmpty ? (
+  return isLoaded && !isEmpty ? (
     <StyledButton onClick={handleOnClick}>Logout</StyledButton>
   ) : (
     <Link to={loginPage}>
