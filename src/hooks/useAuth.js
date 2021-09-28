@@ -8,14 +8,13 @@ export const useAuth = () => {
   useFirebaseConnect();
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  const data = useSelector(({ firebase: { auth } }) => ({
+  const data = useSelector(({ firebase, firebase: { auth } }) => ({
     auth: auth,
-    authError: auth.authError,
+    authError: firebase.authError,
     user: auth.uid,
     isEmpty: auth.isEmpty,
     isLoaded: auth.isLoaded,
   }));
-
   const resetUserData = () => {};
   const login = (credentials) => {
     return firebase.login(credentials);
