@@ -3,18 +3,19 @@ import { customSmoothScrollTo } from 'helpers/customSmoothScrollTo';
 import React from 'react';
 import { pathsList } from 'routes';
 import WishList from 'components/oraganisms/WishList/WishList';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import InfiniteDealsList from 'components/oraganisms/InfiniteDealsList/InfiniteDealsList';
 import { Wrapper } from './Deals.style';
 import Title from 'components/atoms/Title/Title';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { DealsTemplate } from 'components/templates/DealsTemplate/DealsTemplate';
 import { useAuth } from 'hooks/useAuth';
-const { deals, wishList, loginPage } = pathsList;
+import PrivateRoute from 'components/oraganisms/PrivateRoute/PrivateRoute';
+const { deals, wishList } = pathsList;
 const Deals = () => {
   const handleOnClick = () => customSmoothScrollTo();
   const {
-    data: { user, isLoaded, isEmpty },
+    data: { user },
   } = useAuth();
   useFirestoreConnect(() =>
     !user
@@ -35,10 +36,9 @@ const Deals = () => {
           <Title titleType="h1">Deals</Title>
           <InfiniteDealsList />
         </Route>
-        <Route exact path={`${deals}${wishList}`}>
-          {isEmpty && isLoaded ? <Redirect to={loginPage} /> : <WishList />}
-        </Route>
-
+        <PrivateRoute path={`${deals}${wishList}`}>
+          <WishList />
+        </PrivateRoute>
         <RoundButton isReturn onClick={handleOnClick} />
       </DealsTemplate>
     </Wrapper>
