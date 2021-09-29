@@ -9,12 +9,16 @@ import BottomPanel from 'components/molecules/BottomPanel/BottomPanel';
 import HorizontalMenu from 'components/molecules/HorizontalMenu/HorizontalMenu';
 import DealsLinkButton from 'components/atoms/DealsLinkButton/DealsLinkButton';
 import { useWishListFirestore } from '../WishList/useWishListFirestore';
+import AuthButton from 'components/atoms/AuthButton/AuthButton';
+import { useLocation } from 'react-use';
 
-const { library, deals, wishList } = pathsList;
+const { library, deals, wishList, loginPage, errorPage } = pathsList;
 const Navigation = () => {
   const categoriesRef = useRef();
   const [refs, setRefs] = useState(null);
+  const { pathname } = useLocation();
   const { isEmpty } = useWishListFirestore();
+
   const getCategoriesRef = (ref) => {
     setRefs(ref);
   };
@@ -26,21 +30,30 @@ const Navigation = () => {
     <>
       <TopPanel receivedRefs={refs}>
         <Menu />
-        <SearchBar />
+        {!pathname.match(loginPage) && (
+          <>
+            <SearchBar />
+            <AuthButton />
+          </>
+        )}
       </TopPanel>
-      <BottomPanel ref={categoriesRef}>
-        <Switch>
-          <Route path={library}>
-            <HorizontalMenu>
-              <Genres />
-            </HorizontalMenu>
-          </Route>
-          <Route exact path={deals}>
-            <DealsLinkButton />
-          </Route>
-          <Route path={`${deals}${wishList}`}>{isEmpty ? null : <DealsLinkButton isOnTheWishList />}</Route>
-        </Switch>
-      </BottomPanel>
+      {!pathname.match(loginPage, errorPage) && (
+        <BottomPanel ref={categoriesRef}>
+          <Switch>
+            <Route path={library}>
+              <HorizontalMenu>
+                <Genres />
+              </HorizontalMenu>
+            </Route>
+            <Route exact path={deals}>
+              <DealsLinkButton />
+            </Route>
+            <Route path={`${deals}${wishList}`}>
+              {isEmpty ? null : <DealsLinkButton isOnTheWishList />}
+            </Route>
+          </Switch>
+        </BottomPanel>
+      )}
     </>
   );
 };

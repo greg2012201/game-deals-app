@@ -4,6 +4,7 @@ import { dealsInfiniteScrollSlice } from 'features/DealsInfiniteScrollSlice/Deal
 import { errorsSlice } from 'features/errorSlice/errorsSlice';
 import { wishListApi } from 'features/WishListApi/WishListApi';
 import 'firebase/firestore';
+import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
 export const store = configureStore({
   reducer: {
@@ -11,8 +12,11 @@ export const store = configureStore({
     [wishListApi.reducerPath]: wishListApi.reducer,
     dealsInfiniteScroll: dealsInfiniteScrollSlice.reducer,
     firestore: firestoreReducer,
+    firebase: firebaseReducer,
     errors: errorsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(dealsApi.middleware, wishListApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(dealsApi.middleware, wishListApi.middleware),
 });

@@ -3,7 +3,10 @@ import DealsListItemSkeletonLoader from 'components/molecules/DealsListItem/Deal
 import React from 'react';
 import { Wrapper } from './DealsList.style';
 import { useErrorPage } from 'hooks/useErrorPage';
-
+import { useAuth } from 'hooks/useAuth';
+import { useHistory } from 'react-router';
+import { pathsList } from 'routes';
+const { loginPage } = pathsList;
 const DealsList = ({
   data,
   handleOnClick,
@@ -11,7 +14,14 @@ const DealsList = ({
   firestoreConnecting,
   isWishList = false,
 }) => {
+  const {
+    data: { user },
+  } = useAuth();
   useErrorPage(data.isError);
+  const history = useHistory();
+  const redirect = () => {
+    return history.push(loginPage);
+  };
 
   return (
     <Wrapper>
@@ -26,6 +36,8 @@ const DealsList = ({
                 data={item}
                 handleOnClick={handleOnClick}
                 key={i}
+                isAuthenticated={user}
+                redirect={redirect}
               />
             );
           })}

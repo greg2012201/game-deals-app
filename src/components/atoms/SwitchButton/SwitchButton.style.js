@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledAddButton = styled.button`
+export const StyledSwitchButton = styled.button`
   display: flex;
   position: relative;
   box-sizing: border-box;
@@ -14,6 +14,8 @@ export const StyledAddButton = styled.button`
   border-radius: 50%;
   border: none;
   background-color: ${({ theme, isRemove }) => (isRemove ? theme.colors.red : theme.colors.green)};
+  background-color: ${({ theme, isAuthenticated, isRemove }) =>
+    !isAuthenticated ? theme.colors.lighterGrey : isRemove ? theme.colors.red : theme.colors.green};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-family: Krub;
   font-weight: 700;
