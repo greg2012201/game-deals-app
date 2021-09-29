@@ -4,11 +4,11 @@ import { Route, Redirect } from 'react-router';
 import { pathsList } from 'routes';
 
 const { loginPage } = pathsList;
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, path }) => {
   const {
     data: { isLoaded, isEmpty },
   } = useAuth();
-  return <Route>{isEmpty && isLoaded ? <Redirect to={loginPage} /> : children}</Route>;
+  return <Route path={path}>{isEmpty && isLoaded ? <Redirect to={loginPage} /> : children}</Route>;
 };
 
 export default PrivateRoute;
