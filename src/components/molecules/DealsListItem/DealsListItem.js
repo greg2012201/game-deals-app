@@ -5,7 +5,8 @@ import SwitchButton from 'components/atoms/SwitchButton/SwitchButton';
 const DealsListItem = ({
   handleOnClick,
   isOnWishList,
-
+  isAuthenticated,
+  redirect,
   data: dealData,
   data: { title, oldPrice, discount, newPrice, buy, shop, currency, isExpired },
 }) => {
@@ -42,7 +43,11 @@ const DealsListItem = ({
         </StyledP>
       )}
 
-      <SwitchButton isRemove={isOnWishList} onClick={() => handleOnClick(dealData)} />
+      <SwitchButton
+        isAuthenticated={isAuthenticated}
+        isRemove={isOnWishList}
+        onClick={() => (isAuthenticated ? handleOnClick(dealData) : redirect())}
+      />
     </StyledListItem>
   );
 };

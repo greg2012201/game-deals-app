@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import Tooltip from '../Tooltip/Tooltip';
-import { StyledAddButton } from './SwitchButton.style';
+import { StyledSwitchButton } from './SwitchButton.style';
 
 const SwitchButton = (props) => {
   const {
@@ -12,11 +12,11 @@ const SwitchButton = (props) => {
     visible,
   } = usePopperTooltip({ placement: 'top', offset: [0, 10], delayShow: 500 });
   return (
-    <StyledAddButton ref={setTriggerRef} {...props}>
+    <StyledSwitchButton isAuthenticated={props.isAuthenticated} ref={setTriggerRef} {...props}>
       <Tooltip popperProps={{ getTooltipProps, getArrowProps, setTooltipRef, visible }}>
-        {props.isRemove ? 'Delete' : 'Add'}
+        {!props.isAuthenticated ? 'Login' : props.isRemove ? 'Delete' : 'Add'}
       </Tooltip>
-    </StyledAddButton>
+    </StyledSwitchButton>
   );
 };
 
