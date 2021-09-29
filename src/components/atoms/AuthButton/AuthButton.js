@@ -1,6 +1,6 @@
 import React from 'react';
 import { pathsList } from 'routes';
-import { StyledButton } from './AuthButton.style';
+import { StyledButton, Wrapper } from './AuthButton.style';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 const { loginPage } = pathsList;
@@ -13,12 +13,16 @@ const AuthButton = () => {
   const handleOnClick = () => {
     return logout();
   };
-  return isLoaded && !isEmpty ? (
-    <StyledButton onClick={handleOnClick}>Logout</StyledButton>
-  ) : (
-    <Link to={loginPage}>
-      <StyledButton>Login</StyledButton>
-    </Link>
+  return (
+    <Wrapper>
+      {isLoaded && !isEmpty ? (
+        <StyledButton onClick={handleOnClick}>Logout</StyledButton>
+      ) : (
+        <StyledButton>
+          <Link to={loginPage}>Login</Link>
+        </StyledButton>
+      )}
+    </Wrapper>
   );
 };
 

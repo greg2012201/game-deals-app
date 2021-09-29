@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  margin: 0 10px 0 auto;
-  justify-self: flex-end;
-  font-family: Krub;
-  color: ${({ theme }) => theme.colors.white};
-  text-decoration: none;
-  font-size: ${({ theme }) => theme.fontSize.l};
   border: none;
   background-color: transparent;
 
@@ -18,5 +12,17 @@ export const StyledButton = styled.button`
   }
   @media (min-width: ${({ theme }) => theme.resolutions.m}) {
     margin-right: 45px;
+  }
+`;
+export const Wrapper = styled.div`
+  margin: 0 10px 0 auto;
+  justify-self: flex-end;
+  a,
+  ${StyledButton} {
+    font-family: Krub;
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
+    font-size: ${({ theme }) => theme.fontSize.l};
+    cursor: pointer;
   }
 `;
