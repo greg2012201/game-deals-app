@@ -10,18 +10,17 @@ You can login to the aplication with the fallowing data:
 
 
 
-*games-deal-app* is the aplication where you can do three things: 
-    :gem: browse through the library of computer games,
-    :gem: check out games deals,
-    :gem: save deals on the WishList,
+*games-deal-app* is the aplication where you can do three things:  
+    <br/>:gem: browse through the library of computer games,
+   <br/>:gem: check out games deals,
+    <br/>:gem: save deals on the WishList,
 
-####Tech Stack: 
-
-:heavy_check_mark: React
-:heavy_check_mark: redux-toolkit
-:heavy_check_mark: styled-components
-:heavy_check_mark: REST API
-:heavy_check_mark: Firebase
+#### Tech Stack: 
+<br/>:heavy_check_mark: React
+<br/>:heavy_check_mark: redux-toolkit
+<br/>:heavy_check_mark: styled-components
+<br/>:heavy_check_mark: REST API
+<br/>:heavy_check_mark: Firebase
 
 
 The App is powerded by two awesome REST API's 
