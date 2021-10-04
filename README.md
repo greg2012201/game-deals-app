@@ -25,8 +25,8 @@ You can login to the aplication with the fallowing data:
 
 The App is powerded by two awesome REST API's 
 
-:point_right:  [*RAWG*](https://rawg.io/) 
-:point_right:  [*IsThereAnyDEAL*](https://isthereanydeal.com/) 
+<br/>:point_right:  [*RAWG*](https://rawg.io/) 
+<br/>:point_right:  [*IsThereAnyDEAL*](https://isthereanydeal.com/) 
 
 
 
