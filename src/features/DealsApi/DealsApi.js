@@ -15,7 +15,11 @@ export const dealsApi = createApi({
           const country = curr[1].countries;
           return [...acc, ...country];
         }, []);
-        return [{ name: 'Region', options: Object.keys(response.data) }, { name: 'Country', options: countries }, ...selectDataOptions];
+        return [
+          { name: 'Region', options: Object.keys(response.data) },
+          { name: 'Country', options: countries },
+          ...selectDataOptions,
+        ];
       },
     }),
     getDealsList: builder.query({
@@ -25,8 +29,33 @@ export const dealsApi = createApi({
       transformResponse: (response) => {
         const currency = response[Object.keys(response)[0]];
         const list = response.data.list.reduce(
-          (acc, { title, plain, price_old: oldPrice, price_cut: discount, price_new: newPrice, urls: { buy }, shop }) => {
-            return [...acc, { ...currency, ...{ title, plain, oldPrice, discount, newPrice, buy, shop } }];
+          (
+            acc,
+            {
+              title,
+              plain,
+              price_old: oldPrice,
+              price_cut: discount,
+              price_new: newPrice,
+              urls: { buy },
+              shop,
+            }
+          ) => {
+            return [
+              ...acc,
+              {
+                ...currency,
+                ...{
+                  title,
+                  plain,
+                  oldPrice: parseFloat(oldPrice.toFixed(2)),
+                  discount,
+                  newPrice: parseFloat(newPrice.toFixed(2)),
+                  buy,
+                  shop,
+                },
+              },
+            ];
           },
           []
         );
@@ -36,4 +65,8 @@ export const dealsApi = createApi({
     }),
   }),
 });
-export const { useGetListCoveredRegionsQuery, useGetListCoveredStoresQuery, useGetDealsListQuery } = dealsApi;
+export const {
+  useGetListCoveredRegionsQuery,
+  useGetListCoveredStoresQuery,
+  useGetDealsListQuery,
+} = dealsApi;
