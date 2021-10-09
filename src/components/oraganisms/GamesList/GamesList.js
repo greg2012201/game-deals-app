@@ -1,49 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ProductCard from 'components/molecules/GamesListItem/GamesListItem';
 import { StyledEndMessage, StyledListWrapper, StyledList, StyledLoader } from './GamesList.style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from 'styled-components';
-import ErrorPage from 'views/ErrorPage';
 import GamesListSkeletonLoader from 'components/atoms/GamesListSkeletonLoader/GamesListSkeletonLoader';
-import { useGamesList } from 'hooks/useGamesList';
-import { RAWGOptions } from 'utils/fetchingOptions';
 import Title from 'components/atoms/Title/Title';
-import { states } from 'utils/state/states';
-const { url, key } = RAWGOptions;
+import { useGetGamesListQuery } from 'features/GamesListApi/GamesListApi';
+import { useInfiniteGamesListQuery } from 'hooks/useInfiniteGamesListQuery';
+import { useErrorPage } from 'hooks/useErrorPage';
 const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fecthingRoute }) => {
   const theme = useTheme();
-
   const {
-    results: { data, error, nextPage, limit, hasInitialFetch },
-    resetData,
-    fetchData,
-    getCancelToken,
-    compareState,
-  } = useGamesList();
-
-  useEffect(() => {
-    const cancelToken = getCancelToken();
-    fetchData({ url: `${url}${fecthingRoute}key=${key}`, source: cancelToken });
-
-    return () => {
-      resetData(cancelToken);
-    };
-  }, [fetchData, fecthingRoute, resetData, getCancelToken]);
-  const handleFetchMoreData = () => {
-    if (!nextPage) return;
-    return fetchData({ url: nextPage, initial: false });
-  };
-  if (data.length === 0 && compareState(states.hasLoaded)) {
+    handleFetchMoreData,
+    data,
+    isLoading,
+    isEmpty,
+    hasError,
+    limit,
+    hasNextPage,
+  } = useInfiniteGamesListQuery({
+    query: useGetGamesListQuery,
+    endpoint: fecthingRoute,
+  });
+  useErrorPage(hasError);
+  if (data.length === 0 && !isLoading) {
     return null;
   }
   return (
     <StyledListWrapper>
-      {compareState(states.hasError) && (
-        <StyledList>
-          <ErrorPage>{error}</ErrorPage>
-        </StyledList>
-      )}
-      {hasInitialFetch && compareState(states.isLoading) ? (
+      {isEmpty && isLoading ? (
         <StyledList>
           {Array(20)
             .fill('')
@@ -56,14 +41,14 @@ const GamesList = ({ endMessage = 'Yay! You have seen it all', title = null, fec
           scrollThreshold={'500px'}
           dataLength={data.length}
           next={handleFetchMoreData}
-          hasMore={data.length <= limit && nextPage !== null}
+          hasMore={data.length !== limit || hasNextPage}
           endMessage={
             endMessage ? (
               <StyledEndMessage style={{ textAlign: 'center' }}>{endMessage}</StyledEndMessage>
             ) : null
           }
           loader={
-            !error && data.length > 0 ? (
+            !hasError && data.length > 0 ? (
               <StyledLoader type="ThreeDots" color={`${theme.colors.white}`} />
             ) : null
           }
