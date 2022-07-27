@@ -1,7 +1,7 @@
 # game-deals-app
 :point_right: :point_right: **go to the [LIVE](https://games-deals.firebaseapp.com/)** :point_left::point_left:
 
-You can login to the aplication with the fallowing data:
+You can login to the application with the following data:
 | mail | password |
 |------|----------|
 |example@example.com|test1.|
@@ -10,9 +10,9 @@ You can login to the aplication with the fallowing data:
 
 
 
-*games-deal-app* is the aplication where you can do three things:  
+*game-deals-app* is the application where you can do three things:  
     <br/>:gem: browse through the library of computer games,
-   <br/>:gem: check out games deals,
+   <br/>:gem: check out game deals,
     <br/>:gem: save deals on the WishList,
 
 #### Tech Stack: 
@@ -31,7 +31,7 @@ The App is powerded by two awesome REST API's
 
 
 _____
-## Instalation
+## Installation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -41,7 +41,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
